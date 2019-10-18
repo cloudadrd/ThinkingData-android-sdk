@@ -38,6 +38,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
@@ -229,8 +230,13 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
             for (int i = 0; i < data.length(); i++) {
                 JSONObject eventObject = data.getJSONObject(i);
 
-                SimpleDateFormat sDateFormat = new SimpleDateFormat(TDConstants.TIME_PATTERN, Locale.CHINA);
-                Date time = sDateFormat.parse(eventObject.getString(TDConstants.KEY_TIME));
+                String time = eventObject.getString(TDConstants.KEY_TIME);
+                double zoneOffset = 0.1;
+                TIME_VALUE_TYPE timeValueType = TIME_VALUE_TYPE.TIME_ONLY;
+                if (eventObject.has(TDConstants.KEY_ZONE_OFFSET)) {
+                    zoneOffset = eventObject.getDouble(TDConstants.KEY_ZONE_OFFSET);
+                    timeValueType = TIME_VALUE_TYPE.ALL;
+                }
 
                 String eventType = eventObject.getString(TDConstants.KEY_TYPE);
 
@@ -250,7 +256,7 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
                     dataDescription = new DataDescription(eventType, properties);
                 }
 
-                dataDescription.setTime(time);
+                dataDescription.setTime(time, zoneOffset, timeValueType);
                 dataDescription.setAutoTrackFlag();
                 trackInternal(dataDescription);
             }
@@ -308,7 +314,26 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
     public void track(String eventName, JSONObject properties, Date time) {
         if (hasDisabled()) return;
         EventDescription event = new EventDescription(eventName, properties);
-        event.setTime(time);
+
+        SimpleDateFormat sDateFormat = new SimpleDateFormat(TDConstants.TIME_PATTERN, Locale.CHINA);
+        String timeString = sDateFormat.format(time);
+        event.setTime(timeString, 0.1, TIME_VALUE_TYPE.TIME_ONLY);
+        trackInternal(event);
+    }
+
+    @Override
+    public void track(String eventName, JSONObject properties, Date time, TimeZone timeZone) {
+        if (hasDisabled()) return;
+        if (null == timeZone) {
+            track(eventName, properties, time);
+            return;
+        }
+        EventDescription event = new EventDescription(eventName, properties);
+        SimpleDateFormat sDateFormat = new SimpleDateFormat(TDConstants.TIME_PATTERN, Locale.CHINA);
+        sDateFormat.setTimeZone(timeZone);
+        String timeString = sDateFormat.format(time);
+        event.setTime(timeString, TDUtils.getTimezoneOffset(time.getTime(), timeZone), TIME_VALUE_TYPE.ALL);
+
         trackInternal(event);
     }
 
@@ -318,12 +343,24 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
         trackInternal(new EventDescription(eventName, null));
     }
 
+    // DataDescription 中时间的类型
+    private enum TIME_VALUE_TYPE {
+        NONE,
+        TIME_ONLY,
+        ALL
+    };
+
     private class DataDescription {
-        String type;
-        String eventName;
-        JSONObject properties;
-        Date time;
-        boolean autoTrack;
+
+        String type; // 数据类型
+        String eventName; // 事件名称，如果有
+        JSONObject properties; // 属性
+
+        String timeString; // 时间字符串
+        double zoneOffset; // 时区偏移，单位小时
+        TIME_VALUE_TYPE timeValueType = TIME_VALUE_TYPE.NONE;
+
+        boolean autoTrack; // 内部变量
         boolean saveData = SAVE_DATA_TO_DATABASE;
 
         private DataDescription() {
@@ -342,8 +379,10 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
             this.properties = properties;
         }
 
-        void setTime(Date time) {
-            this.time = time;
+        void setTime(String timeString, double zoneOffset, TIME_VALUE_TYPE timeValueType) {
+            this.timeString = timeString;
+            this.zoneOffset = zoneOffset;
+            this.timeValueType = timeValueType;
         }
     }
 
@@ -374,8 +413,17 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
         }
 
         try {
-            SimpleDateFormat sDateFormat = new SimpleDateFormat(TDConstants.TIME_PATTERN, Locale.CHINA);
-            String timeString = (null != data.time) ? sDateFormat.format(data.time) : sDateFormat.format(new Date());
+            String timeString;
+            double offset;
+            if (data.timeValueType == TIME_VALUE_TYPE.NONE) {
+                SimpleDateFormat sDateFormat = new SimpleDateFormat(TDConstants.TIME_PATTERN, Locale.CHINA);
+                Date currentDate = new Date();
+                offset = TDUtils.getTimezoneOffset(currentDate.getTime(), null);
+                timeString = sDateFormat.format(currentDate);
+            } else {
+                timeString = data.timeString;
+                offset = data.zoneOffset;
+            }
 
             final JSONObject dataObj = new JSONObject();
 
@@ -425,6 +473,10 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
                 finalProperties.put(TDConstants.KEY_NETWORK_TYPE, mSystemInformation.getNetworkType());
                 if (!TextUtils.isEmpty(mSystemInformation.getAppVersionName())) {
                     finalProperties.put(TDConstants.KEY_APP_VERSION, mSystemInformation.getAppVersionName());
+                }
+
+                if (data.timeValueType != TIME_VALUE_TYPE.TIME_ONLY) {
+                    finalProperties.put(TDConstants.KEY_ZONE_OFFSET, offset);
                 }
 
                 final EventTimer eventTimer;
@@ -496,6 +548,23 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
     public void user_delete() {
         if (hasDisabled()) return;
         trackInternal(new DataDescription(TDConstants.TYPE_USER_DEL, null));
+    }
+
+    @Override
+    public void user_unset(String... properties) {
+        if (hasDisabled()) return;
+        JSONObject props = new JSONObject();
+        for (String s : properties) {
+            try {
+                props.put(s, 0);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (props.length() > 0) {
+            trackInternal(new DataDescription(TDConstants.TYPE_USER_UNSET, props));
+        }
     }
 
     @Override

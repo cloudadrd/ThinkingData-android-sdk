@@ -34,12 +34,14 @@ public class TDConstants {
     public static final String TYPE_USER_SET = "user_set";
     public static final String TYPE_USER_SET_ONCE = "user_setOnce";
     public static final String TYPE_USER_DEL = "user_del";
+    public static final String TYPE_USER_UNSET = "user_unset";
 
     public static final String KEY_URL = "#url";
     public static final String KEY_REFERRER = "#referrer";
     public static final String KEY_NETWORK_TYPE = "#network_type";
     public static final String KEY_APP_VERSION = "#app_version";
     public static final String KEY_DURATION = "#duration";
+    public static final String KEY_ZONE_OFFSET = "#zone_offset";
 
     // System Information Constants
     public static final String KEY_OS_VERSION = "#os_version";
