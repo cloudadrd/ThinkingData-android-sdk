@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.HandlerThread;
 import android.os.IBinder;
+import android.os.Looper;
 
 import cn.thinkingdata.android.utils.PropertyUtils;
 import cn.thinkingdata.android.utils.TDConstants;
@@ -21,16 +22,25 @@ import java.io.Writer;
 
 public class TDQuitSafelyService {
     static final String TAG = "ThinkingAnalytics.Quit";
-    private static final int JOIN_TIMEOUT_MS = 3000; // 设置等待超时时长
 
     private static TDQuitSafelyService sInstance;
     private Context mContext;
+    private boolean mExceptionHandlerInitialed;
 
     private TDQuitSafelyService(Context context) {
         mContext = context.getApplicationContext();
-        Thread shutDownHook = new ShutDownHooksThread();
-        Runtime.getRuntime().addShutdownHook(shutDownHook);
-        new ExceptionHandler();
+        if (TDContextConfig.getInstance(mContext).quitSafelyEnabled()) {
+            Thread shutDownHook = new ShutDownHooksThread();
+            Runtime.getRuntime().addShutdownHook(shutDownHook);
+            initExceptionHandler();
+        }
+    }
+
+    synchronized void initExceptionHandler() {
+        if (!mExceptionHandlerInitialed) {
+            new ExceptionHandler();
+            mExceptionHandlerInitialed = true;
+        }
     }
 
     /**
@@ -61,7 +71,7 @@ public class TDQuitSafelyService {
      */
     void start() {
         try {
-            if (mContext != null) {
+            if (TDContextConfig.getInstance(mContext).quitSafelyEnabled()) {
                 mContext.startService(new Intent(mContext, TDKeepAliveService.class));
             }
         } catch (Exception e) {
@@ -70,41 +80,50 @@ public class TDQuitSafelyService {
     }
 
     private void quit() {
-        TDLog.i(TAG, "The App is quiting...");
-        quitSafely(DataHandle.THREAD_NAME_SAVE_WORKER, 0);
+        if (TDContextConfig.getInstance(mContext).quitSafelyEnabled()) {
+            TDLog.i(TAG, "The App is quiting...");
 
-        ThinkingAnalyticsSDK.allInstances(new ThinkingAnalyticsSDK.InstanceProcessor() {
-            @Override
-            public void process(ThinkingAnalyticsSDK thinkingAnalyticsSDK) {
-                thinkingAnalyticsSDK.flush();
-            }
-        });
+            ThinkingAnalyticsSDK.allInstances(new ThinkingAnalyticsSDK.InstanceProcessor() {
+                @Override
+                public void process(ThinkingAnalyticsSDK thinkingAnalyticsSDK) {
+                    thinkingAnalyticsSDK.flush();
+                }
+            });
 
-        quitSafely(DataHandle.THREAD_NAME_SEND_WORKER, JOIN_TIMEOUT_MS);
-        mContext.stopService(new Intent(mContext, TDKeepAliveService.class));
+            quitSafely(DataHandle.THREAD_NAME_SAVE_WORKER, TDContextConfig.getInstance(mContext).getQuitSafelyTimeout());
+            quitSafely(DataHandle.THREAD_NAME_SEND_WORKER, TDContextConfig.getInstance(mContext).getQuitSafelyTimeout());
+            mContext.stopService(new Intent(mContext, TDKeepAliveService.class));
+        }
     }
 
     private void quitSafely(String threadName, long timeout) {
-        for (Thread t : Thread.getAllStackTraces().keySet()) {
-            if (t.getName().equals(threadName)) {
-                try {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                        if (t instanceof  HandlerThread) {
-                            ((HandlerThread) t).getLooper().quitSafely();
-                            if (timeout > 0) {
-                                t.join(timeout);
-                            } else {
-                                t.join();
+        try {
+            for (Thread t : Thread.getAllStackTraces().keySet()) {
+                if (t.getName().equals(threadName)) {
+                    try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                            if (t instanceof HandlerThread) {
+                                Looper l = ((HandlerThread) t).getLooper();
+                                if (null != l) {
+                                    l.quitSafely();
+                                    if (timeout > 0) {
+                                        t.join(timeout);
+                                    } else {
+                                        t.join(500);
+                                    }
+                                }
                             }
+                        } else {
+                            // Just wait for sending exception data
+                            Thread.sleep(500);
                         }
-                    } else {
-                        // Just wait for sending exception data
-                        Thread.sleep(timeout);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -130,8 +149,8 @@ public class TDQuitSafelyService {
             Thread.setDefaultUncaughtExceptionHandler(this);
         }
 
-        @Override
-        public void uncaughtException(final Thread t, final Throwable e) {
+        private void processException(final Throwable e) {
+
             Writer writer = new StringWriter();
             PrintWriter printWriter = new PrintWriter(writer);
             e.printStackTrace(printWriter);
@@ -172,6 +191,25 @@ public class TDQuitSafelyService {
             });
 
             quit();
+        }
+
+        @Override
+        public void uncaughtException(final Thread t, final Throwable e) {
+
+            boolean notTDDebugException = true;
+            Throwable cause = e;
+            while (null != cause) {
+                if (cause instanceof TDDebugException) {
+                    notTDDebugException = false;
+                    break;
+                }
+                cause = cause.getCause();
+            }
+            if (notTDDebugException) {
+                processException(e);
+            } else {
+                mContext.stopService(new Intent(mContext, TDKeepAliveService.class));
+            }
 
             if (mDefaultExceptionHandler != null) {
                 mDefaultExceptionHandler.uncaughtException(t, e);
@@ -197,7 +235,7 @@ public class TDQuitSafelyService {
         @Override
         public int onStartCommand(Intent intent, int flags, int startId) {
             TDLog.d(TAG, "onStartCommand: pid=" + android.os.Process.myPid());
-            return START_STICKY;
+            return START_NOT_STICKY;
         }
 
         @Override

@@ -12,11 +12,14 @@ import java.net.URL;
 import java.security.InvalidParameterException;
 import java.util.zip.GZIPOutputStream;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
+
 public class HttpService implements RemoteService {
     private final static String TAG = "ThinkingAnalytics.HttpService";
 
     @Override
-    public String performRequest(String endpointUrl, String params) throws ServiceUnavailableException, IOException {
+    public String performRequest(String endpointUrl, String params, boolean debug, SSLSocketFactory socketFactory) throws ServiceUnavailableException, IOException {
         InputStream in = null;
         OutputStream out = null;
         BufferedOutputStream bout = null;
@@ -27,19 +30,30 @@ public class HttpService implements RemoteService {
         try {
             final URL url = new URL(endpointUrl);
             connection = (HttpURLConnection) url.openConnection();
+            if (null != socketFactory && connection instanceof HttpsURLConnection) {
+                ((HttpsURLConnection) connection).setSSLSocketFactory(socketFactory);
+            }
 
             if (null != params) {
                 String query;
-                try {
-                    query = encodeData(params);
-                } catch (IOException e) {
-                    throw new InvalidParameterException(e.getMessage());
+
+                connection.setDoOutput(true);
+                connection.setRequestMethod("POST");
+                if (debug) {
+                    query = params;
+                    connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    connection.setUseCaches(false);
+                    connection.setRequestProperty( "charset", "utf-8");
+                } else {
+                    connection.setRequestProperty("Content-Type", "text/plain");
+                    try {
+                        query = encodeData(params);
+                    } catch (IOException e) {
+                        throw new InvalidParameterException(e.getMessage());
+                    }
                 }
 
                 connection.setFixedLengthStreamingMode(query.getBytes("UTF-8").length);
-                connection.setDoOutput(true);
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type", "text/plain");
                 out = connection.getOutputStream();
                 bout = new BufferedOutputStream(out);
                 bout.write(query.getBytes("UTF-8"));

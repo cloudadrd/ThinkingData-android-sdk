@@ -7,17 +7,20 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import cn.thinkingdata.android.utils.HttpService;
 import cn.thinkingdata.android.utils.RemoteService;
 import cn.thinkingdata.android.utils.TDConstants;
 import cn.thinkingdata.android.utils.TDLog;
+import cn.thinkingdata.android.utils.TDUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.nio.charset.MalformedInputException;
 import java.util.HashMap;
 import java.util.Locale;
@@ -40,7 +43,7 @@ public class DataHandle {
     private final SaveMessageWorker mSaveMessageWorker;
     private final SystemInformation mSystemInformation;
     private final DatabaseAdapter mDbAdapter;
-    private final TDConfig mConfig;
+    private final Context mContext;
 
     private static final Map<Context, DataHandle> sInstances = new HashMap<>();
 
@@ -64,11 +67,11 @@ public class DataHandle {
     }
 
     DataHandle(final Context context) {
-        Context appContext = context.getApplicationContext();
-        mConfig = getConfig(appContext);
-        mSystemInformation = SystemInformation.getInstance(appContext);
-        mDbAdapter = getDbAdapter(appContext);
-        mDbAdapter.cleanupEvents(System.currentTimeMillis() - mConfig.getDataExpiration(), DatabaseAdapter.Table.EVENTS);
+        mContext = context.getApplicationContext();
+        TDContextConfig config = TDContextConfig.getInstance(mContext);
+        mSystemInformation = SystemInformation.getInstance(mContext);
+        mDbAdapter = getDbAdapter(mContext);
+        mDbAdapter.cleanupEvents(System.currentTimeMillis() - config.getDataExpiration(), DatabaseAdapter.Table.EVENTS);
         mSendMessageWorker = new SendMessageWorker();
         mSaveMessageWorker = new SaveMessageWorker();
     }
@@ -79,10 +82,9 @@ public class DataHandle {
     }
 
     // for auto tests.
-    protected TDConfig getConfig(Context context) {
-        return TDConfig.getInstance(context);
+    protected TDConfig getConfig(String token) {
+        return TDConfig.getInstance(mContext, token);
     }
-
 
     /**
      * 保存数据到本地数据库
@@ -100,6 +102,10 @@ public class DataHandle {
      */
     void postClickData(final JSONObject data, final String token) {
         mSendMessageWorker.postToServer(data, token);
+    }
+
+    void postToDebug(final JSONObject data, final String token) {
+        mSendMessageWorker.postToDebug(data, token);
     }
 
     /**
@@ -172,11 +178,10 @@ public class DataHandle {
         }
 
         private void checkSendStrategy(final String token, final int count) {
-            if (count > mConfig.getFlushBulkSize()) {
+            if (count >= getFlushBulkSize(token)) {
                 mSendMessageWorker.postToServer(token);
             } else {
-                final int interval = mConfig.getFlushInterval();
-                mSendMessageWorker.posterToServerDelayed(token, interval);
+                mSendMessageWorker.posterToServerDelayed(token, getFlushInterval(token));
             }
         }
 
@@ -208,7 +213,7 @@ public class DataHandle {
                         if (ret < 0) {
                             TDLog.w(TAG, "Save data to database failed.");
                         } else {
-                            TDLog.i(TAG, "Data enqueued(" + token + "):\n" + data.toString(4));
+                            TDLog.i(TAG, "Data enqueued(" + token.substring(token.length() - 4) + "):\n" + data.toString(4));
                         }
                         checkSendStrategy(token, ret);
                     } catch (Exception e) {
@@ -235,6 +240,16 @@ public class DataHandle {
         private static final int ENQUEUE_EVENTS = 0; // push given JSON message to events DB
         private static final int EMPTY_QUEUE = 1; // empty events.
         private static final int TRIGGER_FLUSH = 2; // Trigger a flush.
+    }
+
+    protected int getFlushBulkSize(String token) {
+        TDConfig config = getConfig(token);
+        return null == config ? TDConfig.DEFAULT_FLUSH_BULK_SIZE : config.getFlushBulkSize();
+    }
+
+    protected int getFlushInterval(String token) {
+        TDConfig config = getConfig(token);
+        return null == config ? TDConfig.DEFAULT_FLUSH_INTERVAL : config.getFlushInterval();
     }
 
     protected RemoteService getPoster() {
@@ -294,6 +309,17 @@ public class DataHandle {
             mHandler.sendMessage(msg);
         }
 
+        void postToDebug(final JSONObject data, String token) {
+            if (null == data) return;
+            Message msg = Message.obtain();
+            msg.what = SEND_TO_DEBUG;
+            msg.obj = token;
+            Bundle bundle = new Bundle();
+            bundle.putString(KEY_DATA_STRING, data.toString());
+            msg.setData(bundle);
+            mHandler.sendMessage(msg);
+        }
+
         void emptyQueue(String token) {
             if (!TextUtils.isEmpty(token)) {
                 Message msg = Message.obtain();
@@ -312,7 +338,11 @@ public class DataHandle {
                        Message msg = Message.obtain();
                        msg.what = FLUSH_QUEUE;
                        msg.obj = token;
-                       mHandler.sendMessageDelayed(msg, delay);
+                       try {
+                           mHandler.sendMessageDelayed(msg, delay);
+                       } catch (IllegalStateException e) {
+                           TDLog.w(TAG, "The app might be quiting: " + e.getMessage());
+                       }
                    }
                }
            }
@@ -327,6 +357,11 @@ public class DataHandle {
             @Override
             public void handleMessage(Message msg) {
                 String token = (String) msg.obj;
+                final TDConfig config = getConfig(token);
+                if (null == config) {
+                    TDLog.w(TAG, "Could found config object for token. Canceling...");
+                    return;
+                }
                 switch (msg.what) {
                     case FLUSH_QUEUE:
                         synchronized (mHandlerLock) {
@@ -338,7 +373,7 @@ public class DataHandle {
                         }
 
                         try {
-                            sendData(token);
+                            sendData(config);
                         } catch (final RuntimeException e) {
                             TDLog.w(TAG, "Send data to server failed due to unexpected exception: " + e.getMessage());
                             e.printStackTrace();
@@ -346,13 +381,12 @@ public class DataHandle {
 
                         synchronized (mHandlerLock) {
                             removeMessages(FLUSH_QUEUE_PROCESSING, token);
-                            final int interval = mConfig.getFlushInterval();
-                            posterToServerDelayed(token, interval);
+                            posterToServerDelayed(token, getFlushInterval(token));
                         }
                         break;
                     case FLUSH_QUEUE_OLD:
                         try {
-                            sendData("", (String) msg.obj);
+                            sendData("", config);
                         } catch (final RuntimeException e) {
                             TDLog.w(TAG, "Send old data failed due to unexpected exception: " + e.getMessage());
                             e.printStackTrace();
@@ -372,18 +406,124 @@ public class DataHandle {
                             if (null == dataString) return;
 
                             JSONObject data = new JSONObject(dataString);
-                            sendData(token, data);
+                            sendData(config, data);
                         } catch (Exception e) {
-                           e.printStackTrace();
+                            TDLog.e(TAG, "Exception occurred when sending message to Server: " + e.getMessage());
                         }
                         break;
-
+                    case SEND_TO_DEBUG:
+                        try {
+                            String dataString = msg.getData().getString(KEY_DATA_STRING);
+                            if (null == dataString) return;
+                            JSONObject data = new JSONObject(dataString);
+                            sendDebugData(config, data);
+                        } catch (Exception e) {
+                            TDLog.e(TAG, "Exception occurred when sending message to Server: " + e.getMessage());
+                            if (config.shouldThrowException()) {
+                                throw new TDDebugException(e);
+                            } else if (!config.isDebugOnly()) {
+                                // 如果不是 Debug Only 模式，将数据存入数据库
+                                String dataString = msg.getData().getString(KEY_DATA_STRING);
+                                if (null == dataString) return;
+                                JSONObject data = null;
+                                try {
+                                    data = new JSONObject(dataString);
+                                } catch (JSONException e1) {
+                                    e1.printStackTrace();
+                                }
+                                saveClickData(data, token);
+                            }
+                        }
+                        break;
                 }
             }
         }
 
-        private void sendData(String token, JSONObject data) throws IOException, RemoteService.ServiceUnavailableException, JSONException {
-            if (TextUtils.isEmpty(token)) {
+        // 发送单条数据到 Debug 模式
+        private void sendDebugData(TDConfig config, JSONObject data) throws IOException, RemoteService.ServiceUnavailableException, JSONException {
+            if (config.isNormal()) {
+                saveClickData(data, config.mToken);
+                return;
+            }
+
+            JSONObject originalProperties = data.getJSONObject(TDConstants.KEY_PROPERTIES);
+            if (TDConstants.TYPE_TRACK.equals(data.getString(TDConstants.KEY_TYPE))) {
+                JSONObject finalObject = new JSONObject();
+
+                TDUtils.mergeJSONObject(mDeviceInfo, finalObject);
+                TDUtils.mergeJSONObject(originalProperties, finalObject);
+                data.put(TDConstants.KEY_PROPERTIES, finalObject);
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("appid=");
+            sb.append(config.mToken);
+            sb.append("&deviceId=");
+            sb.append(mDeviceInfo.getString(TDConstants.KEY_DEVICE_ID));
+            sb.append("&source=client&data=");
+            sb.append(URLEncoder.encode(data.toString()));
+            if (config.isDebugOnly()) {
+                sb.append("&dryRun=1");
+            }
+
+            String tokenSuffix = config.mToken.substring(config.mToken.length() - 4);
+            TDLog.d(TAG, "uploading message(" + tokenSuffix + "):\n" + data.toString(4));
+
+            String response = mPoster.performRequest(config.getDebugUrl(), sb.toString(), true, config.getSSLSocketFactory());
+
+            JSONObject respObj = new JSONObject(response);
+
+            int errorLevel = respObj.getInt("errorLevel");
+            // 服务端设置回退到 normal 模式
+            if (errorLevel == -1) {
+                if (config.isDebugOnly()) {
+                    // Just discard the data
+                    TDLog.w(TAG, "The data will be discarded due to this device is not allowed to debug for: " + tokenSuffix);
+                    return;
+                }
+                TDLog.d(TAG, "fallback to normal mode due to this device is not allowed to debug for: " + tokenSuffix);
+                config.setMode(TDConfig.ModeEnum.NORMAL);
+                data.put(TDConstants.KEY_PROPERTIES, originalProperties);
+                saveClickData(data, config.mToken);
+                return;
+            }
+
+            // 提示用户 Debug 模式成功开启
+            Boolean toastHasShown = mToastShown.get(config.mToken);
+            if (toastHasShown == null || !toastHasShown) {
+                Toast.makeText(mContext, "Debug Mode Enabled for: " + tokenSuffix, Toast.LENGTH_LONG).show();
+                mToastShown.put(config.mToken, true);
+                config.setAllowDebug();
+            }
+
+            if (errorLevel != 0) {
+                if (respObj.has("errorProperties")) {
+                    JSONArray errProperties = respObj.getJSONArray("errorProperties");
+                    TDLog.d(TAG, " Error Properties: \n" + errProperties.toString(4));
+                }
+
+                if (respObj.has("errorReasons")) {
+                    JSONArray errReasons = respObj.getJSONArray("errorReasons");
+                    TDLog.d(TAG, "Error Reasons: \n" + errReasons.toString(4));
+                }
+
+                if (config.shouldThrowException()) {
+                    if (1 == errorLevel) {
+                        throw new TDDebugException("Invalid properties. Please refer to the logcat log for detail info.");
+                    } else if (2 == errorLevel) {
+                        throw new TDDebugException("Invalid data format. Please refer to the logcat log for detail info.");
+                    } else {
+                        throw new TDDebugException("Unknown error level: " + errorLevel);
+                    }
+                }
+            } else {
+                TDLog.d(TAG, "Upload debug data successfully for " + tokenSuffix);
+            }
+        }
+
+        // 发送单条数据到接收端
+        private void sendData(TDConfig config, JSONObject data) throws IOException, RemoteService.ServiceUnavailableException, JSONException {
+            if (TextUtils.isEmpty(config.mToken)) {
                 return;
             }
 
@@ -393,21 +533,26 @@ public class DataHandle {
             JSONObject dataObj = new JSONObject();
             dataObj.put(KEY_DATA, dataArray);
             dataObj.put(KEY_AUTOMATIC_DATA, mDeviceInfo);
-            dataObj.put(KEY_APP_ID, token);
+            dataObj.put(KEY_APP_ID, config.mToken);
 
             String dataString = dataObj.toString();
-            String response = mPoster.performRequest(mConfig.getServerUrl(), dataString);
+            String response = mPoster.performRequest(config.getServerUrl(), dataString, false, config.getSSLSocketFactory());
             JSONObject responseJson = new JSONObject(response);
             String ret = responseJson.getString("code");
             TDLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
         }
 
-        private void sendData(String token) {
-            sendData(token, token);
+        private void sendData(TDConfig config) {
+            sendData(config.mToken, config);
         }
 
-        private void sendData(String fromToken, String sendToken) {
-            if (TextUtils.isEmpty(sendToken)) {
+        private void sendData(String fromToken, TDConfig config) {
+            if (config == null) {
+                TDLog.w(TAG, "Could found config object for sendToken. Canceling...");
+                return;
+            }
+
+            if (TextUtils.isEmpty(config.mToken)) {
                 return;
             }
 
@@ -417,7 +562,7 @@ public class DataHandle {
                 }
 
                 String networkType = mSystemInformation.getNetworkType();
-                if (!mConfig.isShouldFlush(networkType)) {
+                if (!config.isShouldFlush(networkType)) {
                     return;
                 }
             } catch (Exception e) {
@@ -453,7 +598,7 @@ public class DataHandle {
                     try {
                         dataObj.put(KEY_DATA, myJsonArray);
                         dataObj.put(KEY_AUTOMATIC_DATA, mDeviceInfo);
-                        dataObj.put(KEY_APP_ID, sendToken);
+                        dataObj.put(KEY_APP_ID, config.mToken);
                     } catch (JSONException e) {
                         TDLog.w(TAG, "Invalid data: " + dataObj.toString());
                         throw e;
@@ -461,18 +606,18 @@ public class DataHandle {
 
                     deleteEvents = true;
                     String dataString = dataObj.toString();
-                    String response = mPoster.performRequest(mConfig.getServerUrl(), dataString);
+                    String response = mPoster.performRequest(config.getServerUrl(), dataString, false, config.getSSLSocketFactory());
                     JSONObject responseJson = new JSONObject(response);
                     String ret = responseJson.getString("code");
                     TDLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
                 } catch (final RemoteService.ServiceUnavailableException e) {
                     deleteEvents = false;
-                    errorMessage = "Cannot post message to " + mConfig.getServerUrl();
+                    errorMessage = "Cannot post message to " + config.getServerUrl();
                 } catch (MalformedInputException e) {
-                    errorMessage = "Cannot interpret " + mConfig.getServerUrl() + " as a URL. The data will be deleted.";
+                    errorMessage = "Cannot interpret " + config.getServerUrl() + " as a URL. The data will be deleted.";
                 } catch (final IOException e) {
                     deleteEvents = false;
-                    errorMessage = "Cannot post message to " + mConfig.getServerUrl();
+                    errorMessage = "Cannot post message to " + config.getServerUrl();
                 } catch (final JSONException e) {
                     deleteEvents = true;
                     errorMessage = "Cannot post message due to JSONException, the data will be deleted";
@@ -500,8 +645,10 @@ public class DataHandle {
         private static final int FLUSH_QUEUE_OLD = 2; // send old data if exists.
         private static final int EMPTY_FLUSH_QUEUE = 3; // empty the flush queue.
         private static final int SEND_TO_SERVER = 4; // send the data to server immediately.
+        private static final int SEND_TO_DEBUG = 5; // send the data to debug receiver.
         private final RemoteService mPoster;
         private final JSONObject mDeviceInfo;
+        private Map<String, Boolean> mToastShown = new HashMap<>();
 
         private static final String KEY_APP_ID = "#app_id";
         private static final String KEY_DATA = "data";

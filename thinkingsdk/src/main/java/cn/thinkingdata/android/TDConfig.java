@@ -2,9 +2,6 @@ package cn.thinkingdata.android;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
 
 import cn.thinkingdata.android.persistence.StorageFlushBulkSize;
 import cn.thinkingdata.android.persistence.StorageFlushInterval;
@@ -18,78 +15,137 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Future;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
+
 public class TDConfig {
     public static final String VERSION = BuildConfig.TDSDK_VERSION;
 
-    private static final String KEY_AUTO_TRACK = "cn.thinkingdata.android.AutoTrack";
-    private static final String KEY_MAIN_PROCESS_NAME = "cn.thinkingdata.android.MainProcessName";
-    private static final String KEY_ENABLE_LOG = "cn.thinkingdata.android.EnableTrackLogging";
-
     private static final SharedPreferencesLoader sPrefsLoader = new SharedPreferencesLoader();
-    private static Future<SharedPreferences> sStoredSharedPrefs;
-    private static final String PREFERENCE_NAME = "cn.thinkingdata.android.config";
+    private static final String PREFERENCE_NAME_PREFIX = "cn.thinkingdata.android.config";
 
-    private final static Map<Context, TDConfig> sInstanceMap = new HashMap<>();
+    static final int DEFAULT_FLUSH_INTERVAL = 15000; // 默认每 15 秒发起一次上报
+    static final int DEFAULT_FLUSH_BULK_SIZE = 20; // 默认每次上报请求最多包含 20 条数据
 
-    // This method should be called after the instance was initialed.
-    static TDConfig getInstance(Context context) {
-        return getInstance(context, null, "");
+    private static final Map<Context, Map<String, TDConfig>> sInstances = new HashMap<>();
+
+    /**
+     * 实例运行模式, 默认为 NORMAL 模式.
+     */
+    public enum ModeEnum {
+        /* 正常模式，数据会存入缓存，并依据一定的缓存策略上报 */
+        NORMAL,
+        /* Debug 模式，数据逐条上报。当出现问题时会以日志和异常的方式提示用户 */
+        DEBUG,
+        /* Debug Only 模式，只对数据做校验，不会入库 */
+        DEBUG_ONLY
     }
 
-    static TDConfig getInstance(Context context, String url, String token) {
-        TDConfig instance;
-        Context appContext = context.getApplicationContext();
-        if (null == sStoredSharedPrefs) {
-            sStoredSharedPrefs = sPrefsLoader.loadPreferences(appContext, PREFERENCE_NAME);
-        }
-
-        synchronized (sInstanceMap) {
-            instance = sInstanceMap.get(appContext);
-            if (null == instance) {
-                instance = new TDConfig(appContext, url + "/sync");
-                sInstanceMap.put(appContext, instance);
-                instance.getRemoteConfig(url + "/config?appid=" + token);
-            }
-        }
-        return instance;
+    private volatile ModeEnum mMode = ModeEnum.NORMAL;
+    private volatile boolean mAllowedDebug;
+    void setAllowDebug() {
+        mAllowedDebug = true;
     }
 
-    TDConfig(Context context, String serverUrl) {
-        if (null == serverUrl) {
-            TDLog.w(TAG, "The server url is null, it cannot be used to post data");
+    // for Unity
+    public void setModeInt(int mode) {
+        if (mode < 0 || mode > 2) {
+            TDLog.d(TAG, "Invalid mode value");
+            return;
         }
-        mServerUrl = serverUrl;
 
-        final String packageName = context.getApplicationContext().getPackageName();
-        final ApplicationInfo appInfo;
-        Bundle configBundle = null;
+        mMode = ModeEnum.values()[mode];
+    }
+
+    // for Unity
+    public int getModeInt() {
+        return mMode.ordinal();
+    }
+
+    /**
+     * 设置 SDK 运行模式
+     * @param mode 运行模式
+     */
+    public void setMode(ModeEnum mode) {
+        this.mMode = mode;
+    }
+
+    /**
+     *  获取 SDK 当前运行模式
+     * @return ModeEnum
+     */
+    public ModeEnum getMode() {
+        return mMode;
+    }
+
+    // Internal use only. This method should be called after the instance was initialed.
+    static TDConfig getInstance(Context context, String token) {
         try {
-            appInfo = context.getApplicationContext().getPackageManager()
-                    .getApplicationInfo(packageName, PackageManager.GET_META_DATA);
-            configBundle = appInfo.metaData;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            return getInstance(context, token, "");
+        } catch (IllegalArgumentException e) {
+            return null;
         }
-
-        if (null == configBundle) {
-            configBundle = new Bundle();
-        }
-        mAutoTrack = configBundle.getBoolean(KEY_AUTO_TRACK,
-                false);
-        mMainProcessName = configBundle.getString(KEY_MAIN_PROCESS_NAME);
-        if (configBundle.containsKey(KEY_ENABLE_LOG)) {
-            boolean enableTrackLog = configBundle.getBoolean(KEY_ENABLE_LOG, false);
-            TDLog.setEnableLog(enableTrackLog);
-        }
-        mFlushInterval = new StorageFlushInterval(sStoredSharedPrefs);
-        mFlushBulkSize = new StorageFlushBulkSize(sStoredSharedPrefs);
     }
 
+    /**
+     * 获取 TDConfig 实例. 该实例可以用于初始化 ThinkingAnalyticsSDK. 每个 SDK 实例对应一个 TDConfig 实例.
+     * @param context app context
+     * @param token APP ID, 创建项目时会给出.
+     * @param url 数据接收端 URL, 必须是带协议的完整 URL，否则会抛异常
+     * @return TDConfig 实例
+     */
+    public static TDConfig getInstance(Context context, String token, String url) {
+        Context appContext = context.getApplicationContext();
+
+        synchronized (sInstances) {
+            Map<String, TDConfig> instances = sInstances.get(appContext);
+            if (null == instances) {
+                instances = new HashMap<>();
+                sInstances.put(appContext, instances);
+            }
+
+            TDConfig instance = instances.get(token);
+            if (null == instance) {
+                URL serverUrl;
+
+                try {
+                    serverUrl = new URL(url);
+                } catch (MalformedURLException e) {
+                    TDLog.e(TAG, "Invalid server URL: " + url);
+                    throw new IllegalArgumentException(e);
+                }
+
+                instance = new TDConfig(appContext, token, serverUrl.getProtocol()
+                        + "://" + serverUrl.getHost()
+                        + (serverUrl.getPort() > 0 ? ":" + serverUrl.getPort() : ""));
+                instances.put(token, instance);
+                instance.getRemoteConfig();
+            }
+            return instance;
+        }
+    }
+
+    private TDConfig(Context context, String token, String serverUrl) {
+        mContext = context.getApplicationContext();
+
+        Future<SharedPreferences> storedSharedPrefs = sPrefsLoader.loadPreferences(
+                mContext, PREFERENCE_NAME_PREFIX + "_" + token);
+        mContextConfig = TDContextConfig.getInstance(mContext);
+
+        mToken = token;
+        mServerUrl = serverUrl + "/sync";
+        mDebugUrl = serverUrl + "/data_debug";
+        mConfigUrl = serverUrl + "/config?appid=" + token;
+
+        mFlushInterval = new StorageFlushInterval(storedSharedPrefs, DEFAULT_FLUSH_INTERVAL);
+        mFlushBulkSize = new StorageFlushBulkSize(storedSharedPrefs, DEFAULT_FLUSH_BULK_SIZE);
+    }
 
     synchronized boolean isShouldFlush(String networkType) {
         return (convertToNetworkType(networkType) & mNetworkType) != 0;
@@ -112,8 +168,7 @@ public class TDConfig {
         return NetworkType.TYPE_ALL;
     }
 
-
-    private void getRemoteConfig(final String configureUrl) {
+    private void getRemoteConfig() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -121,8 +176,12 @@ public class TDConfig {
                 InputStream in = null;
 
                 try {
-                    URL url = new URL(configureUrl);
+                    URL url = new URL(mConfigUrl);
                     connection = (HttpURLConnection) url.openConnection();
+                    final SSLSocketFactory socketFactory = getSSLSocketFactory();
+                    if (null != socketFactory && connection instanceof HttpsURLConnection) {
+                        ((HttpsURLConnection) connection).setSSLSocketFactory(socketFactory);
+                    }
                     connection.setRequestMethod("GET");
 
                     if (200 == connection.getResponseCode()) {
@@ -149,7 +208,8 @@ public class TDConfig {
                             }
 
 
-                            TDLog.d(TAG, "newUploadInterval is " + newUploadInterval + ", newUploadSize is " + newUploadSize);
+                            TDLog.d(TAG, "Fetched remote config for (" + mToken.substring(mToken.length() - 4)
+                                    + ") newUploadInterval is " + newUploadInterval + ", newUploadSize is " + newUploadSize);
 
                             if (mFlushBulkSize.get() != newUploadSize) {
                                 mFlushBulkSize.put(newUploadSize);
@@ -163,7 +223,7 @@ public class TDConfig {
                         in.close();
                         br.close();
                     } else {
-                        TDLog.d(TAG, "getConfig faild, responseCode is " + connection.getResponseCode());
+                        TDLog.d(TAG, "getConfig failed, responseCode is " + connection.getResponseCode());
                     }
 
                 } catch (IOException e) {
@@ -186,59 +246,46 @@ public class TDConfig {
         }).start();
     }
 
-    public String getServerUrl() {
+    String getServerUrl() {
         return mServerUrl;
+    }
+
+    String getDebugUrl() {
+        return mDebugUrl;
+    }
+
+    boolean isDebug() {
+        return ModeEnum.DEBUG.equals(mMode);
+    }
+
+    boolean isDebugOnly() {
+        return ModeEnum.DEBUG_ONLY.equals(mMode);
+    }
+
+    boolean isNormal() {
+        return ModeEnum.NORMAL.equals(mMode);
+    }
+
+    boolean shouldThrowException() {
+        return mAllowedDebug && (isDebug() || isDebugOnly());
     }
 
     /**
      * Flush interval, 单位毫秒
-     * @return
+     * @return 上报间隔
      */
-    public int getFlushInterval() {
+    int getFlushInterval() {
         return mFlushInterval.get();
     }
 
-    public int getFlushBulkSize() {
+    int getFlushBulkSize() {
         return mFlushBulkSize.get();
     }
 
-    public int getMinimumDatabaseLimit() {
-        return mMinimumDatabaseLimit;
+    String getMainProcessName() {
+        return mContextConfig.getMainProcessName();
     }
 
-    // Throw away records that are older than this in milliseconds. Should be below the server side age limit for events.
-    public long getDataExpiration() {
-        return mDataExpiration;
-    }
-
-    public void setMinimumDatabaseLimit(int limit) {
-        mMinimumDatabaseLimit = limit;
-
-    }
-
-    public void setDataExpiration(int hours) {
-        mDataExpiration = 1000 * 60 * 60 * hours;
-    }
-
-    public boolean getAutoTrackConfig() {
-        return mAutoTrack;
-    }
-
-    public String getMainProcessName() {
-        return mMainProcessName;
-    }
-
-    private long mDataExpiration = 1000 * 60 * 60 * 24 * 15; // 5 days default
-
-    private StorageFlushInterval mFlushInterval;
-    private StorageFlushBulkSize mFlushBulkSize;
-    private final String mServerUrl;
-    private boolean mAutoTrack;
-    private String mMainProcessName;
-    private int mMinimumDatabaseLimit = 32 * 1024 * 1024;  // 32 M default
-
-
-    private static final String TAG = "ThinkingAnalytics.TDConfig";
 
     synchronized void setNetworkType(ThinkingAnalyticsSDK.ThinkingdataNetworkType type) {
         switch (type) {
@@ -264,4 +311,53 @@ public class TDConfig {
     }
 
     private int mNetworkType = NetworkType.TYPE_3G | NetworkType.TYPE_4G | NetworkType.TYPE_5G | NetworkType.TYPE_WIFI;
+
+    /**
+     * 设置是否追踪老版本数据
+     * @param trackOldData
+     */
+    public void setTrackOldData(boolean trackOldData) {
+        mTrackOldData = trackOldData;
+    }
+
+    public boolean trackOldData() {
+        return mTrackOldData;
+    }
+
+    /**
+     * 设置自签证书. 自签证书对实例所有网络请求有效.
+     * @param sslSocketFactory
+     */
+    public synchronized void setSSLSocketFactory(SSLSocketFactory sslSocketFactory) {
+        if (null != sslSocketFactory) {
+            mSSLSocketFactory = sslSocketFactory;
+            getRemoteConfig();
+        }
+    }
+
+    /**
+     * 返回当前自签证书设置.
+     * @return SSLSocketFactory
+     */
+    public synchronized SSLSocketFactory getSSLSocketFactory() {
+        return mSSLSocketFactory;
+    }
+
+    // 兼容 1.2.0 之前老版本. 1.3.0 开始会在本地缓存中存放 app ID. 默认情况下会将之前遗留数据上报到第一个初始化的实例中.
+    private volatile boolean mTrackOldData = true;
+
+    // 同一个 Context 下所有实例共享的配置
+    private final TDContextConfig mContextConfig;
+
+    private final StorageFlushInterval mFlushInterval;
+    private final StorageFlushBulkSize mFlushBulkSize;
+    private final String mServerUrl;
+    private final String mDebugUrl;
+    private final String mConfigUrl;
+    final String mToken;
+    final Context mContext;
+
+    private SSLSocketFactory mSSLSocketFactory;
+
+    private static final String TAG = "ThinkingAnalytics.TDConfig";
 }
