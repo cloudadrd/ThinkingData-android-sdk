@@ -415,8 +415,8 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
             if(PropertyUtils.isInvalidName(data.eventName)) {
                 TDLog.w(TAG, "Event name[" + data.eventName + "] is invalid. Event name must be string that starts with English letter, " +
                             "and contains letter, number, and '_'. The max length of the event name is 50.");
-                if (mConfig.shouldThrowException()) throw new TDDebugException("Invalid event name: " + data.eventName);
-                return;
+                //if (mConfig.shouldThrowException()) throw new TDDebugException("Invalid event name: " + data.eventName);
+                //return;
             }
         }
 
@@ -446,7 +446,8 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
             dataObj.put(TDConstants.KEY_TYPE, data.type);
             dataObj.put(TDConstants.KEY_TIME, timeString);
             if(data.type.equals(TDConstants.TYPE_TRACK)) {
-                dataObj.put(TDConstants.KEY_EVENT_NAME, data.eventName);
+                Object eventNameObj = data.eventName == null ? JSONObject.NULL : data.eventName;
+                dataObj.put(TDConstants.KEY_EVENT_NAME, eventNameObj);
             }
 
             if (!TextUtils.isEmpty(getLoginId())) {
@@ -547,6 +548,13 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
             e.printStackTrace();
             if (mConfig.shouldThrowException()) throw new TDDebugException(e);
         }
+    }
+
+    @Override
+    public void user_append(JSONObject properties) {
+        if (hasDisabled()) return;
+        trackInternal(new DataDescription(TDConstants.TYPE_USER_APPEND, properties));
+
     }
 
     @Override
@@ -755,9 +763,9 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
         if (hasDisabled()) return;
         try {
             if(PropertyUtils.isInvalidName(eventName)) {
-                TDLog.d(TAG, "timeEvent event name[" + eventName + "] is not valid");
-                if (mConfig.shouldThrowException()) throw new TDDebugException("Invalid event name for time event");
-                return;
+                TDLog.w(TAG, "timeEvent event name[" + eventName + "] is not valid");
+                //if (mConfig.shouldThrowException()) throw new TDDebugException("Invalid event name for time event");
+                //return;
             }
 
             synchronized (mTrackTimer) {
