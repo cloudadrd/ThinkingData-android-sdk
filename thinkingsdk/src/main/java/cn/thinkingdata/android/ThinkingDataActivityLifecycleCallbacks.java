@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import cn.thinkingdata.android.utils.ITime;
 import cn.thinkingdata.android.utils.TDConstants;
 import cn.thinkingdata.android.utils.TDUtils;
 import cn.thinkingdata.android.utils.PropertyUtils;
@@ -18,7 +19,6 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -80,7 +80,7 @@ class ThinkingDataActivityLifecycleCallbacks implements Application.ActivityLife
         }
     }
 
-    private void trackAppStart(Activity activity, Date time) {
+    private void trackAppStart(Activity activity, ITime time) {
         if (isMainProcess(activity)) {
             if (mThinkingDataInstance.isAutoTrackEnabled()) {
                 try {
@@ -93,7 +93,17 @@ class ThinkingDataActivityLifecycleCallbacks implements Application.ActivityLife
                         if (null == time) {
                             mThinkingDataInstance.autoTrack(TDConstants.APP_START_EVENT_NAME, properties);
                         } else {
-                            mThinkingDataInstance.autoTrack(TDConstants.APP_START_EVENT_NAME, properties, time);
+                            if (!mThinkingDataInstance.hasDisabled()) {
+                                // track APP_START with cached time and properties.
+                                JSONObject finalProperties = mThinkingDataInstance.getAutoTrackStartProperties();
+
+                                TDUtils.mergeJSONObject(properties, finalProperties, mThinkingDataInstance.mConfig.getDefaultTimeZone());
+
+                                DataDescription dataDescription = new DataDescription(mThinkingDataInstance, TDConstants.DataType.TRACK, finalProperties, time);
+                                dataDescription.eventName = TDConstants.APP_START_EVENT_NAME;
+
+                                mThinkingDataInstance.trackInternal(dataDescription);
+                            }
                         }
                     }
 
@@ -115,7 +125,7 @@ class ThinkingDataActivityLifecycleCallbacks implements Application.ActivityLife
                 TDLog.i(TAG, "onActivityResumed: the SDK was initialized after the onActivityStart of " + activity);
                 mStartedActivityList.add(new WeakReference<>(activity));
                 if (mStartedActivityList.size() == 1) {
-                    trackAppStart(activity, mThinkingDataInstance.getAutoTrackStartDate());
+                    trackAppStart(activity, mThinkingDataInstance.getAutoTrackStartTime());
                 }
             }
         }
@@ -138,7 +148,7 @@ class ThinkingDataActivityLifecycleCallbacks implements Application.ActivityLife
                         String screenUrl = screenAutoTracker.getScreenUrl();
                         JSONObject otherProperties = screenAutoTracker.getTrackProperties();
                         if (otherProperties != null && PropertyUtils.checkProperty(otherProperties)) {
-                            TDUtils.mergeJSONObject(otherProperties, properties);
+                            TDUtils.mergeJSONObject(otherProperties, properties, mThinkingDataInstance.mConfig.getDefaultTimeZone());
                         } else {
                             TDLog.d(TAG, "invalid properties: " + otherProperties);
                         }
@@ -172,7 +182,7 @@ class ThinkingDataActivityLifecycleCallbacks implements Application.ActivityLife
                 TDLog.i(TAG, "onActivityPaused: the SDK was initialized after the onActivityStart of " + activity);
                 mStartedActivityList.add(new WeakReference<>(activity));
                 if (mStartedActivityList.size() == 1) {
-                    trackAppStart(activity, mThinkingDataInstance.getAutoTrackStartDate());
+                    trackAppStart(activity, mThinkingDataInstance.getAutoTrackStartTime());
                 }
             }
         }
