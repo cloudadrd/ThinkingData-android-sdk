@@ -171,7 +171,7 @@ class SystemInformation {
 
     }
 
-    private String getAndroidID(Context mContext) {
+    public String getAndroidID(Context mContext) {
         String androidID = "";
         try {
             androidID = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);

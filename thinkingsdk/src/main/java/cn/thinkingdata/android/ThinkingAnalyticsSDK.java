@@ -208,6 +208,9 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
 
         mSystemInformation = SystemInformation.getInstance(config.mContext);
 
+        //设置aid到accountid
+        mLoginId.put(mSystemInformation.getAndroidID(config.mContext));
+
         mMessages = getDataHandleInstance(config.mContext);
 
         if (mEnableTrackOldData) {
@@ -629,41 +632,43 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
 
     @Override
     public void login(String loginId) {
-        if (hasDisabled()) return;
-        try {
-            if(TextUtils.isEmpty(loginId)) {
-                TDLog.d(TAG,"The account id cannot be empty.");
-                if (mConfig.shouldThrowException()) throw new TDDebugException("account id cannot be empty");
-                return;
-            }
-
-            synchronized (mLoginId) {
-                if (!loginId.equals(mLoginId.get())) {
-                    mLoginId.put(loginId);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return;
+//        if (hasDisabled()) return;
+//        try {
+//            if(TextUtils.isEmpty(loginId)) {
+//                TDLog.d(TAG,"The account id cannot be empty.");
+//                if (mConfig.shouldThrowException()) throw new TDDebugException("account id cannot be empty");
+//                return;
+//            }
+//
+//            synchronized (mLoginId) {
+//                if (!loginId.equals(mLoginId.get())) {
+//                    mLoginId.put(loginId);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
     public void logout() {
-        if (hasDisabled()) return;
-        try {
-            synchronized (mLoginId) {
-                mLoginId.put(null);
-                if (mEnableTrackOldData) {
-                    synchronized (sOldLoginIdLock) {
-                        if (!TextUtils.isEmpty(sOldLoginId.get())) {
-                            sOldLoginId.put(null);
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        return;
+//        if (hasDisabled()) return;
+//        try {
+//            synchronized (mLoginId) {
+//                mLoginId.put(null);
+//                if (mEnableTrackOldData) {
+//                    synchronized (sOldLoginIdLock) {
+//                        if (!TextUtils.isEmpty(sOldLoginId.get())) {
+//                            sOldLoginId.put(null);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     String getLoginId() {
