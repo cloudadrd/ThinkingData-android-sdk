@@ -35,6 +35,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -50,7 +51,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
-
+    static Boolean f = false; //是否上报了用户属性
 
     /**
      * 当 SDK 初始化完成后，可以通过此接口获得保存的单例
@@ -127,8 +128,31 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
                     sAppFirstInstallationMap.get(config.mContext).add(config.mToken);
                 }
             }
+            //添加用户属性 fit
+            if (f == true)
+                return instance;
+
+            try {
+                JSONObject properties = new JSONObject();
+                String fit = timeStamp2Date(SystemInformation.getInstance(config.mContext).getFIT(), "yyyy-MM-dd HH:mm:ss.SSS")                ;
+                properties.put("fit",fit);
+                properties.put("zone_offset", Integer.toString(TimeZone.getDefault().getOffset(System.currentTimeMillis()) / (60 * 1000 * 60)));
+                instance.user_setOnce(properties);
+                f = true;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             return instance;
         }
+    }
+
+    private static String timeStamp2Date(long time, String format) {
+        if (format == null || format.isEmpty()) {
+            format = "yyyy-MM-dd HH:mm:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(new Date(time));
     }
 
      // only for automatic test

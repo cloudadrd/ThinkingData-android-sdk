@@ -27,7 +27,7 @@ class SystemInformation {
     private static final String KEY_OS = "#os";
     private static String sLibName = "Android";
     private static String sLibVersion = TDConfig.VERSION;
-
+    private static long fit = 0;
     private static SystemInformation sInstance;
     private final static Object sInstanceLock = new Object();
 
@@ -68,6 +68,10 @@ class SystemInformation {
         return hasNotUpdated;
     }
 
+    public long getFIT(){
+        return fit;
+    }
+
     private SystemInformation(Context context) {
         mContext = context.getApplicationContext();
         mHasPermission = checkHasPermission(mContext, "android.permission.ACCESS_NETWORK_STATE");
@@ -77,6 +81,7 @@ class SystemInformation {
             final PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             mAppVersionName = info.versionName;
             hasNotUpdated = info.firstInstallTime == info.lastUpdateTime;
+            fit = info.firstInstallTime;
             TDLog.d(TAG, "First Install Time: " + info.firstInstallTime);
             TDLog.d(TAG, "Last Update Time: " + info.lastUpdateTime);
         } catch (final Exception e) {
