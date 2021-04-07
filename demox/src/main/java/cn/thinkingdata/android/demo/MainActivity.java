@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-import cn.thinkingdata.android.ThinkingDataTrackEvent;
+import cn.dataeye.android.DataEyeTrackEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     // 清除 account id
-    @ThinkingDataTrackEvent(eventName = "log_out", properties = "{\"paramString\":\"value\",\"paramNumber\":123,\"paramBoolean\":true}", appId = "debug-appid")
+    @DataEyeTrackEvent(eventName = "log_out", properties = "{\"paramString\":\"value\",\"paramNumber\":123,\"paramBoolean\":true}", appId = "debug-appid")
     public void logout(View view) {
         TDTracker.getInstance().logout();
     }

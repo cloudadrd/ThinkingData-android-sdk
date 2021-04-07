@@ -6,10 +6,11 @@ import android.text.TextUtils;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import cn.thinkingdata.android.utils.RemoteService;
-import cn.thinkingdata.android.utils.TDConstants;
-import cn.thinkingdata.android.utils.TDConstants.DataType;
-import cn.thinkingdata.android.utils.TDLog;
+import cn.dataeye.android.DataEyeTDConfig;
+import cn.dataeye.android.utils.RemoteService;
+import cn.dataeye.android.utils.TDConstants;
+import cn.dataeye.android.utils.TDConstants.DataType;
+import cn.dataeye.android.utils.TDLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,13 +61,13 @@ public class BasicTest {
 
     private static Context mAppContext;
     private final static String mVersionName = "1.0";
-    private static TDConfig mConfig;
+    private static DataEyeTDConfig mConfig;
 
     @Before
     public void setUp() {
         ThinkingAnalyticsSDK.enableTrackLog(true);
         mAppContext = ApplicationProvider.getApplicationContext();
-        mConfig = TDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
+        mConfig = DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
     }
 
 
@@ -405,7 +406,7 @@ public class BasicTest {
         instance.track("test_event");
         instance.flush();
         JSONObject automaticData = messages.poll(POLL_WAIT_SECONDS, TimeUnit.SECONDS);
-        assertEquals(automaticData.getString("#lib_version"), TDConfig.VERSION);
+        assertEquals(automaticData.getString("#lib_version"), DataEyeTDConfig.VERSION);
         assertEquals(automaticData.getString("#lib"), "Android");
         assertEquals(automaticData.getString("#os"), "Android");
         assertEquals(automaticData.getString("#device_id"), instance.getDeviceId());

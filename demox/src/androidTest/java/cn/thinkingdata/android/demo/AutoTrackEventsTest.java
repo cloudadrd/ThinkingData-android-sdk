@@ -10,7 +10,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import cn.thinkingdata.android.TestRunner;
-import cn.thinkingdata.android.ThinkingAnalyticsSDK;
+import cn.dataeye.android.DataEyeAnalyticsSDK;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,10 +68,10 @@ public class AutoTrackEventsTest {
 
     @Test
     public void testStartEndEvents() throws InterruptedException, JSONException {
-        List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_START);
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_END);
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
+        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
         //eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
         //eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
         TestRunner.getInstance().enableAutoTrack(eventTypeList);
@@ -137,9 +137,9 @@ public class AutoTrackEventsTest {
 
     @Test
     public void testWebView() throws InterruptedException, JSONException {
-        List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
+        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_CLICK);
         TestRunner.getInstance().enableAutoTrack(eventTypeList);
 
         ActivityScenario.launch(WebViewActivity.class);
@@ -179,9 +179,9 @@ public class AutoTrackEventsTest {
 
     @Test
     public void testListItemClick() throws InterruptedException, JSONException {
-        List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
+        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
         //eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_CLICK);
         TestRunner.getInstance().enableAutoTrack(eventTypeList);
 
         ActivityScenario.launch(DisplayActivity.class);
@@ -239,9 +239,9 @@ public class AutoTrackEventsTest {
     @Test
     public void testAlertDialog() throws InterruptedException, JSONException {
         // TODO Dialog 与 Activity 绑定
-        List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
+        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
         //eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_CLICK);
         TestRunner.getInstance().enableAutoTrack(eventTypeList);
 
         ActivityScenario.launch(MainActivity.class);
@@ -282,8 +282,8 @@ public class AutoTrackEventsTest {
 
     @Test
     public void testClickEvents() throws InterruptedException, JSONException {
-        List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
+        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_CLICK);
         TestRunner.getInstance().enableAutoTrack(eventTypeList);
 
         ActivityScenario.launch(ClickTestActivity.class);

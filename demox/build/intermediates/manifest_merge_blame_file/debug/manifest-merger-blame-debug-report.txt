@@ -1,0 +1,142 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="cn.thinkingdata.android.demo"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+8-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+10    <!-- To access Google+ APIs: -->
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:6:5-67
+11-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:6:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:7:5-79
+12-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:7:22-76
+13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+13-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:8:5-76
+13-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:8:22-73
+14    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+14-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:9:5-75
+14-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:9:22-72
+15
+16    <application
+16-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:11:5-68:19
+17        android:name="cn.thinkingdata.android.demo.DemoApplication"
+17-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:12:9-40
+18        android:allowBackup="true"
+18-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:13:9-35
+19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+19-->[androidx.core:core:1.0.1] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d0721e40023b39ad20af154960126215/core-1.0.1/AndroidManifest.xml:22:18-86
+20        android:debuggable="true"
+21        android:icon="@mipmap/ic_launcher"
+21-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:14:9-43
+22        android:label="@string/app_name"
+22-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:15:9-41
+23        android:roundIcon="@mipmap/ic_launcher_round"
+23-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:16:9-54
+24        android:supportsRtl="true"
+24-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:17:9-35
+25        android:theme="@style/AppTheme" >
+25-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:18:9-40
+26        <activity
+26-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:21:9-24:59
+27            android:name="cn.thinkingdata.android.demo.ClickTestActivity"
+27-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:22:13-46
+28            android:label="@string/title_activity_click_test"
+28-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:23:13-62
+29            android:theme="@style/AppTheme.NoActionBar" />
+29-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:24:13-56
+30        <activity
+30-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:26:9-29:59
+31            android:name="cn.thinkingdata.android.demo.WebViewActivity"
+31-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:27:13-44
+32            android:label="@string/title_activity_webview"
+32-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:28:13-59
+33            android:theme="@style/AppTheme.NoActionBar" />
+33-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:29:13-56
+34
+35        <!-- 打开调试日志 -->
+36        <meta-data
+36-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:32:9-34:36
+37            android:name="cn.thinkingdata.android.EnableTrackLogging"
+37-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:33:13-70
+38            android:value="true" />
+38-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:34:13-33
+39
+40        <!-- 设置数据库大小下限(默认 32 M) -->
+41        <meta-data
+41-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:37:9-39:34
+42            android:name="cn.thinkingdata.android.MinimumDatabaseLimit"
+42-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:38:13-72
+43            android:value="16" />
+43-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:39:13-31
+44
+45        <!-- 设置缓存数据保留天数(默认 15 天) -->
+46        <meta-data
+46-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:42:9-44:33
+47            android:name="cn.thinkingdata.android.RetentionDays"
+47-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:43:13-65
+48            android:value="7" />
+48-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:44:13-30
+49
+50        <!-- 允许安全退出服务(默认为 true) -->
+51        <meta-data
+51-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:47:9-49:37
+52            android:name="cn.thinkingdata.android.EnableQuitSafely"
+52-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:48:13-68
+53            android:value="false" />
+53-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:49:13-34
+54
+55        <!-- 开启安全退出服务时，等待每个线程（缓存, 网络）退出超时时长，默认 2000 ms -->
+56        <meta-data
+56-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:52:9-54:36
+57            android:name="cn.thinkingdata.android.QuitSafelyTimeout"
+57-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:53:13-69
+58            android:value="1000" />
+58-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:54:13-33
+59
+60        <activity
+60-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:56:9-59:58
+61            android:name="cn.thinkingdata.android.demo.DisplayActivity"
+61-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:57:13-44
+62            android:label="@string/title_activity_display"
+62-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:58:13-59
+63            android:parentActivityName="cn.thinkingdata.android.demo.MainActivity" />
+63-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:59:13-55
+64        <activity android:name="cn.thinkingdata.android.demo.MainActivity" >
+64-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:61:9-67:20
+64-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:61:19-47
+65            <intent-filter>
+65-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:62:13-66:29
+66                <action android:name="android.intent.action.MAIN" />
+66-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:63:17-69
+66-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:63:25-66
+67
+68                <category android:name="android.intent.category.LAUNCHER" />
+68-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:65:17-77
+68-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:65:27-74
+69            </intent-filter>
+70        </activity>
+71
+72        <meta-data
+72-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:9-20:48
+73            android:name="cn.dataeye.android.MainProcessName"
+73-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-62
+74            android:value="cn.thinkingdata.android.demo" />
+74-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-45
+75
+76        <service
+76-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-25:44
+77            android:name="cn.dataeye.android.DataEyeQuitSafelyService$DataEyeKeepAliveService"
+77-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-95
+78            android:exported="false"
+78-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-37
+79            android:stopWithTask="false" />
+79-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:13-41
+80    </application>
+81
+82</manifest>

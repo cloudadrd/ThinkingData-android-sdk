@@ -5,7 +5,8 @@ import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import cn.thinkingdata.android.utils.RemoteService;
+import cn.dataeye.android.DataEyeTDConfig;
+import cn.dataeye.android.utils.RemoteService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +38,7 @@ public class FlushStrategyTest {
 
     private static Context mAppContext;
     private final static String mVersionName = "1.0";
-    private static TDConfig mConfig;
+    private static DataEyeTDConfig mConfig;
     private SystemInformation mSystemInformation;
 
     @Before
@@ -47,12 +48,12 @@ public class FlushStrategyTest {
 
         mSystemInformation = SystemInformation.getInstance(mAppContext);
 
-        mConfig = TDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
+        mConfig = DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
 
     }
 
     private void assertAutomaticData(JSONObject automaticData) throws JSONException {
-        assertEquals(automaticData.getString("#lib_version"), TDConfig.VERSION);
+        assertEquals(automaticData.getString("#lib_version"), DataEyeTDConfig.VERSION);
         assertEquals(automaticData.getString("#lib"), "Android");
         assertEquals(automaticData.getString("#os"), "Android");
         Map<String, Object> deviceInfo = mSystemInformation.getDeviceInfo();
@@ -221,7 +222,7 @@ public class FlushStrategyTest {
             }
         };
 
-        ThinkingAnalyticsSDK instance_debug = new ThinkingAnalyticsSDK(TDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
+        ThinkingAnalyticsSDK instance_debug = new ThinkingAnalyticsSDK(DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
             @Override
             protected DataHandle getDataHandleInstance(Context context) {
                 return dataHandle;
@@ -303,7 +304,7 @@ public class FlushStrategyTest {
             }
         };
 
-        ThinkingAnalyticsSDK instance_debug = new ThinkingAnalyticsSDK(TDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
+        ThinkingAnalyticsSDK instance_debug = new ThinkingAnalyticsSDK(DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
             @Override
             protected DataHandle getDataHandleInstance(Context context) {
                 return dataHandle;

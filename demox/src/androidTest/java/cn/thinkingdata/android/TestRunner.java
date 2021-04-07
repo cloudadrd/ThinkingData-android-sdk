@@ -6,8 +6,9 @@ import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.runner.AndroidJUnitRunner;
 
+import cn.dataeye.android.DataEyeTDConfig;
 import cn.thinkingdata.android.demo.TDTracker;
-import cn.thinkingdata.android.utils.TDLog;
+import cn.dataeye.android.utils.TDLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +57,7 @@ public class TestRunner extends AndroidJUnitRunner {
     private void initThinkingDataSDK() {
         ThinkingAnalyticsSDK.enableTrackLog(true);
         Context mAppContext = ApplicationProvider.getApplicationContext();
-        TDConfig mConfig = TDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
+        DataEyeTDConfig mConfig = DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
         final DataHandle dataHandle = new DataHandle(mAppContext) {
             @Override
             protected DatabaseAdapter getDbAdapter(Context context) {
@@ -82,7 +83,7 @@ public class TestRunner extends AndroidJUnitRunner {
         };
 
         ThinkingAnalyticsSDK.addInstance(mInstance, mAppContext, TA_APP_ID);
-        mDebugInstance = new ThinkingAnalyticsSDK(TDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
+        mDebugInstance = new ThinkingAnalyticsSDK(DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
             @Override
             protected DataHandle getDataHandleInstance(Context context) {
                 return dataHandle;

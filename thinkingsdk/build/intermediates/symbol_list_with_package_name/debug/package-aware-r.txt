@@ -1,0 +1,8 @@
+cn.dataeye.android
+id thinking_analytics_tag_view_fragment_name
+id thinking_analytics_tag_view_id
+id thinking_analytics_tag_view_ignored
+id thinking_analytics_tag_view_onclick_timestamp
+id thinking_analytics_tag_view_properties
+id thinking_analytics_tag_view_value
+string app_name

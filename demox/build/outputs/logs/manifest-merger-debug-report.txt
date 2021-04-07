@@ -1,0 +1,276 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:2:1-70:12
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:2:1-70:12
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:2:1-70:12
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:2:1-70:12
+MERGED from [cn.thinkingdata.android:ThinkingAnalyticsRuntime:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/699d021a5a6030a4aa2d2777959cdfa3/jetified-ThinkingAnalyticsRuntime-2.0.0/AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.material:material:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.0.2] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c489c59949ace31c44fc233a958c60e1/appcompat-1.0.2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a9d412c524f051d0d1c2a498f2f7b0a8/constraintlayout-1.1.3/AndroidManifest.xml:2:1-11:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a56c656c975158416698acb9ce73e98a/legacy-support-v4-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/f33292fc229ad2fd86ccac54f92b9aae/vectordrawable-animated-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/daa19d657177e14eda765a05de3ed4cc/vectordrawable-1.0.1/AndroidManifest.xml:17:1-22:12
+MERGED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-28:12
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/e5e6972da75b2cc19d7e6a1da9b75266/recyclerview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/f0671b3f9d79e81d8b2682234abad84a/fragment-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/2f110f18a0f24f9d052c1e6007ae667f/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/1aaee133a118121a4980a18e56587e4b/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/0cc6046682c1f2c3fafa1c21ea0e2f44/media-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/ecaf4e1853ae680f0cecadd26b02d42c/transition-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/e773937b889eb6c7baf166efa05b80b7/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/37e34ad40d44ab538cde1e3421dcecaa/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/0a8fb24575a25563728b4a833aaac385/coordinatorlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/7139f2720504109622777fca63e37806/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c44f8a6d01d9dd79d7a365db9a3e0052/slidingpanelayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d95dd6646a9d9523b2317252597a005f/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a4dd996b558943d099a9ab66a756127c/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/9d26cf75e2e6e50b5a36569f40108fb3/asynclayoutinflater-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.0.1] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d0721e40023b39ad20af154960126215/core-1.0.1/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/215a82d04a8c3df954a4cf33a9a5ad88/versionedparcelable-1.0.0/AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/6a1ac5a6877fb118075bbdc3d51aeade/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/68f3d583eb070319725d972ed0873bbf/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/54d34433c48e955893eac80216e7dd78/lifecycle-runtime-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/11936136fc4b238f081fb754da7775fb/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/5d51f6fb16cfedd8162a8018da370004/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c81be12df0fa4b036ceead4811b49e5a/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/33e801a1357321f6670690501a1a8416/lifecycle-viewmodel-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c6f4fafc93e6e4c0c3752c3968f5371c/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/62c9ea2c45bad6ab9ae681f38abe144a/lifecycle-livedata-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/3ce906c29ed20bb863a7b262dca39245/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/fb8ef635c1865dc6c013f147ba8915b3/core-runtime-2.0.0/AndroidManifest.xml:17:1-22:12
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:2:1-70:12
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:2:1-70:12
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:2:1-70:12
+	package
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:4:5-43
+		INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+		INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:2:1-70:12
+		INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:2:1-70:12
+		INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:6:5-67
+MERGED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-67
+MERGED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-67
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:6:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:7:5-79
+MERGED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-79
+MERGED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-79
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:7:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:8:5-76
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:8:22-73
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:9:5-75
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:9:22-72
+application
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:11:5-68:19
+MERGED from [com.google.android.material:material:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/AndroidManifest.xml:22:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a9d412c524f051d0d1c2a498f2f7b0a8/constraintlayout-1.1.3/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a9d412c524f051d0d1c2a498f2f7b0a8/constraintlayout-1.1.3/AndroidManifest.xml:9:5-20
+MERGED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:5-26:19
+MERGED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:5-26:19
+MERGED from [androidx.core:core:1.0.1] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d0721e40023b39ad20af154960126215/core-1.0.1/AndroidManifest.xml:22:5-89
+MERGED from [androidx.core:core:1.0.1] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d0721e40023b39ad20af154960126215/core-1.0.1/AndroidManifest.xml:22:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/215a82d04a8c3df954a4cf33a9a5ad88/versionedparcelable-1.0.0/AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/215a82d04a8c3df954a4cf33a9a5ad88/versionedparcelable-1.0.0/AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.0.1] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d0721e40023b39ad20af154960126215/core-1.0.1/AndroidManifest.xml:22:18-86
+	android:supportsRtl
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:17:9-35
+	android:label
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:15:9-41
+	tools:ignore
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:19:9-48
+	android:roundIcon
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:16:9-54
+	android:icon
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:14:9-43
+	android:allowBackup
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:13:9-35
+	android:theme
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:18:9-40
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:12:9-40
+activity#cn.thinkingdata.android.demo.ClickTestActivity
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:21:9-24:59
+	android:label
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:23:13-62
+	android:theme
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:24:13-56
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:22:13-46
+activity#cn.thinkingdata.android.demo.WebViewActivity
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:26:9-29:59
+	android:label
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:28:13-59
+	android:theme
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:29:13-56
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:27:13-44
+meta-data#cn.thinkingdata.android.EnableTrackLogging
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:32:9-34:36
+	android:value
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:34:13-33
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:33:13-70
+meta-data#cn.thinkingdata.android.MinimumDatabaseLimit
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:37:9-39:34
+	android:value
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:39:13-31
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:38:13-72
+meta-data#cn.thinkingdata.android.RetentionDays
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:42:9-44:33
+	android:value
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:44:13-30
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:43:13-65
+meta-data#cn.thinkingdata.android.EnableQuitSafely
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:47:9-49:37
+	android:value
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:49:13-34
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:48:13-68
+meta-data#cn.thinkingdata.android.QuitSafelyTimeout
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:52:9-54:36
+	android:value
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:54:13-33
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:53:13-69
+activity#cn.thinkingdata.android.demo.DisplayActivity
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:56:9-59:58
+	android:parentActivityName
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:59:13-55
+	android:label
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:58:13-59
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:57:13-44
+activity#cn.thinkingdata.android.demo.MainActivity
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:61:9-67:20
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:61:19-47
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:62:13-66:29
+action#android.intent.action.MAIN
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:63:17-69
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:63:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:65:17-77
+	android:name
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:65:27-74
+uses-sdk
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+MERGED from [cn.thinkingdata.android:ThinkingAnalyticsRuntime:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/699d021a5a6030a4aa2d2777959cdfa3/jetified-ThinkingAnalyticsRuntime-2.0.0/AndroidManifest.xml:6:5-8:41
+MERGED from [cn.thinkingdata.android:ThinkingAnalyticsRuntime:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/699d021a5a6030a4aa2d2777959cdfa3/jetified-ThinkingAnalyticsRuntime-2.0.0/AndroidManifest.xml:6:5-8:41
+MERGED from [com.google.android.material:material:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.2] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c489c59949ace31c44fc233a958c60e1/appcompat-1.0.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.2] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c489c59949ace31c44fc233a958c60e1/appcompat-1.0.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a9d412c524f051d0d1c2a498f2f7b0a8/constraintlayout-1.1.3/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a9d412c524f051d0d1c2a498f2f7b0a8/constraintlayout-1.1.3/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a56c656c975158416698acb9ce73e98a/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a56c656c975158416698acb9ce73e98a/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/f33292fc229ad2fd86ccac54f92b9aae/vectordrawable-animated-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/f33292fc229ad2fd86ccac54f92b9aae/vectordrawable-animated-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/daa19d657177e14eda765a05de3ed4cc/vectordrawable-1.0.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/daa19d657177e14eda765a05de3ed4cc/vectordrawable-1.0.1/AndroidManifest.xml:20:5-44
+MERGED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/e5e6972da75b2cc19d7e6a1da9b75266/recyclerview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/e5e6972da75b2cc19d7e6a1da9b75266/recyclerview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/f0671b3f9d79e81d8b2682234abad84a/fragment-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/f0671b3f9d79e81d8b2682234abad84a/fragment-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/2f110f18a0f24f9d052c1e6007ae667f/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/2f110f18a0f24f9d052c1e6007ae667f/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/1aaee133a118121a4980a18e56587e4b/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/1aaee133a118121a4980a18e56587e4b/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/0cc6046682c1f2c3fafa1c21ea0e2f44/media-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/0cc6046682c1f2c3fafa1c21ea0e2f44/media-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/ecaf4e1853ae680f0cecadd26b02d42c/transition-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/ecaf4e1853ae680f0cecadd26b02d42c/transition-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/e773937b889eb6c7baf166efa05b80b7/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/e773937b889eb6c7baf166efa05b80b7/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/37e34ad40d44ab538cde1e3421dcecaa/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/37e34ad40d44ab538cde1e3421dcecaa/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/0a8fb24575a25563728b4a833aaac385/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/0a8fb24575a25563728b4a833aaac385/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/7139f2720504109622777fca63e37806/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/7139f2720504109622777fca63e37806/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c44f8a6d01d9dd79d7a365db9a3e0052/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c44f8a6d01d9dd79d7a365db9a3e0052/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d95dd6646a9d9523b2317252597a005f/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d95dd6646a9d9523b2317252597a005f/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a4dd996b558943d099a9ab66a756127c/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/a4dd996b558943d099a9ab66a756127c/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/9d26cf75e2e6e50b5a36569f40108fb3/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/9d26cf75e2e6e50b5a36569f40108fb3/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.1] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d0721e40023b39ad20af154960126215/core-1.0.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.0.1] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d0721e40023b39ad20af154960126215/core-1.0.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/215a82d04a8c3df954a4cf33a9a5ad88/versionedparcelable-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/215a82d04a8c3df954a4cf33a9a5ad88/versionedparcelable-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/6a1ac5a6877fb118075bbdc3d51aeade/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/6a1ac5a6877fb118075bbdc3d51aeade/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/68f3d583eb070319725d972ed0873bbf/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/68f3d583eb070319725d972ed0873bbf/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/54d34433c48e955893eac80216e7dd78/lifecycle-runtime-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/54d34433c48e955893eac80216e7dd78/lifecycle-runtime-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/11936136fc4b238f081fb754da7775fb/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/11936136fc4b238f081fb754da7775fb/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/5d51f6fb16cfedd8162a8018da370004/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/5d51f6fb16cfedd8162a8018da370004/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c81be12df0fa4b036ceead4811b49e5a/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c81be12df0fa4b036ceead4811b49e5a/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/33e801a1357321f6670690501a1a8416/lifecycle-viewmodel-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/33e801a1357321f6670690501a1a8416/lifecycle-viewmodel-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c6f4fafc93e6e4c0c3752c3968f5371c/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/c6f4fafc93e6e4c0c3752c3968f5371c/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/62c9ea2c45bad6ab9ae681f38abe144a/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/62c9ea2c45bad6ab9ae681f38abe144a/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/3ce906c29ed20bb863a7b262dca39245/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/3ce906c29ed20bb863a7b262dca39245/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/fb8ef635c1865dc6c013f147ba8915b3/core-runtime-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/fb8ef635c1865dc6c013f147ba8915b3/core-runtime-2.0.0/AndroidManifest.xml:20:5-44
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+		INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+		INJECTED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml
+meta-data#cn.dataeye.android.MainProcessName
+ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:9-20:48
+	android:value
+		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-45
+	android:name
+		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-62
+service#cn.dataeye.android.DataEyeQuitSafelyService$DataEyeKeepAliveService
+ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-25:44
+	android:exported
+		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-37
+	android:stopWithTask
+		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:13-41
+	android:name
+		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-95

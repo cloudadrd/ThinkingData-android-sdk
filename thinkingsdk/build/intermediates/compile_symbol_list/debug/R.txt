@@ -1,0 +1,7 @@
+int id thinking_analytics_tag_view_fragment_name 0x0
+int id thinking_analytics_tag_view_id 0x0
+int id thinking_analytics_tag_view_ignored 0x0
+int id thinking_analytics_tag_view_onclick_timestamp 0x0
+int id thinking_analytics_tag_view_properties 0x0
+int id thinking_analytics_tag_view_value 0x0
+int string app_name 0x0
