@@ -2,14 +2,17 @@ package cn.thinkingdata.android.demo;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.thinkingdata.android.ThinkingAnalyticsSDK;
 
 public class TDTracker {
     /**
      * 项目APP_ID，在申请项目时会给出
      */
-    private static final String TA_APP_ID = "b2a61feb9e56472c90c5bcb320dfb4ef";
-    private static final String TA_APP_ID_DEBUG = "debug-appid";
+    private static final String TA_APP_ID = "12552a8a2bd540a1af3748aac990903d";
+    private static final String TA_APP_ID_DEBUG = "12552a8a2bd540a1af3748aac990903d";
 
     /**
      * 数据上传地址
@@ -18,7 +21,7 @@ public class TDTracker {
      * 如果您使用的是私有化部署的版本，请输入以下URL:
      * http://数据采集地址:9080
      */
-    private static final String TA_SERVER_URL = "https://sdk.tga.thinkinggame.cn";
+    private static final String TA_SERVER_URL = "https://biapi.adsgreat.cn/logbu";
 
     private static ThinkingAnalyticsSDK mInstance;
     private static ThinkingAnalyticsSDK mDebugInstance;
@@ -65,13 +68,23 @@ public class TDTracker {
         mLightInstance = mInstance.createLightInstance();
 
         // enable auto track
-        //List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
-        //eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_START);
-        //eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_END);
-        //eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
-        //eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
-        //eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
-        //mDebugInstance.enableAutoTrack(eventTypeList);
+        List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
+        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
+        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_START);
+        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_END);
+//        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
+//        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
+//        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
+        mDebugInstance.enableAutoTrack(eventTypeList);
+
+        List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList1 = new ArrayList<>();
+        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
+        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_START);
+        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_END);
+//        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
+//        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
+//        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
+        mInstance.enableAutoTrack(eventTypeList1);
 
         //// enable fragment auto track
         ////mInstance.trackFragmentAppViewScreen();

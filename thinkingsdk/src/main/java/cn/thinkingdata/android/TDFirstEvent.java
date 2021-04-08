@@ -15,7 +15,8 @@ import cn.thinkingdata.android.utils.TDLog;
  *
  *  默认情况下，会使用设备 ID 作为 #first_check_id.
  */
-public class TDFirstEvent extends ThinkingAnalyticsEvent {
+public class
+TDFirstEvent extends ThinkingAnalyticsEvent {
     private static final String TAG = "ThinkingAnalytics.TDUniqueEvent";
 
     private String mExtraValue;

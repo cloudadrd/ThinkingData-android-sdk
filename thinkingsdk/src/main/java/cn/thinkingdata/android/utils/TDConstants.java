@@ -79,6 +79,8 @@ public class TDConstants {
     public static final String KEY_TIME = "#time";
     public static final String KEY_DISTINCT_ID = "#distinct_id";
     public static final String KEY_ACCOUNT_ID = "#account_id";
+    public static final String KEY_OAID = "#oaid";
+    public static final String KEY_IMEI = "#imei";
     public static final String KEY_EVENT_NAME = "#event_name";
     public static final String KEY_PROPERTIES = "properties";
 

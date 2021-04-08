@@ -38,7 +38,7 @@ class ThinkingAnalyticsConfig {
      * Return boot classpath.
      * @return Collection of classes.
      */
-    List<File> getBootClasspath() {
+    List<File> getBootClasspath() {4
         if (project.android.hasProperty('bootClasspath')) {
             return project.android.bootClasspath
         } else {

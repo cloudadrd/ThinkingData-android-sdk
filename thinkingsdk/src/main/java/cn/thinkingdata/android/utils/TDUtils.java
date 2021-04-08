@@ -1,5 +1,6 @@
 package cn.thinkingdata.android.utils;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -8,7 +9,9 @@ import android.content.ContextWrapper;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -41,7 +44,57 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static android.Manifest.permission.READ_PHONE_STATE;
+import android.telephony.TelephonyManager;
+import static android.Manifest.permission.READ_PHONE_STATE;
+
 public class TDUtils {
+
+    public static boolean isPermissionGranted(final Context context, final String permission) {
+        if (null == context || TextUtils.isEmpty(permission)) {
+            return false;
+        }
+
+        //之前的方法,对版本有要求,必须是23以上
+        return context.checkPermission(permission, android.os.Process.myPid(), android.os.Process.myUid()) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    /**
+     * @return 获取手机IMEI
+     */
+    @SuppressLint({"HardwareIds", "MissingPermission"})
+    public static String getIMEI(final Context context) {
+        if (!isPermissionGranted(context, READ_PHONE_STATE)) {
+            return null;
+        }
+        String imei = "";
+        try {
+            TelephonyManager mTelephony =
+                    (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (mTelephony == null) return null;
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    if (mTelephony.getPhoneCount() == 2) {
+                        imei = mTelephony.getImei(0);
+                    } else {
+                        imei = mTelephony.getImei();
+                    }
+                } else {
+                    if (mTelephony.getPhoneCount() == 2) {
+                        imei = mTelephony.getDeviceId(0);
+                    } else {
+                        imei = mTelephony.getDeviceId();
+                    }
+                }
+            } else {
+                imei = mTelephony.getDeviceId();
+            }
+        } catch (Exception e) {
+            Log.d("getIMEI",e.getMessage());
+        }
+        return imei;
+    }
 
     private static int getChildIndex(ViewParent parent, View child) {
         try {

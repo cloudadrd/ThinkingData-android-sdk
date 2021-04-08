@@ -23,6 +23,8 @@ class DataDescription {
 
     private String mDistinctId;
     private String mAccountId;
+    private String mOaid;
+    private String mImei;
 
     private final JSONObject mProperties; // 属性
 
@@ -43,6 +45,8 @@ class DataDescription {
         mToken = instance.getToken();
         mDistinctId = instance.getDistinctId();
         mAccountId = instance.getLoginId();
+        mOaid = instance.getOAID();
+        mImei = instance.getIMEI();
     }
 
     void setNoCache() {
@@ -63,6 +67,14 @@ class DataDescription {
             finalData.put(TDConstants.KEY_DISTINCT_ID, mDistinctId);
             if (null != mAccountId) {
                 finalData.put(TDConstants.KEY_ACCOUNT_ID, mAccountId);
+            }
+
+            if (null != mOaid) {
+                finalData.put(TDConstants.KEY_OAID, mOaid);
+            }
+
+            if (null != mImei) {
+                finalData.put(TDConstants.KEY_IMEI, mImei);
             }
 
             if (null != mExtraFields) {

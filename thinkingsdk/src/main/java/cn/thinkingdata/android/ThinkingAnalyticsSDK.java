@@ -18,6 +18,8 @@ import cn.thinkingdata.android.persistence.StorageLoginID;
 import cn.thinkingdata.android.persistence.StorageOptOutFlag;
 import cn.thinkingdata.android.persistence.StorageRandomID;
 import cn.thinkingdata.android.persistence.StorageSuperProperties;
+import cn.thinkingdata.android.persistence.StorageOAID;
+import cn.thinkingdata.android.persistence.StorageIMEI;
 import cn.thinkingdata.android.utils.ICalibratedTime;
 import cn.thinkingdata.android.utils.ITime;
 import cn.thinkingdata.android.utils.TDCalibratedTime;
@@ -49,6 +51,10 @@ import java.util.TimeZone;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import com.bun.miitmdid.core.MdidSdkHelper;
+import com.bun.miitmdid.interfaces.IIdentifierListener;
+import com.bun.miitmdid.interfaces.IdSupplier;
 
 public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
     static Boolean f = false; //是否上报了用户属性
@@ -203,6 +209,8 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
             mSuperProperties = null;
             mOptOutFlag = null;
             mEnableFlag = null;
+            mOAID = null;
+            mIMEI = null;
             mEnableTrackOldData = false;
             mTrackTimer = new HashMap<>();
             mMessages = getDataHandleInstance(config.mContext);
@@ -229,11 +237,28 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
         mSuperProperties = new StorageSuperProperties(storedPrefs);
         mOptOutFlag = new StorageOptOutFlag(storedPrefs);
         mEnableFlag = new StorageEnableFlag(storedPrefs);
-
+        mOAID = new StorageOAID(storedPrefs);
+        mIMEI = new StorageIMEI(storedPrefs);
         mSystemInformation = SystemInformation.getInstance(config.mContext);
 
         //设置aid到accountid
         mLoginId.put(mSystemInformation.getAndroidID(config.mContext));
+
+        //设置oaid
+        MdidSdkHelper.InitSdk(config.mContext, true, new IIdentifierListener() {
+            @Override
+            public void OnSupport(boolean b, final IdSupplier idSupplier) {
+                if (idSupplier != null && idSupplier.isSupported()) {
+                    mOAID.put(idSupplier.getOAID());
+                }
+            }
+        });
+
+        //设置imei
+        String IMEI = TDUtils.getIMEI(config.mContext);
+        if(IMEI != null){
+            mIMEI.put(IMEI);
+        }
 
         mMessages = getDataHandleInstance(config.mContext);
 
@@ -708,6 +733,18 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
                 }
             }
             return loginId;
+        }
+    }
+    String getOAID() {
+        synchronized (mOAID) {
+            String oaid = mOAID.get();
+            return oaid;
+        }
+    }
+
+    String getIMEI() {
+        synchronized (mIMEI) {
+            return mIMEI.get();
         }
     }
 
@@ -1497,7 +1534,8 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
     private final StorageEnableFlag mEnableFlag;
     private final StorageOptOutFlag mOptOutFlag;
     private final StorageSuperProperties mSuperProperties;
-
+    private final StorageOAID mOAID;
+    private final StorageIMEI mIMEI;
 
     // 动态公共属性接口
     private DynamicSuperPropertiesTracker mDynamicSuperPropertiesTracker;
