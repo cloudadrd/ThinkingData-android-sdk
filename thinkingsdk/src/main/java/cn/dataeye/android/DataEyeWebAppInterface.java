@@ -6,7 +6,7 @@ import android.webkit.JavascriptInterface;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeLog;
 
 public class DataEyeWebAppInterface {
     private final static String TAG = "ThinkingAnalytics.TDWebAppInterface";
@@ -37,7 +37,7 @@ public class DataEyeWebAppInterface {
             return;
         }
 
-        TDLog.d(TAG, event);
+        DataEyeLog.d(TAG, event);
 
         try {
             JSONObject eventData = new JSONObject(event);
@@ -59,7 +59,7 @@ public class DataEyeWebAppInterface {
                 defaultInstance.trackFromH5(event);
             }
         } catch (JSONException e) {
-            TDLog.w(TAG, "Unexpected exception occurred: " + e.toString());
+            DataEyeLog.w(TAG, "Unexpected exception occurred: " + e.toString());
         }
 
     }

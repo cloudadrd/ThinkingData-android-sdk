@@ -10,10 +10,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import cn.dataeye.android.utils.ITime;
-import cn.dataeye.android.utils.TDConstants;
-import cn.dataeye.android.utils.TDUtils;
+import cn.dataeye.android.utils.DataEyeConstants;
+import cn.dataeye.android.utils.DataEyeUtils;
 import cn.dataeye.android.utils.PropertyUtils;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONObject;
 
@@ -24,7 +24,7 @@ import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
-    private static final String TAG = "ThinkingAnalytics.ThinkingDataActivityLifecycleCallbacks";
+    private static final String TAG = "DataEyeAnalytics.DataEyeActivityLifecycleCallbacks";
     private boolean resumeFromBackground = false;
     private final Object mActivityLifecycleCallbacksLock = new Object();
     private final DataEyeAnalyticsSDK mThinkingDataInstance;
@@ -72,7 +72,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
                 if (notStartedActivity(activity, false)) {
                     mStartedActivityList.add(new WeakReference<>(activity));
                 } else {
-                    TDLog.w(TAG, "Unexpected state. The activity might not be stopped correctly: " + activity);
+                    DataEyeLog.w(TAG, "Unexpected state. The activity might not be stopped correctly: " + activity);
                 }
             }
         } catch (Exception e) {
@@ -87,20 +87,20 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
                     if (!mThinkingDataInstance.isAutoTrackEventTypeIgnored(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START)) {
 
                         JSONObject properties = new JSONObject();
-                        properties.put(TDConstants.KEY_RESUME_FROM_BACKGROUND, resumeFromBackground);
-                        TDUtils.getScreenNameAndTitleFromActivity(properties, activity);
+                        properties.put(DataEyeConstants.KEY_RESUME_FROM_BACKGROUND, resumeFromBackground);
+                        DataEyeUtils.getScreenNameAndTitleFromActivity(properties, activity);
 
                         if (null == time) {
-                            mThinkingDataInstance.autoTrack(TDConstants.APP_START_EVENT_NAME, properties);
+                            mThinkingDataInstance.autoTrack(DataEyeConstants.APP_START_EVENT_NAME, properties);
                         } else {
                             if (!mThinkingDataInstance.hasDisabled()) {
                                 // track APP_START with cached time and properties.
                                 JSONObject finalProperties = mThinkingDataInstance.getAutoTrackStartProperties();
 
-                                TDUtils.mergeJSONObject(properties, finalProperties, mThinkingDataInstance.mConfig.getDefaultTimeZone());
+                                DataEyeUtils.mergeJSONObject(properties, finalProperties, mThinkingDataInstance.mConfig.getDefaultTimeZone());
 
-                                DataEyeDataDescription dataDescription = new DataEyeDataDescription(mThinkingDataInstance, TDConstants.DataType.TRACK, finalProperties, time);
-                                dataDescription.eventName = TDConstants.APP_START_EVENT_NAME;
+                                DataEyeDataDescription dataDescription = new DataEyeDataDescription(mThinkingDataInstance, DataEyeConstants.DataType.TRACK, finalProperties, time);
+                                dataDescription.eventName = DataEyeConstants.APP_START_EVENT_NAME;
 
                                 mThinkingDataInstance.trackInternal(dataDescription);
                             }
@@ -108,10 +108,10 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
                     }
 
                     if (time == null && !mThinkingDataInstance.isAutoTrackEventTypeIgnored(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END)) {
-                        mThinkingDataInstance.timeEvent(TDConstants.APP_END_EVENT_NAME);
+                        mThinkingDataInstance.timeEvent(DataEyeConstants.APP_END_EVENT_NAME);
                     }
                 } catch (Exception e) {
-                    TDLog.i(TAG, e);
+                    DataEyeLog.i(TAG, e);
                 }
             }
             resumeFromBackground = true;
@@ -122,7 +122,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
     public void onActivityResumed(Activity activity) {
         synchronized (mActivityLifecycleCallbacksLock) {
             if (notStartedActivity(activity, false)) {
-                TDLog.i(TAG, "onActivityResumed: the SDK was initialized after the onActivityStart of " + activity);
+                DataEyeLog.i(TAG, "onActivityResumed: the SDK was initialized after the onActivityStart of " + activity);
                 mStartedActivityList.add(new WeakReference<>(activity));
                 if (mStartedActivityList.size() == 1) {
                     trackAppStart(activity, mThinkingDataInstance.getAutoTrackStartTime());
@@ -139,8 +139,8 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
             if (mThinkingDataInstance.isAutoTrackEnabled() && mShowAutoTrack && !mThinkingDataInstance.isAutoTrackEventTypeIgnored(DataEyeAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN)) {
                 try {
                     JSONObject properties = new JSONObject();
-                    properties.put(TDConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
-                    TDUtils.getScreenNameAndTitleFromActivity(properties, activity);
+                    properties.put(DataEyeConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
+                    DataEyeUtils.getScreenNameAndTitleFromActivity(properties, activity);
 
                     if (activity instanceof DataEyeScreenAutoTracker) {
                         DataEyeScreenAutoTracker dataEyeScreenAutoTracker = (DataEyeScreenAutoTracker) activity;
@@ -148,9 +148,9 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
                         String screenUrl = dataEyeScreenAutoTracker.getScreenUrl();
                         JSONObject otherProperties = dataEyeScreenAutoTracker.getTrackProperties();
                         if (otherProperties != null && PropertyUtils.checkProperty(otherProperties)) {
-                            TDUtils.mergeJSONObject(otherProperties, properties, mThinkingDataInstance.mConfig.getDefaultTimeZone());
+                            DataEyeUtils.mergeJSONObject(otherProperties, properties, mThinkingDataInstance.mConfig.getDefaultTimeZone());
                         } else {
-                            TDLog.d(TAG, "invalid properties: " + otherProperties);
+                            DataEyeLog.d(TAG, "invalid properties: " + otherProperties);
                         }
                         mThinkingDataInstance.trackViewScreenInternal(screenUrl, properties);
                     } else {
@@ -163,11 +163,11 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
                             }
                             mThinkingDataInstance.trackViewScreenInternal(screenUrl, properties);
                         } else {
-                            mThinkingDataInstance.autoTrack(TDConstants.APP_VIEW_EVENT_NAME, properties);
+                            mThinkingDataInstance.autoTrack(DataEyeConstants.APP_VIEW_EVENT_NAME, properties);
                         }
                     }
                 } catch (Exception e) {
-                    TDLog.i(TAG, e);
+                    DataEyeLog.i(TAG, e);
                 }
             }
         } catch (Exception e) {
@@ -179,7 +179,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
     public void onActivityPaused(Activity activity) {
         synchronized (mActivityLifecycleCallbacksLock) {
             if (notStartedActivity(activity, false)) {
-                TDLog.i(TAG, "onActivityPaused: the SDK was initialized after the onActivityStart of " + activity);
+                DataEyeLog.i(TAG, "onActivityPaused: the SDK was initialized after the onActivityStart of " + activity);
                 mStartedActivityList.add(new WeakReference<>(activity));
                 if (mStartedActivityList.size() == 1) {
                     trackAppStart(activity, mThinkingDataInstance.getAutoTrackStartTime());
@@ -201,7 +201,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
         try {
             synchronized (mActivityLifecycleCallbacksLock) {
                 if (notStartedActivity(activity, true)) {
-                    TDLog.i(TAG, "onActivityStopped: the SDK might be initialized after the onActivityStart of " + activity);
+                    DataEyeLog.i(TAG, "onActivityStopped: the SDK might be initialized after the onActivityStart of " + activity);
                     return;
                 }
                 if (mStartedActivityList.size() == 0) {
@@ -216,11 +216,11 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
                             try {
                                 if (!mThinkingDataInstance.isAutoTrackEventTypeIgnored(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END)) {
                                     JSONObject properties = new JSONObject();
-                                    TDUtils.getScreenNameAndTitleFromActivity(properties, activity);
-                                    mThinkingDataInstance.autoTrack(TDConstants.APP_END_EVENT_NAME, properties);
+                                    DataEyeUtils.getScreenNameAndTitleFromActivity(properties, activity);
+                                    mThinkingDataInstance.autoTrack(DataEyeConstants.APP_END_EVENT_NAME, properties);
                                 }
                             } catch (Exception e) {
-                                TDLog.i(TAG, e);
+                                DataEyeLog.i(TAG, e);
                             }
                         }
                     }

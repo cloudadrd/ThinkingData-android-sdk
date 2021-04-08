@@ -2,7 +2,7 @@ package cn.dataeye.android.utils;
 
 import android.util.Log;
 
-public class TDLog {
+public class DataEyeLog {
     volatile static boolean mEnableLog = false;
 
     public static void setEnableLog(boolean enable) {

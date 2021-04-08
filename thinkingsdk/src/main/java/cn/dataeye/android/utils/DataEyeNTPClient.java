@@ -7,7 +7,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 
 
-class TDNTPClient {
+class DataEyeNTPClient {
     private static final String TAG = "ThinkingAnalytics.TDNTPClient";
 
     private static final int ORIGINATE_TIME_OFFSET = 24;
@@ -74,7 +74,7 @@ class TDNTPClient {
             // if (false) Log.d(TAG, "clock offset: " + clockOffset + " ms");
             mOffSet = clockOffset;
         } catch (Exception e) {
-            if (false) TDLog.d(TAG, "request time failed: " + e);
+            if (false) DataEyeLog.d(TAG, "request time failed: " + e);
             return false;
         } finally {
             if (socket != null) {

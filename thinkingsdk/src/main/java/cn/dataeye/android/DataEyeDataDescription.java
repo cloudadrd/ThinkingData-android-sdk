@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.util.Map;
 
 import cn.dataeye.android.utils.ITime;
-import cn.dataeye.android.utils.TDConstants;
+import cn.dataeye.android.utils.DataEyeConstants;
 
 /**
  * TD 数据类
@@ -19,7 +19,7 @@ class DataEyeDataDescription {
     // 数据时间, #time 字段
     private final ITime mTime;
     // 数据类型
-    final TDConstants.DataType mType;
+    final DataEyeConstants.DataType mType;
 
     private String mDistinctId;
     private String mAccountId;
@@ -36,7 +36,7 @@ class DataEyeDataDescription {
 
     final String mToken;
 
-    DataEyeDataDescription(DataEyeAnalyticsSDK instance, TDConstants.DataType type, JSONObject properties, ITime time) {
+    DataEyeDataDescription(DataEyeAnalyticsSDK instance, DataEyeConstants.DataType type, JSONObject properties, ITime time) {
         mType = type;
         mProperties = properties;
         mTime = time;
@@ -57,12 +57,12 @@ class DataEyeDataDescription {
         JSONObject finalData = new JSONObject();
 
         try {
-            finalData.put(TDConstants.KEY_TYPE, mType.getType());
+            finalData.put(DataEyeConstants.KEY_TYPE, mType.getType());
             // 有可能会阻塞
-            finalData.put(TDConstants.KEY_TIME, mTime.getTime());
-            finalData.put(TDConstants.KEY_DISTINCT_ID, mDistinctId);
+            finalData.put(DataEyeConstants.KEY_TIME, mTime.getTime());
+            finalData.put(DataEyeConstants.KEY_DISTINCT_ID, mDistinctId);
             if (null != mAccountId) {
-                finalData.put(TDConstants.KEY_ACCOUNT_ID, mAccountId);
+                finalData.put(DataEyeConstants.KEY_ACCOUNT_ID, mAccountId);
             }
 
             if (null != mExtraFields) {
@@ -72,14 +72,14 @@ class DataEyeDataDescription {
             }
 
             if (mType.isTrack()) {
-                finalData.put(TDConstants.KEY_EVENT_NAME, eventName);
+                finalData.put(DataEyeConstants.KEY_EVENT_NAME, eventName);
                 Double zoneOffset = mTime.getZoneOffset();
                 if (null != zoneOffset) {
-                    mProperties.put(TDConstants.KEY_ZONE_OFFSET, zoneOffset);
+                    mProperties.put(DataEyeConstants.KEY_ZONE_OFFSET, zoneOffset);
                 }
             }
 
-            finalData.put(TDConstants.KEY_PROPERTIES, mProperties);
+            finalData.put(DataEyeConstants.KEY_PROPERTIES, mProperties);
 
         } catch (JSONException e) {
 

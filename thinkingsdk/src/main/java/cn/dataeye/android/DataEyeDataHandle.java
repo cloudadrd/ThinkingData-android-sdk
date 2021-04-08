@@ -10,9 +10,9 @@ import android.widget.Toast;
 
 import cn.dataeye.android.utils.HttpService;
 import cn.dataeye.android.utils.RemoteService;
-import cn.dataeye.android.utils.TDConstants;
-import cn.dataeye.android.utils.TDLog;
-import cn.dataeye.android.utils.TDUtils;
+import cn.dataeye.android.utils.DataEyeConstants;
+import cn.dataeye.android.utils.DataEyeLog;
+import cn.dataeye.android.utils.DataEyeUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +35,7 @@ import java.util.UUID;
  */
 public class DataEyeDataHandle {
 
-    private static final String TAG = "ThinkingAnalytics.DataHandle";
+    private static final String TAG = "DataEyeTAnalytics.DataEyeDataHandle";
     static final String THREAD_NAME_SAVE_WORKER = "thinkingData.sdk.saveMessageWorker";
     static final String THREAD_NAME_SEND_WORKER = "thinkingData.sdk.sendMessageWorker";
 
@@ -82,8 +82,8 @@ public class DataEyeDataHandle {
     }
 
     // for auto tests.
-    protected DataEyeTDConfig getConfig(String token) {
-        return DataEyeTDConfig.getInstance(mContext, token);
+    protected DataEyeConfig getConfig(String token) {
+        return DataEyeConfig.getInstance(mContext, token);
     }
 
     /**
@@ -208,7 +208,7 @@ public class DataEyeDataHandle {
 
                         JSONObject data = dataDescription.get();
                         try {
-                            data.put(TDConstants.DATA_ID, UUID.randomUUID().toString());
+                            data.put(DataEyeConstants.DATA_ID, UUID.randomUUID().toString());
                         } catch (JSONException e) {
                             // ignore
                         }
@@ -216,13 +216,13 @@ public class DataEyeDataHandle {
                             ret = mDbAdapter.addJSON(data, DataEyeDatabaseAdapter.Table.EVENTS, token);
                         }
                         if (ret < 0) {
-                            TDLog.w(TAG, "Saving data to database failed.");
+                            DataEyeLog.w(TAG, "Saving data to database failed.");
                         } else {
-                            TDLog.i(TAG, "Data enqueued(" + TDUtils.getSuffix(token, 4) + "):\n" + data.toString(4));
+                            DataEyeLog.i(TAG, "Data enqueued(" + DataEyeUtils.getSuffix(token, 4) + "):\n" + data.toString(4));
                         }
                         checkSendStrategy(token, ret);
                     } catch (Exception e) {
-                        TDLog.w(TAG, "Exception occurred while saving data to database: " + e.getMessage());
+                        DataEyeLog.w(TAG, "Exception occurred while saving data to database: " + e.getMessage());
                         e.printStackTrace();
                     }
                 } else if (msg.what == EMPTY_QUEUE) {
@@ -254,13 +254,13 @@ public class DataEyeDataHandle {
     }
 
     protected int getFlushBulkSize(String token) {
-        DataEyeTDConfig config = getConfig(token);
-        return null == config ? DataEyeTDConfig.DEFAULT_FLUSH_BULK_SIZE : config.getFlushBulkSize();
+        DataEyeConfig config = getConfig(token);
+        return null == config ? DataEyeConfig.DEFAULT_FLUSH_BULK_SIZE : config.getFlushBulkSize();
     }
 
     protected int getFlushInterval(String token) {
-        DataEyeTDConfig config = getConfig(token);
-        return null == config ? DataEyeTDConfig.DEFAULT_FLUSH_INTERVAL : config.getFlushInterval();
+        DataEyeConfig config = getConfig(token);
+        return null == config ? DataEyeConfig.DEFAULT_FLUSH_INTERVAL : config.getFlushInterval();
     }
 
     protected RemoteService getPoster() {
@@ -346,7 +346,7 @@ public class DataEyeDataHandle {
                        try {
                            mHandler.sendMessageDelayed(msg, delay);
                        } catch (IllegalStateException e) {
-                           TDLog.w(TAG, "The app might be quiting: " + e.getMessage());
+                           DataEyeLog.w(TAG, "The app might be quiting: " + e.getMessage());
                        }
                    }
                }
@@ -364,9 +364,9 @@ public class DataEyeDataHandle {
                 switch (msg.what) {
                     case FLUSH_QUEUE: {
                         String token = (String) msg.obj;
-                        final DataEyeTDConfig config = getConfig(token);
+                        final DataEyeConfig config = getConfig(token);
                         if (null == config) {
-                            TDLog.w(TAG, "Could found config object for token. Canceling...");
+                            DataEyeLog.w(TAG, "Could found config object for token. Canceling...");
                             return;
                         }
                         synchronized (mHandlerLock) {
@@ -380,7 +380,7 @@ public class DataEyeDataHandle {
                         try {
                             sendData(config);
                         } catch (final RuntimeException e) {
-                            TDLog.w(TAG, "Sending data to server failed due to unexpected exception: " + e.getMessage());
+                            DataEyeLog.w(TAG, "Sending data to server failed due to unexpected exception: " + e.getMessage());
                             e.printStackTrace();
                         }
 
@@ -391,15 +391,15 @@ public class DataEyeDataHandle {
                         break;
                     }
                     case FLUSH_QUEUE_OLD: {
-                        final DataEyeTDConfig config = getConfig((String) msg.obj);
+                        final DataEyeConfig config = getConfig((String) msg.obj);
                         if (null == config) {
-                            TDLog.w(TAG, "Could found config object for token. Canceling...");
+                            DataEyeLog.w(TAG, "Could found config object for token. Canceling...");
                             return;
                         }
                         try {
                             sendData("", config);
                         } catch (final RuntimeException e) {
-                            TDLog.w(TAG, "Sending old data failed due to unexpected exception: " + e.getMessage());
+                            DataEyeLog.w(TAG, "Sending old data failed due to unexpected exception: " + e.getMessage());
                             e.printStackTrace();
                         }
                         break;
@@ -423,31 +423,31 @@ public class DataEyeDataHandle {
                             JSONObject data = dataDescription.get();
                             sendData(getConfig(dataDescription.mToken), data);
                         } catch (Exception e) {
-                            TDLog.e(TAG, "Exception occurred while sending message to Server: " + e.getMessage());
+                            DataEyeLog.e(TAG, "Exception occurred while sending message to Server: " + e.getMessage());
                         }
                         break;
                     case SEND_TO_DEBUG: {
                         try {
                             DataEyeDataDescription dataDescription = (DataEyeDataDescription) msg.obj;
                             if (null == dataDescription) return;
-                            DataEyeTDConfig config = getConfig(dataDescription.mToken);
+                            DataEyeConfig config = getConfig(dataDescription.mToken);
                             if (config.isNormal()) {
                                 saveClickData(dataDescription);
                             } else {
                                 try {
                                     JSONObject data = dataDescription.get();
                                     if (dataDescription.mType.isTrack()) {
-                                        JSONObject originalProperties = data.getJSONObject(TDConstants.KEY_PROPERTIES);
+                                        JSONObject originalProperties = data.getJSONObject(DataEyeConstants.KEY_PROPERTIES);
                                         JSONObject finalObject = new JSONObject();
-                                        TDUtils.mergeJSONObject(mDeviceInfo, finalObject, config.getDefaultTimeZone());
-                                        TDUtils.mergeJSONObject(originalProperties, finalObject, config.getDefaultTimeZone());
-                                        data.put(TDConstants.KEY_PROPERTIES, finalObject);
+                                        DataEyeUtils.mergeJSONObject(mDeviceInfo, finalObject, config.getDefaultTimeZone());
+                                        DataEyeUtils.mergeJSONObject(originalProperties, finalObject, config.getDefaultTimeZone());
+                                        data.put(DataEyeConstants.KEY_PROPERTIES, finalObject);
                                         sendDebugData(config, data);
                                     } else {
                                         sendDebugData(config, data);
                                     }
                                 } catch (Exception e) {
-                                    TDLog.e(TAG, "Exception occurred while sending message to Server: " + e.getMessage());
+                                    DataEyeLog.e(TAG, "Exception occurred while sending message to Server: " + e.getMessage());
                                     if (config.shouldThrowException()) {
                                         throw new DataEyeDebugException(e);
                                     } else if (!config.isDebugOnly()) {
@@ -465,20 +465,20 @@ public class DataEyeDataHandle {
         }
 
         // 发送单条数据到 Debug 模式
-        private void sendDebugData(DataEyeTDConfig config, JSONObject data) throws IOException, RemoteService.ServiceUnavailableException, JSONException {
+        private void sendDebugData(DataEyeConfig config, JSONObject data) throws IOException, RemoteService.ServiceUnavailableException, JSONException {
             StringBuilder sb = new StringBuilder();
             sb.append("appid=");
             sb.append(config.mToken);
             sb.append("&deviceId=");
-            sb.append(mDeviceInfo.getString(TDConstants.KEY_DEVICE_ID));
+            sb.append(mDeviceInfo.getString(DataEyeConstants.KEY_DEVICE_ID));
             sb.append("&source=client&data=");
             sb.append(URLEncoder.encode(data.toString()));
             if (config.isDebugOnly()) {
                 sb.append("&dryRun=1");
             }
 
-            String tokenSuffix = TDUtils.getSuffix(config.mToken, 4);
-            TDLog.d(TAG, "uploading message(" + tokenSuffix + "):\n" + data.toString(4));
+            String tokenSuffix = DataEyeUtils.getSuffix(config.mToken, 4);
+            DataEyeLog.d(TAG, "uploading message(" + tokenSuffix + "):\n" + data.toString(4));
 
 
             String response = mPoster.performRequest(config.getDebugUrl(), sb.toString(), true, config.getSSLSocketFactory(), createExtraHeaders("1"));
@@ -490,10 +490,10 @@ public class DataEyeDataHandle {
             if (errorLevel == -1) {
                 if (config.isDebugOnly()) {
                     // Just discard the data
-                    TDLog.w(TAG, "The data will be discarded due to this device is not allowed to debug for: " + tokenSuffix);
+                    DataEyeLog.w(TAG, "The data will be discarded due to this device is not allowed to debug for: " + tokenSuffix);
                     return;
                 }
-                config.setMode(DataEyeTDConfig.ModeEnum.NORMAL);
+                config.setMode(DataEyeConfig.ModeEnum.NORMAL);
                 throw new DataEyeDebugException("Fallback to normal mode due to the device is not allowed to debug for: " + tokenSuffix);
             }
 
@@ -508,12 +508,12 @@ public class DataEyeDataHandle {
             if (errorLevel != 0) {
                 if (respObj.has("errorProperties")) {
                     JSONArray errProperties = respObj.getJSONArray("errorProperties");
-                    TDLog.d(TAG, " Error Properties: \n" + errProperties.toString(4));
+                    DataEyeLog.d(TAG, " Error Properties: \n" + errProperties.toString(4));
                 }
 
                 if (respObj.has("errorReasons")) {
                     JSONArray errReasons = respObj.getJSONArray("errorReasons");
-                    TDLog.d(TAG, "Error Reasons: \n" + errReasons.toString(4));
+                    DataEyeLog.d(TAG, "Error Reasons: \n" + errReasons.toString(4));
                 }
 
                 if (config.shouldThrowException()) {
@@ -526,12 +526,12 @@ public class DataEyeDataHandle {
                     }
                 }
             } else {
-                TDLog.d(TAG, "Upload debug data successfully for " + tokenSuffix);
+                DataEyeLog.d(TAG, "Upload debug data successfully for " + tokenSuffix);
             }
         }
 
         // 发送单条数据到接收端
-        private void sendData(DataEyeTDConfig config, JSONObject data) throws IOException, RemoteService.ServiceUnavailableException, JSONException {
+        private void sendData(DataEyeConfig config, JSONObject data) throws IOException, RemoteService.ServiceUnavailableException, JSONException {
             if (TextUtils.isEmpty(config.mToken)) {
                 return;
             }
@@ -550,16 +550,16 @@ public class DataEyeDataHandle {
             String response = mPoster.performRequest(config.getServerUrl(), dataString, false, config.getSSLSocketFactory(), createExtraHeaders("1"));
             JSONObject responseJson = new JSONObject(response);
             String ret = responseJson.getString("code");
-            TDLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
+            DataEyeLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
         }
 
-        private void sendData(DataEyeTDConfig config) {
+        private void sendData(DataEyeConfig config) {
             sendData(config.mToken, config);
         }
 
-        private void sendData(String fromToken, DataEyeTDConfig config) {
+        private void sendData(String fromToken, DataEyeConfig config) {
             if (config == null) {
-                TDLog.w(TAG, "Could found config object for sendToken. Canceling...");
+                DataEyeLog.w(TAG, "Could found config object for sendToken. Canceling...");
                 return;
             }
 
@@ -601,7 +601,7 @@ public class DataEyeDataHandle {
                     try {
                         myJsonArray = new JSONArray(clickData);
                     } catch (JSONException e) {
-                        TDLog.w(TAG, "The data is invalid: " + clickData);
+                        DataEyeLog.w(TAG, "The data is invalid: " + clickData);
                         throw e;
                     }
 
@@ -611,16 +611,16 @@ public class DataEyeDataHandle {
                         dataObj.put(KEY_AUTOMATIC_DATA, mDeviceInfo);
                         dataObj.put(KEY_APP_ID, config.mToken);
                     } catch (JSONException e) {
-                        TDLog.w(TAG, "Invalid data: " + dataObj.toString());
+                        DataEyeLog.w(TAG, "Invalid data: " + dataObj.toString());
                         throw e;
                     }
 
                     deleteEvents = true;
                     String dataString = dataObj.toString();
-                    String response = mPoster.performRequest(config.getServerUrl(), dataString, false, config.getSSLSocketFactory(), createExtraHeaders(String.valueOf(myJsonArray.length())));
+                    String response = mPoster.performRequest( "http://172.31.4.170:8080/v1/sdk/report"/*config.getServerUrl()*/, dataString, false, config.getSSLSocketFactory(), createExtraHeaders(String.valueOf(myJsonArray.length())));
                     JSONObject responseJson = new JSONObject(response);
                     String ret = responseJson.getString("code");
-                    TDLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
+                    DataEyeLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
                 } catch (final RemoteService.ServiceUnavailableException e) {
                     deleteEvents = false;
                     errorMessage = "Cannot post message to [" + config.getServerUrl() + "] due to " + e.getMessage();
@@ -634,14 +634,14 @@ public class DataEyeDataHandle {
                     errorMessage = "Cannot post message due to JSONException, the data will be deleted";
                 } finally {
                     if (!TextUtils.isEmpty(errorMessage)) {
-                        TDLog.d(TAG, errorMessage);
+                        DataEyeLog.d(TAG, errorMessage);
                     }
 
                     if (deleteEvents) {
                         synchronized (mDbAdapter) {
                             count = mDbAdapter.cleanupEvents(lastId, DataEyeDatabaseAdapter.Table.EVENTS, fromToken);
                         }
-                        TDLog.i(TAG, String.format(Locale.CHINA, "Events flushed. [left = %d]", count));
+                        DataEyeLog.i(TAG, String.format(Locale.CHINA, "Events flushed. [left = %d]", count));
                     } else {
                         count = 0;
                     }

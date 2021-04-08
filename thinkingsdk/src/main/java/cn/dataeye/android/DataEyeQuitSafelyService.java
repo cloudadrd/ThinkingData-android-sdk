@@ -9,8 +9,8 @@ import android.os.IBinder;
 import android.os.Looper;
 
 import cn.dataeye.android.utils.PropertyUtils;
-import cn.dataeye.android.utils.TDConstants;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeConstants;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,13 +75,13 @@ public class DataEyeQuitSafelyService {
                 mContext.startService(new Intent(mContext, DataEyeKeepAliveService.class));
             }
         } catch (Exception e) {
-            TDLog.w(TAG, "Unexpected exception occurred: " + e.getMessage());
+            DataEyeLog.w(TAG, "Unexpected exception occurred: " + e.getMessage());
         }
     }
 
     private void quit() {
         if (DataEyeContextConfig.getInstance(mContext).quitSafelyEnabled()) {
-            TDLog.i(TAG, "The App is quiting...");
+            DataEyeLog.i(TAG, "The App is quiting...");
 
             DataEyeAnalyticsSDK.allInstances(new DataEyeAnalyticsSDK.InstanceProcessor() {
                 @Override
@@ -132,9 +132,9 @@ public class DataEyeQuitSafelyService {
         @Override
         public void run() {
             super.run();
-            TDLog.d(TAG, "ShutdownHook start");
+            DataEyeLog.d(TAG, "ShutdownHook start");
             quit();
-            TDLog.d(TAG, "ShutdownHook end");
+            DataEyeLog.d(TAG, "ShutdownHook end");
         }
     }
 
@@ -172,18 +172,18 @@ public class DataEyeQuitSafelyService {
 
                             try {
                                 if (result.getBytes("UTF-8").length > CRASH_REASON_LENGTH_LIMIT) { // #app_crashed_reason 最大长度 16 KB
-                                    messageProp.put(TDConstants.KEY_CRASH_REASON,
+                                    messageProp.put(DataEyeConstants.KEY_CRASH_REASON,
                                             new String(PropertyUtils.cutToBytes(result, CRASH_REASON_LENGTH_LIMIT), "UTF-8"));
                                 } else {
-                                    messageProp.put(TDConstants.KEY_CRASH_REASON, result);
+                                    messageProp.put(DataEyeConstants.KEY_CRASH_REASON, result);
                                 }
                             } catch (UnsupportedEncodingException e) {
-                                TDLog.d(TAG, "Exception occurred in getBytes. ");
+                                DataEyeLog.d(TAG, "Exception occurred in getBytes. ");
                                 if (result.length() > CRASH_REASON_LENGTH_LIMIT / 2) {
-                                    messageProp.put(TDConstants.KEY_CRASH_REASON, result.substring(0, CRASH_REASON_LENGTH_LIMIT / 2));
+                                    messageProp.put(DataEyeConstants.KEY_CRASH_REASON, result.substring(0, CRASH_REASON_LENGTH_LIMIT / 2));
                                 }
                             }
-                            instance.autoTrack(TDConstants.APP_CRASH_EVENT_NAME, messageProp);
+                            instance.autoTrack(DataEyeConstants.APP_CRASH_EVENT_NAME, messageProp);
                         } catch (JSONException e) {
                         }
                     }
@@ -234,7 +234,7 @@ public class DataEyeQuitSafelyService {
 
         @Override
         public int onStartCommand(Intent intent, int flags, int startId) {
-            TDLog.d(TAG, "onStartCommand: pid=" + android.os.Process.myPid());
+            DataEyeLog.d(TAG, "onStartCommand: pid=" + android.os.Process.myPid());
             return START_NOT_STICKY;
         }
 
@@ -246,7 +246,7 @@ public class DataEyeQuitSafelyService {
 
         @Override
         public void onDestroy() {
-            TDLog.d(TAG, "KeepAliveService onDestroy");
+            DataEyeLog.d(TAG, "KeepAliveService onDestroy");
             super.onDestroy();
         }
     }

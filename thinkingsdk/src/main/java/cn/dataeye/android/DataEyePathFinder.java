@@ -3,7 +3,7 @@ package cn.dataeye.android;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,7 +108,7 @@ public class DataEyePathFinder {
         }
 
         if (mIndexStack.full()) {
-            TDLog.i(TAG, "Path is too deep, there is no memory to perfrom the finding");
+            DataEyeLog.i(TAG, "Path is too deep, there is no memory to perfrom the finding");
             return;
         }
 
@@ -133,7 +133,7 @@ public class DataEyePathFinder {
         }
 
         if (mIndexStack.full()) {
-            TDLog.i(TAG, "Path is too deep, there is no memory to perfrom the finding");
+            DataEyeLog.i(TAG, "Path is too deep, there is no memory to perfrom the finding");
             return;
         }
 

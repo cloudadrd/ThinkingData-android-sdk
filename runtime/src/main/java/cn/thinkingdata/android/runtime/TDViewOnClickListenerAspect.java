@@ -17,7 +17,7 @@ public class TDViewOnClickListenerAspect {
         AopUtils.trackViewClickEvent(joinPoint, view);
     }
 
-    @Pointcut("execution(@cn.thinkingdata.android.ThinkingDataTrackViewOnClick * *(..))")
+    @Pointcut("execution(@cn.dataeye.android.DataEyeTrackViewOnClick * *(..))")
     public void methodAnnotatedWithTrackEvent() {
     }
 
@@ -34,7 +34,7 @@ public class TDViewOnClickListenerAspect {
 
             Class clazz = null;
             try {
-                clazz = Class.forName("cn.thinkingdata.android.ThinkingDataTrackViewOnClick");
+                clazz = Class.forName("cn.dataeye.android.DataEyeTrackViewOnClick");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }

@@ -12,8 +12,8 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
-import cn.dataeye.android.utils.TDConstants;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeConstants;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -26,7 +26,7 @@ class DataEyeSystemInformation {
     private static final String KEY_LIB_VERSION = "#lib_version";
     private static final String KEY_OS = "#os";
     private static String sLibName = "Android";
-    private static String sLibVersion = DataEyeTDConfig.VERSION;
+    private static String sLibVersion = DataEyeConfig.VERSION;
 
     private static DataEyeSystemInformation sInstance;
     private final static Object sInstanceLock = new Object();
@@ -36,12 +36,12 @@ class DataEyeSystemInformation {
     static void setLibraryInfo(String libName, String libVersion) {
         if (!TextUtils.isEmpty(libName)) {
             sLibName = libName;
-            TDLog.d(TAG, "#lib has been changed to: " + libName);
+            DataEyeLog.d(TAG, "#lib has been changed to: " + libName);
         }
 
         if (!TextUtils.isEmpty(libVersion)) {
             sLibVersion = libVersion;
-            TDLog.d(TAG, "#lib_version has been changed to: " + libVersion);
+            DataEyeLog.d(TAG, "#lib_version has been changed to: " + libVersion);
         }
     }
 
@@ -77,10 +77,10 @@ class DataEyeSystemInformation {
             final PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             mAppVersionName = info.versionName;
             hasNotUpdated = info.firstInstallTime == info.lastUpdateTime;
-            TDLog.d(TAG, "First Install Time: " + info.firstInstallTime);
-            TDLog.d(TAG, "Last Update Time: " + info.lastUpdateTime);
+            DataEyeLog.d(TAG, "First Install Time: " + info.firstInstallTime);
+            DataEyeLog.d(TAG, "Last Update Time: " + info.lastUpdateTime);
         } catch (final Exception e) {
-            TDLog.d(TAG, "Exception occurred in getting app version");
+            DataEyeLog.d(TAG, "Exception occurred in getting app version");
         }
 
         mDeviceInfo = setupDeviceInfo(context);
@@ -95,34 +95,34 @@ class DataEyeSystemInformation {
             deviceInfo.put(KEY_OS, "Android");
 
             if (!TextUtils.isEmpty(Build.VERSION.RELEASE)) {
-                deviceInfo.put(TDConstants.KEY_OS_VERSION, Build.VERSION.RELEASE);
+                deviceInfo.put(DataEyeConstants.KEY_OS_VERSION, Build.VERSION.RELEASE);
             }
 
             if (!TextUtils.isEmpty(Build.MANUFACTURER)) {
-                deviceInfo.put(TDConstants.KEY_MANUFACTURER, Build.MANUFACTURER);
+                deviceInfo.put(DataEyeConstants.KEY_MANUFACTURER, Build.MANUFACTURER);
             }
 
             if (!TextUtils.isEmpty(Build.MODEL)) {
-                deviceInfo.put(TDConstants.KEY_DEVICE_MODEL, Build.MODEL);
+                deviceInfo.put(DataEyeConstants.KEY_DEVICE_MODEL, Build.MODEL);
             }
 
             DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
-            deviceInfo.put(TDConstants.KEY_SCREEN_HEIGHT, displayMetrics.heightPixels);
-            deviceInfo.put(TDConstants.KEY_SCREEN_WIDTH, displayMetrics.widthPixels);
+            deviceInfo.put(DataEyeConstants.KEY_SCREEN_HEIGHT, displayMetrics.heightPixels);
+            deviceInfo.put(DataEyeConstants.KEY_SCREEN_WIDTH, displayMetrics.widthPixels);
 
             String operatorString = getCarrier(mContext);
             if (!TextUtils.isEmpty(operatorString)) {
-                deviceInfo.put(TDConstants.KEY_CARRIER, operatorString);
+                deviceInfo.put(DataEyeConstants.KEY_CARRIER, operatorString);
             }
 
             String androidID = getAndroidID(mContext);
             if (!TextUtils.isEmpty(androidID)) {
-                deviceInfo.put(TDConstants.KEY_DEVICE_ID, androidID);
+                deviceInfo.put(DataEyeConstants.KEY_DEVICE_ID, androidID);
             }
 
             String systemLanguage = getSystemLanguage();
             if (!TextUtils.isEmpty(systemLanguage)) {
-                deviceInfo.put(TDConstants.KEY_SYSTEM_LANGUAGE, systemLanguage);
+                deviceInfo.put(DataEyeConstants.KEY_SYSTEM_LANGUAGE, systemLanguage);
             }
         }
         return Collections.unmodifiableMap(deviceInfo);
@@ -222,14 +222,14 @@ class DataEyeSystemInformation {
             Method checkSelfPermissionMethod = contextCompat.getMethod("checkSelfPermission", new Class[]{Context.class, String.class});
             int result = (int)checkSelfPermissionMethod.invoke(null, new Object[]{context, permission});
             if (result != PackageManager.PERMISSION_GRANTED) {
-                TDLog.w(TAG, "You can fix this by adding the following to your AndroidManifest.xml file:\n"
+                DataEyeLog.w(TAG, "You can fix this by adding the following to your AndroidManifest.xml file:\n"
                         + "<uses-permission android:name=\"" + permission + "\" />");
                 return false;
             }
 
             return true;
         } catch (Exception e) {
-            TDLog.w(TAG, e.toString());
+            DataEyeLog.w(TAG, e.toString());
             return true;
         }
     }

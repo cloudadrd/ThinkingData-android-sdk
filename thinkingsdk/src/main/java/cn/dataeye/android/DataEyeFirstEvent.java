@@ -4,8 +4,8 @@ import android.text.TextUtils;
 
 import org.json.JSONObject;
 
-import cn.dataeye.android.utils.TDConstants;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeConstants;
+import cn.dataeye.android.utils.DataEyeLog;
 
 /**
  *  TDUniqueEvent 用于描述首次事件。
@@ -37,7 +37,7 @@ public class DataEyeFirstEvent extends DataEyeAnalyticsEvent {
      */
     public void setFirstCheckId(String firstCheckId) {
         if (TextUtils.isEmpty(firstCheckId)) {
-            TDLog.w(TAG, "Invalid firstCheckId. Use device Id");
+            DataEyeLog.w(TAG, "Invalid firstCheckId. Use device Id");
             return;
         }
         mExtraValue = firstCheckId;
@@ -45,7 +45,7 @@ public class DataEyeFirstEvent extends DataEyeAnalyticsEvent {
 
     @Override
     String getExtraField() {
-        return TDConstants.KEY_FIRST_CHECK_ID;
+        return DataEyeConstants.KEY_FIRST_CHECK_ID;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class DataEyeFirstEvent extends DataEyeAnalyticsEvent {
     }
 
     @Override
-    TDConstants.DataType getDataType() {
-        return TDConstants.DataType.TRACK;
+    DataEyeConstants.DataType getDataType() {
+        return DataEyeConstants.DataType.TRACK;
     }
 }

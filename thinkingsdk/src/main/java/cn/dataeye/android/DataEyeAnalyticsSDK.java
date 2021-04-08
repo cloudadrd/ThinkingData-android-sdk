@@ -20,15 +20,15 @@ import cn.dataeye.android.persistence.DataEyeStorageRandomID;
 import cn.dataeye.android.persistence.DataEyeStorageSuperProperties;
 import cn.dataeye.android.utils.ICalibratedTime;
 import cn.dataeye.android.utils.ITime;
-import cn.dataeye.android.utils.TDCalibratedTime;
-import cn.dataeye.android.utils.TDCalibratedTimeWithNTP;
-import cn.dataeye.android.utils.TDConstants;
-import cn.dataeye.android.utils.TDTime;
-import cn.dataeye.android.utils.TDTimeCalibrated;
-import cn.dataeye.android.utils.TDTimeConstant;
-import cn.dataeye.android.utils.TDUtils;
+import cn.dataeye.android.utils.DataEyeCalibratedTime;
+import cn.dataeye.android.utils.DataEyeCalibratedTimeWithNTP;
+import cn.dataeye.android.utils.DataEyeConstants;
+import cn.dataeye.android.utils.DataEyeTime;
+import cn.dataeye.android.utils.DataEyeTimeCalibrated;
+import cn.dataeye.android.utils.DataEyeTimeConstant;
+import cn.dataeye.android.utils.DataEyeUtils;
 import cn.dataeye.android.utils.PropertyUtils;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -79,29 +79,29 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      */
     public static DataEyeAnalyticsSDK sharedInstance(Context context, String appId, String url, boolean trackOldData) {
         if (null == context) {
-            TDLog.w(TAG, "App context is required to get SDK instance.");
+            DataEyeLog.w(TAG, "App context is required to get SDK instance.");
             return null;
         }
 
         if (TextUtils.isEmpty(appId)) {
-            TDLog.w(TAG, "APP ID is required to get SDK instance.");
+            DataEyeLog.w(TAG, "APP ID is required to get SDK instance.");
             return null;
         }
 
-        DataEyeTDConfig config;
+        DataEyeConfig config;
         try {
-            config = DataEyeTDConfig.getInstance(context, appId, url);
+            config = DataEyeConfig.getInstance(context, appId, url);
         } catch (IllegalArgumentException e) {
-            TDLog.w(TAG, "Cannot get valid TDConfig instance. Returning null");
+            DataEyeLog.w(TAG, "Cannot get valid TDConfig instance. Returning null");
             return null;
         }
         config.setTrackOldData(trackOldData);
         return sharedInstance(config);
     }
 
-    public static DataEyeAnalyticsSDK sharedInstance(DataEyeTDConfig config) {
+    public static DataEyeAnalyticsSDK sharedInstance(DataEyeConfig config) {
         if (null == config) {
-            TDLog.w(TAG, "Cannot initial SDK instance with null config instance.");
+            DataEyeLog.w(TAG, "Cannot initial SDK instance with null config instance.");
             return null;
         }
 
@@ -170,7 +170,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      * @param config TDConfig 实例
      * @param light 是否是轻实例（内部使用)
      */
-    DataEyeAnalyticsSDK(DataEyeTDConfig config, boolean... light) {
+    DataEyeAnalyticsSDK(DataEyeConfig config, boolean... light) {
         mConfig = config;
 
         if (light.length > 0 && light[0]) {
@@ -230,8 +230,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             enableTrackLog(true);
         }
 
-        TDLog.i(TAG, String.format("Thinking Analytics SDK %s instance initialized successfully with mode: %s, APP ID ends with: %s, server url: %s, device ID: %s", DataEyeTDConfig.VERSION,
-                config.getMode().name(), TDUtils.getSuffix(config.mToken, 4), config.getServerUrl(), getDeviceId()));
+        DataEyeLog.i(TAG, String.format("Thinking Analytics SDK %s instance initialized successfully with mode: %s, APP ID ends with: %s, server url: %s, device ID: %s", DataEyeConfig.VERSION,
+                config.getMode().name(), DataEyeUtils.getSuffix(config.mToken, 4), config.getServerUrl(), getDeviceId()));
     }
 
     /**
@@ -239,7 +239,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      * @param enableLog true 打开日志; false 关闭日志
      */
     public static void enableTrackLog(boolean enableLog) {
-        TDLog.setEnableLog(enableLog);
+        DataEyeLog.setEnableLog(enableLog);
     }
 
     /**
@@ -260,41 +260,41 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             for (int i = 0; i < data.length(); i++) {
                 JSONObject eventObject = data.getJSONObject(i);
 
-                String timeString = eventObject.getString(TDConstants.KEY_TIME);
+                String timeString = eventObject.getString(DataEyeConstants.KEY_TIME);
 
                 Double zoneOffset = null;
-                if (eventObject.has(TDConstants.KEY_ZONE_OFFSET)) {
-                    zoneOffset = eventObject.getDouble(TDConstants.KEY_ZONE_OFFSET);
+                if (eventObject.has(DataEyeConstants.KEY_ZONE_OFFSET)) {
+                    zoneOffset = eventObject.getDouble(DataEyeConstants.KEY_ZONE_OFFSET);
                 }
 
                 ITime time = getTime(timeString, zoneOffset);
 
-                String eventType = eventObject.getString(TDConstants.KEY_TYPE);
+                String eventType = eventObject.getString(DataEyeConstants.KEY_TYPE);
 
-                TDConstants.DataType type = TDConstants.DataType.get(eventType);
+                DataEyeConstants.DataType type = DataEyeConstants.DataType.get(eventType);
                 if (null == type) {
-                    TDLog.w(TAG, "Unknown data type from H5. ignoring...");
+                    DataEyeLog.w(TAG, "Unknown data type from H5. ignoring...");
                     return;
                 }
 
-                JSONObject properties = eventObject.getJSONObject(TDConstants.KEY_PROPERTIES);
+                JSONObject properties = eventObject.getJSONObject(DataEyeConstants.KEY_PROPERTIES);
                 for (Iterator iterator = properties.keys(); iterator.hasNext(); ) {
                     String key = (String) iterator.next();
-                    if (key.equals(TDConstants.KEY_ACCOUNT_ID) || key.equals(TDConstants.KEY_DISTINCT_ID) || mDataEyeSystemInformation.getDeviceInfo().containsKey(key)) {
+                    if (key.equals(DataEyeConstants.KEY_ACCOUNT_ID) || key.equals(DataEyeConstants.KEY_DISTINCT_ID) || mDataEyeSystemInformation.getDeviceInfo().containsKey(key)) {
                         iterator.remove();
                     }
                 }
 
                 DataEyeDataDescription dataDescription;
                 if (type.isTrack()) {
-                    String eventName = eventObject.getString(TDConstants.KEY_EVENT_NAME);
+                    String eventName = eventObject.getString(DataEyeConstants.KEY_EVENT_NAME);
 
                     Map<String, String> extraFields = new HashMap<>();
-                    if (eventObject.has(TDConstants.KEY_FIRST_CHECK_ID)) {
-                        extraFields.put(TDConstants.KEY_FIRST_CHECK_ID, eventObject.getString(TDConstants.KEY_FIRST_CHECK_ID));
+                    if (eventObject.has(DataEyeConstants.KEY_FIRST_CHECK_ID)) {
+                        extraFields.put(DataEyeConstants.KEY_FIRST_CHECK_ID, eventObject.getString(DataEyeConstants.KEY_FIRST_CHECK_ID));
                     }
-                    if (eventObject.has(TDConstants.KEY_EVENT_ID)) {
-                        extraFields.put(TDConstants.KEY_EVENT_ID, eventObject.getString(TDConstants.KEY_EVENT_ID));
+                    if (eventObject.has(DataEyeConstants.KEY_EVENT_ID)) {
+                        extraFields.put(DataEyeConstants.KEY_EVENT_ID, eventObject.getString(DataEyeConstants.KEY_EVENT_ID));
                     }
 
                     track(eventName, properties, time, false, extraFields, type);
@@ -304,7 +304,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                 }
             }
         } catch (Exception e) {
-            TDLog.w(TAG, "Exception occurred when track data from H5.");
+            DataEyeLog.w(TAG, "Exception occurred when track data from H5.");
             e.printStackTrace();
         }
     }
@@ -372,31 +372,31 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         track(eventName, properties, time, doFormatChecking, null, null);
     }
 
-    private void track(String eventName, JSONObject properties, ITime time, boolean doFormatChecking, Map<String, String> extraFields, TDConstants.DataType type) {
+    private void track(String eventName, JSONObject properties, ITime time, boolean doFormatChecking, Map<String, String> extraFields, DataEyeConstants.DataType type) {
         if (mConfig.isDisabledEvent(eventName)) {
-            TDLog.d(TAG, "Ignoring disabled event [" + eventName +"]");
+            DataEyeLog.d(TAG, "Ignoring disabled event [" + eventName +"]");
             return;
         }
 
         try {
             if(doFormatChecking && PropertyUtils.isInvalidName(eventName)) {
-                TDLog.w(TAG, "Event name[" + eventName + "] is invalid. Event name must be string that starts with English letter, " +
+                DataEyeLog.w(TAG, "Event name[" + eventName + "] is invalid. Event name must be string that starts with English letter, " +
                         "and contains letter, number, and '_'. The max length of the event name is 50.");
                 if (mConfig.shouldThrowException()) throw new DataEyeDebugException("Invalid event name: " + eventName);
             }
 
             if (doFormatChecking && !PropertyUtils.checkProperty(properties)) {
-                TDLog.w(TAG, "The data contains invalid key or value: " + properties.toString());
+                DataEyeLog.w(TAG, "The data contains invalid key or value: " + properties.toString());
                 if (mConfig.shouldThrowException()) throw new DataEyeDebugException("Invalid properties. Please refer to SDK debug log for detail reasons.");
             }
 
             JSONObject finalProperties = obtainDefaultEventProperties(eventName);
 
             if (null != properties) {
-                TDUtils.mergeJSONObject(properties, finalProperties, mConfig.getDefaultTimeZone());
+                DataEyeUtils.mergeJSONObject(properties, finalProperties, mConfig.getDefaultTimeZone());
             }
 
-            TDConstants.DataType dataType = type == null ? TDConstants.DataType.TRACK : type;
+            DataEyeConstants.DataType dataType = type == null ? DataEyeConstants.DataType.TRACK : type;
 
             DataEyeDataDescription dataDescription = new DataEyeDataDescription(this, dataType, finalProperties, time);
             dataDescription.eventName = eventName;
@@ -421,7 +421,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     public void track(DataEyeAnalyticsEvent event) {
         if (hasDisabled()) return;
         if (null == event) {
-            TDLog.w(TAG, "Ignoring empty event...");
+            DataEyeLog.w(TAG, "Ignoring empty event...");
             return;
         }
         ITime time;
@@ -433,7 +433,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
         Map<String, String> extraFields = new HashMap<>();
         if (TextUtils.isEmpty(event.getExtraField())) {
-            TDLog.w(TAG, "Invalid ExtraFields. Ignoring...");
+            DataEyeLog.w(TAG, "Invalid ExtraFields. Ignoring...");
         } else {
             String extraValue;
             if (event instanceof DataEyeFirstEvent && event.getExtraValue() == null) {
@@ -462,22 +462,22 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
         JSONObject finalProperties = new JSONObject();
         try {
-            TDUtils.mergeJSONObject(getSuperProperties(), finalProperties, mConfig.getDefaultTimeZone());
+            DataEyeUtils.mergeJSONObject(getSuperProperties(), finalProperties, mConfig.getDefaultTimeZone());
 
             try {
                 if (mDynamicSuperPropertiesTracker != null) {
                     JSONObject dynamicSuperProperties = mDynamicSuperPropertiesTracker.getDynamicSuperProperties();
                     if (dynamicSuperProperties != null && PropertyUtils.checkProperty(dynamicSuperProperties)) {
-                        TDUtils.mergeJSONObject(dynamicSuperProperties, finalProperties, mConfig.getDefaultTimeZone());
+                        DataEyeUtils.mergeJSONObject(dynamicSuperProperties, finalProperties, mConfig.getDefaultTimeZone());
                     }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            finalProperties.put(TDConstants.KEY_NETWORK_TYPE, mDataEyeSystemInformation.getNetworkType());
+            finalProperties.put(DataEyeConstants.KEY_NETWORK_TYPE, mDataEyeSystemInformation.getNetworkType());
             if (!TextUtils.isEmpty(mDataEyeSystemInformation.getAppVersionName())) {
-                finalProperties.put(TDConstants.KEY_APP_VERSION, mDataEyeSystemInformation.getAppVersionName());
+                finalProperties.put(DataEyeConstants.KEY_APP_VERSION, mDataEyeSystemInformation.getAppVersionName());
             }
 
             final DataEyeEventTimer dataEyeEventTimer;
@@ -490,7 +490,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                 try {
                     Double duration = Double.valueOf(dataEyeEventTimer.duration());
                     if (duration > 0) {
-                        finalProperties.put(TDConstants.KEY_DURATION, duration);
+                        finalProperties.put(DataEyeConstants.KEY_DURATION, duration);
                     }
                 } catch (JSONException e) {
                     // ignore
@@ -509,7 +509,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         if (hasDisabled()) return;
         try {
             if (null == propertyValue) {
-                TDLog.d(TAG, "user_add value must be Number");
+                DataEyeLog.d(TAG, "user_add value must be Number");
                 if (mConfig.shouldThrowException()) throw new DataEyeDebugException("Invalid property values for user add.");
             } else {
                 JSONObject properties = new JSONObject();
@@ -529,7 +529,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     public void user_append(JSONObject properties, Date date) {
         if (hasDisabled()) return;
-        user_operations(TDConstants.DataType.USER_APPEND, properties, date);
+        user_operations(DataEyeConstants.DataType.USER_APPEND, properties, date);
     }
 
     @Override
@@ -539,7 +539,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     public void user_add(JSONObject properties, Date date) {
         if (hasDisabled()) return;
-        user_operations(TDConstants.DataType.USER_ADD, properties, date);
+        user_operations(DataEyeConstants.DataType.USER_ADD, properties, date);
     }
 
     @Override
@@ -549,7 +549,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     public void user_setOnce(JSONObject properties, Date date) {
         if (hasDisabled()) return;
-        user_operations(TDConstants.DataType.USER_SET_ONCE, properties, date);
+        user_operations(DataEyeConstants.DataType.USER_SET_ONCE, properties, date);
     }
 
     @Override
@@ -558,24 +558,24 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     }
 
     public void user_set(JSONObject properties, Date date) {
-        user_operations(TDConstants.DataType.USER_SET, properties, date);
+        user_operations(DataEyeConstants.DataType.USER_SET, properties, date);
     }
 
-    private void user_operations(TDConstants.DataType type, JSONObject properties, Date date) {
+    private void user_operations(DataEyeConstants.DataType type, JSONObject properties, Date date) {
         if (hasDisabled()) return;
         if (!PropertyUtils.checkProperty(properties)) {
-            TDLog.w(TAG, "The data contains invalid key or value: " + properties.toString());
+            DataEyeLog.w(TAG, "The data contains invalid key or value: " + properties.toString());
             if (mConfig.shouldThrowException()) throw new DataEyeDebugException("Invalid properties. Please refer to SDK debug log for detail reasons.");
         }
         try {
             ITime time = date == null ? getTime() : getTime(date, null);
             JSONObject finalProperties = new JSONObject();
             if (properties != null) {
-                TDUtils.mergeJSONObject(properties, finalProperties, mConfig.getDefaultTimeZone());
+                DataEyeUtils.mergeJSONObject(properties, finalProperties, mConfig.getDefaultTimeZone());
             }
             trackInternal(new DataEyeDataDescription(this, type, finalProperties, time));
         } catch (Exception e) {
-            TDLog.w(TAG, e.getMessage());
+            DataEyeLog.w(TAG, e.getMessage());
         }
     }
 
@@ -586,7 +586,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     public void user_delete(Date date) {
         if (hasDisabled()) return;
-        user_operations(TDConstants.DataType.USER_DEL, null, date);
+        user_operations(DataEyeConstants.DataType.USER_DEL, null, date);
     }
 
     @Override
@@ -609,7 +609,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     public void user_unset(JSONObject properties, Date date) {
         if (hasDisabled()) return;
-        user_operations(TDConstants.DataType.USER_UNSET, properties, date);
+        user_operations(DataEyeConstants.DataType.USER_UNSET, properties, date);
 
     }
 
@@ -617,7 +617,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     public void identify(String identity) {
         if (hasDisabled()) return;
         if (TextUtils.isEmpty(identity)) {
-            TDLog.w(TAG,"The identity cannot be empty.");
+            DataEyeLog.w(TAG,"The identity cannot be empty.");
             if (mConfig.shouldThrowException()) throw new DataEyeDebugException("distinct id cannot be empty");
             return;
         }
@@ -632,7 +632,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         if (hasDisabled()) return;
         try {
             if(TextUtils.isEmpty(loginId)) {
-                TDLog.d(TAG,"The account id cannot be empty.");
+                DataEyeLog.d(TAG,"The account id cannot be empty.");
                 if (mConfig.shouldThrowException()) throw new DataEyeDebugException("account id cannot be empty");
                 return;
             }
@@ -723,7 +723,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
             synchronized (mSuperProperties) {
                 JSONObject properties = mSuperProperties.get();
-                TDUtils.mergeJSONObject(superProperties, properties, mConfig.getDefaultTimeZone());
+                DataEyeUtils.mergeJSONObject(superProperties, properties, mConfig.getDefaultTimeZone());
                 mSuperProperties.put(properties);
             }
         } catch (Exception e) {
@@ -778,7 +778,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         if (hasDisabled()) return;
         try {
             if(PropertyUtils.isInvalidName(eventName)) {
-                TDLog.w(TAG, "timeEvent event name[" + eventName + "] is not valid");
+                DataEyeLog.w(TAG, "timeEvent event name[" + eventName + "] is not valid");
                 //if (mConfig.shouldThrowException()) throw new TDDebugException("Invalid event name for time event");
                 //return;
             }
@@ -834,17 +834,17 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      */
     public enum AutoTrackEventType {
         /** APP 启动事件 ta_app_start */
-        APP_START(TDConstants.APP_START_EVENT_NAME),
+        APP_START(DataEyeConstants.APP_START_EVENT_NAME),
         /** APP 关闭事件 ta_app_end */
-        APP_END(TDConstants.APP_END_EVENT_NAME),
+        APP_END(DataEyeConstants.APP_END_EVENT_NAME),
         /** 控件点击事件 ta_app_click */
-        APP_CLICK(TDConstants.APP_CLICK_EVENT_NAME),
+        APP_CLICK(DataEyeConstants.APP_CLICK_EVENT_NAME),
         /** 页面浏览事件 ta_app_view */
-        APP_VIEW_SCREEN(TDConstants.APP_VIEW_EVENT_NAME),
+        APP_VIEW_SCREEN(DataEyeConstants.APP_VIEW_EVENT_NAME),
         /** APP 崩溃事件 ta_app_crash */
-        APP_CRASH(TDConstants.APP_CRASH_EVENT_NAME),
+        APP_CRASH(DataEyeConstants.APP_CRASH_EVENT_NAME),
         /** APP 安装事件 ta_app_install */
-        APP_INSTALL(TDConstants.APP_INSTALL_EVENT_NAME);
+        APP_INSTALL(DataEyeConstants.APP_INSTALL_EVENT_NAME);
 
         private final String eventName;
 
@@ -854,17 +854,17 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             }
 
             switch (eventName) {
-                case TDConstants.APP_START_EVENT_NAME:
+                case DataEyeConstants.APP_START_EVENT_NAME:
                     return APP_START;
-                case TDConstants.APP_END_EVENT_NAME:
+                case DataEyeConstants.APP_END_EVENT_NAME:
                     return APP_END;
-                case TDConstants.APP_CLICK_EVENT_NAME:
+                case DataEyeConstants.APP_CLICK_EVENT_NAME:
                     return APP_CLICK;
-                case TDConstants.APP_VIEW_EVENT_NAME:
+                case DataEyeConstants.APP_VIEW_EVENT_NAME:
                     return APP_VIEW_SCREEN;
-                case TDConstants.APP_CRASH_EVENT_NAME:
+                case DataEyeConstants.APP_CRASH_EVENT_NAME:
                     return APP_CRASH;
-                case TDConstants.APP_INSTALL_EVENT_NAME:
+                case DataEyeConstants.APP_INSTALL_EVENT_NAME:
                     return APP_INSTALL;
             }
 
@@ -886,18 +886,18 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             if ((!TextUtils.isEmpty(url) || properties != null)) {
                 JSONObject trackProperties = new JSONObject();
                 if (!TextUtils.isEmpty(mLastScreenUrl)) {
-                    trackProperties.put(TDConstants.KEY_REFERRER, mLastScreenUrl);
+                    trackProperties.put(DataEyeConstants.KEY_REFERRER, mLastScreenUrl);
                 }
 
-                trackProperties.put(TDConstants.KEY_URL, url);
+                trackProperties.put(DataEyeConstants.KEY_URL, url);
                 mLastScreenUrl = url;
                 if (properties != null) {
-                    TDUtils.mergeJSONObject(properties, trackProperties, mConfig.getDefaultTimeZone());
+                    DataEyeUtils.mergeJSONObject(properties, trackProperties, mConfig.getDefaultTimeZone());
                 }
-                autoTrack(TDConstants.APP_VIEW_EVENT_NAME, trackProperties);
+                autoTrack(DataEyeConstants.APP_VIEW_EVENT_NAME, trackProperties);
             }
         } catch (JSONException e) {
-            TDLog.i(TAG, "trackViewScreen:" + e);
+            DataEyeLog.i(TAG, "trackViewScreen:" + e);
         }
     }
 
@@ -910,8 +910,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             }
 
             JSONObject properties = new JSONObject();
-            properties.put(TDConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
-            TDUtils.getScreenNameAndTitleFromActivity(properties, activity);
+            properties.put(DataEyeConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
+            DataEyeUtils.getScreenNameAndTitleFromActivity(properties, activity);
 
             if (activity instanceof DataEyeScreenAutoTracker) {
                 DataEyeScreenAutoTracker dataEyeScreenAutoTracker = (DataEyeScreenAutoTracker) activity;
@@ -919,15 +919,15 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                 String screenUrl = dataEyeScreenAutoTracker.getScreenUrl();
                 JSONObject otherProperties = dataEyeScreenAutoTracker.getTrackProperties();
                 if (otherProperties != null) {
-                    TDUtils.mergeJSONObject(otherProperties, properties, mConfig.getDefaultTimeZone());
+                    DataEyeUtils.mergeJSONObject(otherProperties, properties, mConfig.getDefaultTimeZone());
                 }
 
                 trackViewScreenInternal(screenUrl, properties);
             } else {
-                autoTrack(TDConstants.APP_VIEW_EVENT_NAME, properties);
+                autoTrack(DataEyeConstants.APP_VIEW_EVENT_NAME, properties);
             }
         } catch (Exception e) {
-            TDLog.i(TAG, "trackViewScreen:" + e);
+            DataEyeLog.i(TAG, "trackViewScreen:" + e);
         }
     }
 
@@ -942,24 +942,24 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             JSONObject properties = new JSONObject();
             String fragmentName = fragment.getClass().getCanonicalName();
             String screenName = fragmentName;
-            String title = TDUtils.getTitleFromFragment(fragment, getToken());
+            String title = DataEyeUtils.getTitleFromFragment(fragment, getToken());
 
             Activity activity = fragment.getActivity();
             if (activity != null) {
                 if (TextUtils.isEmpty(title)) {
-                    title = TDUtils.getActivityTitle(activity);
+                    title = DataEyeUtils.getActivityTitle(activity);
                 }
                 screenName = String.format(Locale.CHINA, "%s|%s", activity.getClass().getCanonicalName(), fragmentName);
             }
 
             if (!TextUtils.isEmpty(title)) {
-                properties.put(TDConstants.TITLE, title);
+                properties.put(DataEyeConstants.TITLE, title);
             }
 
-            properties.put(TDConstants.SCREEN_NAME, screenName);
-            autoTrack(TDConstants.APP_VIEW_EVENT_NAME, properties);
+            properties.put(DataEyeConstants.SCREEN_NAME, screenName);
+            autoTrack(DataEyeConstants.APP_VIEW_EVENT_NAME, properties);
         } catch (Exception e) {
-            TDLog.i(TAG, "trackViewScreen:" + e);
+            DataEyeLog.i(TAG, "trackViewScreen:" + e);
         }
     }
 
@@ -1007,7 +1007,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             JSONObject properties = new JSONObject();
             String screenName = fragment.getClass().getCanonicalName();
 
-            String title = TDUtils.getTitleFromFragment(fragment, getToken());
+            String title = DataEyeUtils.getTitleFromFragment(fragment, getToken());
 
             Activity activity = null;
             try {
@@ -1020,17 +1020,17 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             }
             if (activity != null) {
                 if (TextUtils.isEmpty(title)) {
-                    title = TDUtils.getActivityTitle(activity);
+                    title = DataEyeUtils.getActivityTitle(activity);
                 }
                 screenName = String.format(Locale.CHINA, "%s|%s", activity.getClass().getCanonicalName(), screenName);
             }
 
             if (!TextUtils.isEmpty(title)) {
-                properties.put(TDConstants.TITLE, title);
+                properties.put(DataEyeConstants.TITLE, title);
             }
 
-            properties.put(TDConstants.SCREEN_NAME, screenName);
-            autoTrack(TDConstants.APP_VIEW_EVENT_NAME, properties);
+            properties.put(DataEyeConstants.SCREEN_NAME, screenName);
+            autoTrack(DataEyeConstants.APP_VIEW_EVENT_NAME, properties);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1043,7 +1043,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                 while (iterator.hasNext()) {
                     Map.Entry entry = (Map.Entry) iterator.next();
                     if (entry != null) {
-                        if (TDConstants.APP_END_EVENT_NAME.equals(entry.getKey().toString())) {
+                        if (DataEyeConstants.APP_END_EVENT_NAME.equals(entry.getKey().toString())) {
                             continue;
                         }
                         DataEyeEventTimer dataEyeEventTimer = (DataEyeEventTimer) entry.getValue();
@@ -1055,7 +1055,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                     }
                 }
             } catch (Exception e) {
-                TDLog.i(TAG, "appEnterBackground error:" + e.getMessage());
+                DataEyeLog.i(TAG, "appEnterBackground error:" + e.getMessage());
             }
         }
     }
@@ -1075,7 +1075,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                     }
                 }
             } catch (Exception e) {
-                TDLog.i(TAG, "appBecomeActive error:" + e.getMessage());
+                DataEyeLog.i(TAG, "appBecomeActive error:" + e.getMessage());
             }
         }
     }
@@ -1134,14 +1134,14 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         // 第一次调用时调用timeEvent，后续调用在生命周期回调中处理
         if (!mAutoTrackEventTypeList.contains(AutoTrackEventType.APP_END)
                 && eventTypeList.contains(AutoTrackEventType.APP_END)) {
-            timeEvent(TDConstants.APP_END_EVENT_NAME);
+            timeEvent(DataEyeConstants.APP_END_EVENT_NAME);
         }
 
         if (eventTypeList.contains(AutoTrackEventType.APP_INSTALL))  {
             synchronized (sInstanceMap) {
                 if (sAppFirstInstallationMap.containsKey(mConfig.mContext) &&
                         sAppFirstInstallationMap.get(mConfig.mContext).contains(getToken())) {
-                    track(TDConstants.APP_INSTALL_EVENT_NAME);
+                    track(DataEyeConstants.APP_INSTALL_EVENT_NAME);
                     sAppFirstInstallationMap.get(mConfig.mContext).remove(getToken());
                 }
             }
@@ -1149,7 +1149,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
         synchronized (this) {
             mAutoTrackStartTime = getTime();
-            mAutoTrackStartProperties = obtainDefaultEventProperties(TDConstants.APP_START_EVENT_NAME);
+            mAutoTrackStartProperties = obtainDefaultEventProperties(DataEyeConstants.APP_START_EVENT_NAME);
         }
 
         mAutoTrackEventTypeList.clear();
@@ -1259,7 +1259,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     public void setViewID(View view, String viewID) {
         if (hasDisabled()) return;
         if (view != null && !TextUtils.isEmpty(viewID)) {
-            TDUtils.setTag(getToken(), view, R.id.thinking_analytics_tag_view_id, viewID);
+            DataEyeUtils.setTag(getToken(), view, R.id.thinking_analytics_tag_view_id, viewID);
         }
     }
 
@@ -1269,7 +1269,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         try {
             if (view != null && !TextUtils.isEmpty(viewID)) {
                 if (view.getWindow() != null) {
-                    TDUtils.setTag(getToken(), view.getWindow().getDecorView(), R.id.thinking_analytics_tag_view_id, viewID);
+                    DataEyeUtils.setTag(getToken(), view.getWindow().getDecorView(), R.id.thinking_analytics_tag_view_id, viewID);
                 }
             }
         } catch (Exception e) {
@@ -1284,21 +1284,21 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         if (view == null || properties == null) {
             return;
         }
-        TDUtils.setTag(getToken(), view, R.id.thinking_analytics_tag_view_properties, properties);
+        DataEyeUtils.setTag(getToken(), view, R.id.thinking_analytics_tag_view_properties, properties);
     }
 
     @Override
     public void ignoreView(View view) {
         if (hasDisabled()) return;
         if (view != null) {
-            TDUtils.setTag(getToken(), view, R.id.thinking_analytics_tag_view_ignored, "1");
+            DataEyeUtils.setTag(getToken(), view, R.id.thinking_analytics_tag_view_ignored, "1");
         }
     }
 
     @Override
     public void setJsBridge(WebView webView) {
         if (null == webView) {
-            TDLog.d(TAG, "SetJsBridge failed due to parameter webView is null");
+            DataEyeLog.d(TAG, "SetJsBridge failed due to parameter webView is null");
             if (mConfig.shouldThrowException()) throw new DataEyeDebugException("webView cannot be null for setJsBridge");
             return;
         }
@@ -1310,7 +1310,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     @Override
     public void setJsBridgeForX5WebView(Object x5WebView) {
         if (x5WebView == null) {
-            TDLog.d(TAG, "SetJsBridge failed due to parameter webView is null");
+            DataEyeLog.d(TAG, "SetJsBridge failed due to parameter webView is null");
             return;
         }
 
@@ -1323,15 +1323,15 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
             addJavascriptInterface.invoke(x5WebView, new DataEyeWebAppInterface(this), "ThinkingData_APP_JS_Bridge");
         } catch (Exception e) {
-            TDLog.w(TAG, "setJsBridgeForX5WebView failed: " +  e.toString());
+            DataEyeLog.w(TAG, "setJsBridgeForX5WebView failed: " +  e.toString());
         }
 
     }
 
     @Override
     public String getDeviceId() {
-        if (mDataEyeSystemInformation.getDeviceInfo().containsKey(TDConstants.KEY_DEVICE_ID)) {
-            return (String) mDataEyeSystemInformation.getDeviceInfo().get(TDConstants.KEY_DEVICE_ID);
+        if (mDataEyeSystemInformation.getDeviceInfo().containsKey(DataEyeConstants.KEY_DEVICE_ID)) {
+            return (String) mDataEyeSystemInformation.getDeviceInfo().get(DataEyeConstants.KEY_DEVICE_ID);
         } else {
             return null;
         }
@@ -1362,7 +1362,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      */
     @Override
     public void enableTracking(boolean enabled) {
-        TDLog.d(TAG, "enableTracking: " + enabled);
+        DataEyeLog.d(TAG, "enableTracking: " + enabled);
         if (isEnabled() && !enabled) flush();
         mEnableFlag.put(enabled);
     }
@@ -1372,7 +1372,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      */
     @Override
     public void optOutTrackingAndDeleteUser() {
-        DataEyeDataDescription userDel = new DataEyeDataDescription(this, TDConstants.DataType.USER_DEL, null, getTime());
+        DataEyeDataDescription userDel = new DataEyeDataDescription(this, DataEyeConstants.DataType.USER_DEL, null, getTime());
         userDel.setNoCache();
         trackInternal(userDel);
         optOutTracking();
@@ -1383,7 +1383,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      */
     @Override
     public void optOutTracking() {
-        TDLog.d(TAG, "optOutTracking..." );
+        DataEyeLog.d(TAG, "optOutTracking..." );
         mOptOutFlag.put(true);
         mMessages.emptyMessageQueue(getToken());
 
@@ -1403,7 +1403,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      */
     @Override
     public void optInTracking() {
-        TDLog.d(TAG, "optInTracking..." );
+        DataEyeLog.d(TAG, "optInTracking..." );
         mOptOutFlag.put(false);
         mMessages.flush(getToken());
     }
@@ -1496,7 +1496,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     private final boolean mEnableTrackOldData;
 
     private final DataEyeDataHandle mMessages;
-    DataEyeTDConfig mConfig;
+    DataEyeConfig mConfig;
     private DataEyeSystemInformation mDataEyeSystemInformation;
 
     private static final String TAG = "ThinkingAnalyticsSDK";
@@ -1519,9 +1519,9 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         ITime result;
         sCalibratedTimeLock.readLock().lock();
         if (null != sCalibratedTime) {
-            result = new TDTimeCalibrated(sCalibratedTime, mConfig.getDefaultTimeZone());
+            result = new DataEyeTimeCalibrated(sCalibratedTime, mConfig.getDefaultTimeZone());
         } else {
-            result = new TDTime(new Date(), mConfig.getDefaultTimeZone());
+            result = new DataEyeTime(new Date(), mConfig.getDefaultTimeZone());
         }
         sCalibratedTimeLock.readLock().unlock();
         return result;
@@ -1531,16 +1531,16 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     // 如果 timeZone 为 null, 则不会在事件中上传 #zone_offset 字段.
     private ITime getTime(Date date, TimeZone timeZone) {
         if (null == timeZone) {
-            TDTime time = new TDTime(date, mConfig.getDefaultTimeZone());
+            DataEyeTime time = new DataEyeTime(date, mConfig.getDefaultTimeZone());
             time.disableZoneOffset();
             return time;
         }
-        return new TDTime(date, timeZone);
+        return new DataEyeTime(date, timeZone);
     }
 
     // 获取常量类型的 ITime 实例
     private ITime getTime(String timeString, Double zoneOffset) {
-        return new TDTimeConstant(timeString, zoneOffset);
+        return new DataEyeTimeConstant(timeString, zoneOffset);
     }
 
     /**
@@ -1548,7 +1548,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      * @param timestamp 当前时间戳
      */
     public static void calibrateTime(long timestamp) {
-        setCalibratedTime(new TDCalibratedTime(timestamp));
+        setCalibratedTime(new DataEyeCalibratedTime(timestamp));
     }
 
     /**
@@ -1557,7 +1557,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      */
     public static void calibrateTimeWithNtp(String... ntpServer) {
         if (null == ntpServer) return;
-        setCalibratedTime(new TDCalibratedTimeWithNTP(ntpServer));
+        setCalibratedTime(new DataEyeCalibratedTimeWithNTP(ntpServer));
     }
 
     // For Unity 2018.04 version
@@ -1585,7 +1585,7 @@ class LightDataEyeAnalyticsSDK extends DataEyeAnalyticsSDK {
     private final JSONObject mSuperProperties;
     private boolean mEnabled = true;
 
-    LightDataEyeAnalyticsSDK(DataEyeTDConfig config) {
+    LightDataEyeAnalyticsSDK(DataEyeConfig config) {
         super(config, true);
         mSuperProperties = new JSONObject();
     }
@@ -1604,7 +1604,7 @@ class LightDataEyeAnalyticsSDK extends DataEyeAnalyticsSDK {
             }
 
             synchronized (mSuperProperties) {
-                TDUtils.mergeJSONObject(superProperties, mSuperProperties, mConfig.getDefaultTimeZone());
+                DataEyeUtils.mergeJSONObject(superProperties, mSuperProperties, mConfig.getDefaultTimeZone());
             }
         } catch (Exception e) {
             e.printStackTrace();

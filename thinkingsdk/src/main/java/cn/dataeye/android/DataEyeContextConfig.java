@@ -8,7 +8,7 @@ import android.os.Bundle;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeLog;
 
 /**
  * TDContextConfig 为全局配置，针对该 Context 下所有实例生效. 其配置只能通过 AndroidManifext.xml 设置
@@ -80,7 +80,7 @@ class DataEyeContextConfig {
 
         if (configBundle.containsKey(KEY_ENABLE_LOG)) {
             boolean enableTrackLog = configBundle.getBoolean(KEY_ENABLE_LOG, false);
-            TDLog.setEnableLog(enableTrackLog);
+            DataEyeLog.setEnableLog(enableTrackLog);
         }
     }
 

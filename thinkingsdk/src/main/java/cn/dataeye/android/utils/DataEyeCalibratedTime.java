@@ -4,11 +4,11 @@ import android.os.SystemClock;
 
 import java.util.Date;
 
-public final class TDCalibratedTime implements ICalibratedTime {
+public final class DataEyeCalibratedTime implements ICalibratedTime {
     private final long startTime;
     private final long mSystemElapsedRealtime;
 
-    public TDCalibratedTime(long startTime) {
+    public DataEyeCalibratedTime(long startTime) {
         this.startTime = startTime;
         mSystemElapsedRealtime = SystemClock.elapsedRealtime();
     }

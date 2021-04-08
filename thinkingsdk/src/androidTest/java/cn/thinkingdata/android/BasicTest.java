@@ -6,11 +6,11 @@ import android.text.TextUtils;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import cn.dataeye.android.DataEyeTDConfig;
+import cn.dataeye.android.DataEyeConfig;
 import cn.dataeye.android.utils.RemoteService;
-import cn.dataeye.android.utils.TDConstants;
-import cn.dataeye.android.utils.TDConstants.DataType;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeConstants;
+import cn.dataeye.android.utils.DataEyeConstants.DataType;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,13 +61,13 @@ public class BasicTest {
 
     private static Context mAppContext;
     private final static String mVersionName = "1.0";
-    private static DataEyeTDConfig mConfig;
+    private static DataEyeConfig mConfig;
 
     @Before
     public void setUp() {
         ThinkingAnalyticsSDK.enableTrackLog(true);
         mAppContext = ApplicationProvider.getApplicationContext();
-        mConfig = DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
+        mConfig = DataEyeConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
     }
 
 
@@ -118,7 +118,7 @@ public class BasicTest {
         instance.flush();
         JSONObject event = messages.poll(POLL_WAIT_SECONDS, TimeUnit.SECONDS);
         assertEquals(event.length(), SIZE_OF_EVENT_DATA);
-        assertTrue(!TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertTrue(!TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         assertEquals(event.getString("#event_name"), "test_event");
         assertEquals(event.getJSONObject("properties").getString("#app_version"), mVersionName);
         assertTrue(event.getJSONObject("properties").has("#network_type"));
@@ -336,7 +336,7 @@ public class BasicTest {
                             @Override
                             public int addJSON(JSONObject j, Table table, String token) {
                                 try {
-                                    TDLog.i(TAG, j.toString(4));
+                                    DataEyeLog.i(TAG, j.toString(4));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -406,7 +406,7 @@ public class BasicTest {
         instance.track("test_event");
         instance.flush();
         JSONObject automaticData = messages.poll(POLL_WAIT_SECONDS, TimeUnit.SECONDS);
-        assertEquals(automaticData.getString("#lib_version"), DataEyeTDConfig.VERSION);
+        assertEquals(automaticData.getString("#lib_version"), DataEyeConfig.VERSION);
         assertEquals(automaticData.getString("#lib"), "Android");
         assertEquals(automaticData.getString("#os"), "Android");
         assertEquals(automaticData.getString("#device_id"), instance.getDeviceId());
@@ -425,7 +425,7 @@ public class BasicTest {
                             @Override
                             public int addJSON(JSONObject j, Table table, String token) {
                                 try {
-                                    TDLog.i(TAG, j.toString(4));
+                                    DataEyeLog.i(TAG, j.toString(4));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -452,7 +452,7 @@ public class BasicTest {
         assertEquals(event.length(), SIZE_OF_USER_DATA);
         assertTrue(event.has("#time"));
         assertTrue(event.has("#distinct_id"));
-        assertFalse(TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertFalse(TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         JSONObject prop = event.getJSONObject("properties");
         assertEquals(prop.length(), 4);
         properties.put("KEY_STRING", "string value");
@@ -468,7 +468,7 @@ public class BasicTest {
         assertEquals(event.length(), SIZE_OF_USER_DATA_LOGIN);
         assertTrue(event.has("#time"));
         assertTrue(event.has("#distinct_id"));
-        assertFalse(TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertFalse(TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         assertEquals(event.getString("#account_id"), accountId);
         prop = event.getJSONObject("properties");
         assertEquals(prop.length(), 4);
@@ -483,7 +483,7 @@ public class BasicTest {
         assertEquals(event.length(), SIZE_OF_USER_DATA);
         assertEquals(event.getString("#type"), "user_add");
         assertTrue(event.has("#distinct_id"));
-        assertFalse(TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertFalse(TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         assertTrue(event.has("#time"));
         prop = event.getJSONObject("properties");
         assertEquals(prop.length(), 1);
@@ -497,7 +497,7 @@ public class BasicTest {
         assertEquals(event.length(), SIZE_OF_USER_DATA);
         assertEquals(event.getString("#type"), "user_add");
         assertTrue(event.has("#distinct_id"));
-        assertFalse(TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertFalse(TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         assertTrue(event.has("#time"));
         prop = event.getJSONObject("properties");
         assertEquals(prop.length(), 2);
@@ -514,7 +514,7 @@ public class BasicTest {
         assertEquals(event.length(), SIZE_OF_USER_DATA);
         assertEquals(event.getString("#type"), "user_append");
         assertTrue(event.has("#distinct_id"));
-        assertFalse(TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertFalse(TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         assertTrue(event.has("#time"));
         prop = event.getJSONObject("properties");
         assertEquals(prop.length(), 1);
@@ -525,7 +525,7 @@ public class BasicTest {
         assertEquals(event.length(), SIZE_OF_USER_DATA);
         assertEquals(event.getString("#type"), "user_del");
         assertTrue(event.has("#distinct_id"));
-        assertFalse(TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertFalse(TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         assertTrue(event.has("#time"));
     }
 
@@ -587,7 +587,7 @@ public class BasicTest {
                             @Override
                             public int addJSON(JSONObject j, Table table, String token) {
                                 try {
-                                    TDLog.i(TAG, j.toString(4));
+                                    DataEyeLog.i(TAG, j.toString(4));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -637,7 +637,7 @@ public class BasicTest {
                             @Override
                             public int addJSON(JSONObject j, Table table, String token) {
                                 try {
-                                    TDLog.i(TAG, j.toString(4));
+                                    DataEyeLog.i(TAG, j.toString(4));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -686,7 +686,7 @@ public class BasicTest {
                             @Override
                             public int addJSON(JSONObject j, Table table, String token) {
                                 try {
-                                    TDLog.i(TAG, j.toString(4));
+                                    DataEyeLog.i(TAG, j.toString(4));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -704,22 +704,22 @@ public class BasicTest {
 
         assertEquals(event.getString("#type"), DataType.TRACK.getType());
         assertEquals(event.length(), SIZE_OF_EVENT_DATA);
-        assertTrue(!TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertTrue(!TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         assertEquals(event.getString("#event_name"), "test_event");
-        assertEquals(event.getJSONObject("properties").getString(TDConstants.KEY_APP_VERSION), mVersionName);
-        assertTrue(event.getJSONObject("properties").has(TDConstants.KEY_NETWORK_TYPE));
-        assertEquals(event.getJSONObject("properties").getDouble(TDConstants.KEY_ZONE_OFFSET), TimeZone.getDefault().getOffset(System.currentTimeMillis())/(1000.0 * 60 * 60), DELTA);
+        assertEquals(event.getJSONObject("properties").getString(DataEyeConstants.KEY_APP_VERSION), mVersionName);
+        assertTrue(event.getJSONObject("properties").has(DataEyeConstants.KEY_NETWORK_TYPE));
+        assertEquals(event.getJSONObject("properties").getDouble(DataEyeConstants.KEY_ZONE_OFFSET), TimeZone.getDefault().getOffset(System.currentTimeMillis())/(1000.0 * 60 * 60), DELTA);
 
         instance.track("test_event", null, new Date());
         event = messages.poll(POLL_WAIT_SECONDS, TimeUnit.SECONDS);
 
         assertEquals(event.getString("#type"), DataType.TRACK.getType());
         assertEquals(event.length(), SIZE_OF_EVENT_DATA);
-        assertTrue(!TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertTrue(!TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         assertEquals(event.getString("#event_name"), "test_event");
-        assertEquals(event.getJSONObject("properties").getString(TDConstants.KEY_APP_VERSION), mVersionName);
-        assertTrue(event.getJSONObject("properties").has(TDConstants.KEY_NETWORK_TYPE));
-        assertFalse(event.getJSONObject("properties").has(TDConstants.KEY_ZONE_OFFSET));
+        assertEquals(event.getJSONObject("properties").getString(DataEyeConstants.KEY_APP_VERSION), mVersionName);
+        assertTrue(event.getJSONObject("properties").has(DataEyeConstants.KEY_NETWORK_TYPE));
+        assertFalse(event.getJSONObject("properties").has(DataEyeConstants.KEY_ZONE_OFFSET));
 
         TimeZone tz = TimeZone.getTimeZone("America/Los_Angeles");
         instance.track("test_event", null, new Date(), tz);
@@ -727,11 +727,11 @@ public class BasicTest {
 
         assertEquals(event.getString("#type"), DataType.TRACK.getType());
         assertEquals(event.length(), SIZE_OF_EVENT_DATA);
-        assertTrue(!TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertTrue(!TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         assertEquals(event.getString("#event_name"), "test_event");
-        assertEquals(event.getJSONObject("properties").getString(TDConstants.KEY_APP_VERSION), mVersionName);
-        assertTrue(event.getJSONObject("properties").has(TDConstants.KEY_NETWORK_TYPE));
-        assertEquals(event.getJSONObject("properties").getDouble(TDConstants.KEY_ZONE_OFFSET), tz.getOffset(System.currentTimeMillis())/(1000.0 * 60 * 60), DELTA);
+        assertEquals(event.getJSONObject("properties").getString(DataEyeConstants.KEY_APP_VERSION), mVersionName);
+        assertTrue(event.getJSONObject("properties").has(DataEyeConstants.KEY_NETWORK_TYPE));
+        assertEquals(event.getJSONObject("properties").getDouble(DataEyeConstants.KEY_ZONE_OFFSET), tz.getOffset(System.currentTimeMillis())/(1000.0 * 60 * 60), DELTA);
 
     }
 
@@ -748,7 +748,7 @@ public class BasicTest {
                             @Override
                             public int addJSON(JSONObject j, Table table, String token) {
                                 try {
-                                    TDLog.i(TAG, j.toString(4));
+                                    DataEyeLog.i(TAG, j.toString(4));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -768,7 +768,7 @@ public class BasicTest {
         assertEquals(event.length(), SIZE_OF_USER_DATA);
         assertTrue(event.has("#time"));
         assertTrue(event.has("#distinct_id"));
-        assertTrue(!TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertTrue(!TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         JSONObject prop = event.getJSONObject("properties");
         assertEquals(prop.length(), 1);
         assertTrue(prop.has("key1"));
@@ -780,7 +780,7 @@ public class BasicTest {
         assertEquals(event.length(), SIZE_OF_USER_DATA);
         assertTrue(event.has("#time"));
         assertTrue(event.has("#distinct_id"));
-        assertTrue(!TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertTrue(!TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         prop = event.getJSONObject("properties");
         assertEquals(prop.length(), 2);
         assertTrue(prop.has("key1"));
@@ -794,7 +794,7 @@ public class BasicTest {
         assertEquals(event.length(), SIZE_OF_USER_DATA);
         assertTrue(event.has("#time"));
         assertTrue(event.has("#distinct_id"));
-        assertTrue(!TextUtils.isEmpty(event.getString(TDConstants.DATA_ID)));
+        assertTrue(!TextUtils.isEmpty(event.getString(DataEyeConstants.DATA_ID)));
         prop = event.getJSONObject("properties");
         assertEquals(prop.length(), 2);
         assertTrue(prop.has("key1"));
@@ -815,7 +815,7 @@ public class BasicTest {
                             @Override
                             public int addJSON(JSONObject j, Table table, String token) {
                                 try {
-                                    TDLog.i(TAG, j.toString(4));
+                                    DataEyeLog.i(TAG, j.toString(4));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -835,7 +835,7 @@ public class BasicTest {
     private void assertTime(ThinkingAnalyticsSDK instance,  final BlockingQueue<JSONObject> messages, long timestamp)
             throws JSONException, InterruptedException, ParseException {
         int DEFAULT_INTERVAL = 50;
-        SimpleDateFormat dateFormat = new SimpleDateFormat(TDConstants.TIME_PATTERN, Locale.CHINA);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DataEyeConstants.TIME_PATTERN, Locale.CHINA);
 
         instance.track("test_event");
         JSONObject event = messages.poll(POLL_WAIT_SECONDS, TimeUnit.SECONDS);
@@ -900,7 +900,7 @@ public class BasicTest {
                             @Override
                             public int addJSON(JSONObject j, Table table, String token) {
                                 try {
-                                    TDLog.i(TAG, j.toString(4));
+                                    DataEyeLog.i(TAG, j.toString(4));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -979,7 +979,7 @@ public class BasicTest {
                             @Override
                             public int addJSON(JSONObject j, Table table, String token) {
                                 try {
-                                    TDLog.i(TAG, j.toString(4));
+                                    DataEyeLog.i(TAG, j.toString(4));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -1033,7 +1033,7 @@ public class BasicTest {
                             @Override
                             public int addJSON(JSONObject j, Table table, String token) {
                                 try {
-                                    TDLog.i(TAG, j.toString(4));
+                                    DataEyeLog.i(TAG, j.toString(4));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

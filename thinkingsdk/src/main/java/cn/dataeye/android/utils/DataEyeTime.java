@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class TDTime implements ITime {
+public class DataEyeTime implements ITime {
 
     private final TimeZone mTimeZone;
 
@@ -13,14 +13,14 @@ public class TDTime implements ITime {
 
     private boolean enableZoneOffset = true;
 
-    public TDTime(Date date, TimeZone timeZone) {
+    public DataEyeTime(Date date, TimeZone timeZone) {
         mDate = date == null ? new Date() : date;
         mTimeZone = timeZone;
     }
 
     public String getTime() {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat(TDConstants.TIME_PATTERN, Locale.CHINA);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(DataEyeConstants.TIME_PATTERN, Locale.CHINA);
             if(null != mTimeZone) dateFormat.setTimeZone(mTimeZone);
             return dateFormat.format(mDate);
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class TDTime implements ITime {
 
     public Double getZoneOffset() {
         if (enableZoneOffset && mTimeZone != null) {
-            return TDUtils.getTimezoneOffset(mDate.getTime(), mTimeZone);
+            return DataEyeUtils.getTimezoneOffset(mDate.getTime(), mTimeZone);
         }
         return null;
     }

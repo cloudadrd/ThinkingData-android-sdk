@@ -3,12 +3,12 @@ package cn.dataeye.android.utils;
 /**
  * ITime with constant value.
  */
-public class TDTimeConstant implements ITime {
+public class DataEyeTimeConstant implements ITime {
 
     private final String mTimeString;
     private final Double mZoneOffset;
 
-    public TDTimeConstant(String timeString, Double zoneOffset) {
+    public DataEyeTimeConstant(String timeString, Double zoneOffset) {
         mTimeString = timeString;
         mZoneOffset = zoneOffset;
     }

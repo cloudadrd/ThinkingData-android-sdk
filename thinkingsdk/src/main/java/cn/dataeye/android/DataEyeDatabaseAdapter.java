@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,7 +76,7 @@ public class DataEyeDatabaseAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            TDLog.d(TAG, "Creating a new ThinkingData events database");
+            DataEyeLog.d(TAG, "Creating a new ThinkingData events database");
 
             db.execSQL(CREATE_EVENTS_TABLE);
             db.execSQL(EVENTS_TIME_INDEX);
@@ -84,7 +84,7 @@ public class DataEyeDatabaseAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            TDLog.d(TAG, "Upgrading ThinkingData events database");
+            DataEyeLog.d(TAG, "Upgrading ThinkingData events database");
 
             db.execSQL("DROP TABLE IF EXISTS " + Table.EVENTS.getName());
             db.execSQL(CREATE_EVENTS_TABLE);
@@ -137,7 +137,7 @@ public class DataEyeDatabaseAdapter {
                         cv.put(KEY_DATA, event.getString(KEY_DATA));
                         cv.put(KEY_CREATED_AT, event.getString(KEY_CREATED_AT));
 
-                        TDLog.d(TAG, cv.toString());
+                        DataEyeLog.d(TAG, cv.toString());
                         SQLiteDatabase database = mDb.getWritableDatabase();
                         database.insert(Table.EVENTS.getName(), null, cv);
                     } catch (Exception e) {
@@ -211,7 +211,7 @@ public class DataEyeDatabaseAdapter {
     public int addJSON(JSONObject j, Table table, String token) {
         // we are aware of the race condition here, but what can we do..?
         if (!this.belowMemThreshold()) {
-            TDLog.d(TAG, "There is not enough space left on the device to store td data, oldest data will be deleted");
+            DataEyeLog.d(TAG, "There is not enough space left on the device to store td data, oldest data will be deleted");
             String[] eventsData = generateDataString(table, null, 100);
             if (eventsData == null) {
                 return DB_OUT_OF_MEMORY_ERROR;
@@ -242,7 +242,7 @@ public class DataEyeDatabaseAdapter {
             count = c.getInt(0);
 
         } catch (final SQLiteException e) {
-            TDLog.e(TAG, "could not add data to table " + tableName + ". Re-initializing database.", e);
+            DataEyeLog.e(TAG, "could not add data to table " + tableName + ". Re-initializing database.", e);
             if (c != null) {
                 c.close();
             }
@@ -294,7 +294,7 @@ public class DataEyeDatabaseAdapter {
             c.moveToFirst();
             count = c.getInt(0);
         } catch (SQLiteException e) {
-            TDLog.e(TAG, "could not clean data from " + tableName, e);
+            DataEyeLog.e(TAG, "could not clean data from " + tableName, e);
             if (c != null) c.close();
             mDb.deleteDatabase();
             count = DB_UPDATE_ERROR;
@@ -317,7 +317,7 @@ public class DataEyeDatabaseAdapter {
             final SQLiteDatabase db = mDb.getWritableDatabase();
             db.delete(tableName, KEY_TOKEN + " = '" + token + "'", null);
         } catch (final SQLiteException e) {
-            TDLog.e(TAG, "Could not clean records. Re-initializing database.", e);
+            DataEyeLog.e(TAG, "Could not clean records. Re-initializing database.", e);
             mDb.deleteDatabase();
         }
     }
@@ -334,7 +334,7 @@ public class DataEyeDatabaseAdapter {
             final SQLiteDatabase db = mDb.getWritableDatabase();
             db.delete(tableName, KEY_CREATED_AT + " <= " + time, null);
         } catch (final SQLiteException e) {
-            TDLog.e(TAG, "Could not clean timed-out records. Re-initializing database.", e);
+            DataEyeLog.e(TAG, "Could not clean timed-out records. Re-initializing database.", e);
             mDb.deleteDatabase();
         }
     }
@@ -404,7 +404,7 @@ public class DataEyeDatabaseAdapter {
                 }
             }
         } catch (final SQLiteException e) {
-            TDLog.e(TAG, "Could not pull records out of database " + tableName, e);
+            DataEyeLog.e(TAG, "Could not pull records out of database " + tableName, e);
             last_id = null;
             data = null;
         } finally {

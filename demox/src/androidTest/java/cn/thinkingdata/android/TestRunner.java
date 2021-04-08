@@ -6,9 +6,9 @@ import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.runner.AndroidJUnitRunner;
 
-import cn.dataeye.android.DataEyeTDConfig;
+import cn.dataeye.android.DataEyeConfig;
 import cn.thinkingdata.android.demo.TDTracker;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,7 +57,7 @@ public class TestRunner extends AndroidJUnitRunner {
     private void initThinkingDataSDK() {
         ThinkingAnalyticsSDK.enableTrackLog(true);
         Context mAppContext = ApplicationProvider.getApplicationContext();
-        DataEyeTDConfig mConfig = DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
+        DataEyeConfig mConfig = DataEyeConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
         final DataHandle dataHandle = new DataHandle(mAppContext) {
             @Override
             protected DatabaseAdapter getDbAdapter(Context context) {
@@ -65,7 +65,7 @@ public class TestRunner extends AndroidJUnitRunner {
                     @Override
                     public int addJSON(JSONObject j, Table table, String token) {
                         try {
-                            TDLog.i("THINKING_TEST", j.toString(4));
+                            DataEyeLog.i("THINKING_TEST", j.toString(4));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -83,7 +83,7 @@ public class TestRunner extends AndroidJUnitRunner {
         };
 
         ThinkingAnalyticsSDK.addInstance(mInstance, mAppContext, TA_APP_ID);
-        mDebugInstance = new ThinkingAnalyticsSDK(DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
+        mDebugInstance = new ThinkingAnalyticsSDK(DataEyeConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
             @Override
             protected DataHandle getDataHandleInstance(Context context) {
                 return dataHandle;

@@ -3,7 +3,7 @@ package cn.dataeye.android.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TDConstants {
+public class DataEyeConstants {
 
     public enum DataType {
         TRACK("track"),

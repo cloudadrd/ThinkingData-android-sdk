@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 @Aspect
 public class TDTrackEventAspect {
 
-    @After("execution(@cn.thinkingdata.android.ThinkingDataTrackEvent * *(..))")
+    @After("execution(@cn.dataeye.android.DataEyeTrackEvent * *(..))")
     public void trackEvent(final JoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         if (null == methodSignature) return;
@@ -20,7 +20,7 @@ public class TDTrackEventAspect {
         if (null != method) {
             Class clazz = null;
             try {
-                clazz = Class.forName("cn.thinkingdata.android.ThinkingDataTrackEvent");
+                clazz = Class.forName("cn.dataeye.android.DataEyeTrackEvent");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }

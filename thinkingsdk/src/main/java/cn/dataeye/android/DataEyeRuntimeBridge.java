@@ -32,10 +32,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
-import cn.dataeye.android.utils.TDConstants;
-import cn.dataeye.android.utils.TDUtils;
+import cn.dataeye.android.utils.DataEyeConstants;
+import cn.dataeye.android.utils.DataEyeUtils;
 import cn.dataeye.android.utils.PropertyUtils;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -270,20 +270,20 @@ public class DataEyeRuntimeBridge {
 
 
                 try {
-                    String fragmentTitle = TDUtils.getTitleFromFragment(fragment, instance.getToken());
+                    String fragmentTitle = DataEyeUtils.getTitleFromFragment(fragment, instance.getToken());
                     if (!TextUtils.isEmpty(fragmentTitle)) {
-                        properties.put(TDConstants.TITLE, fragmentTitle);
+                        properties.put(DataEyeConstants.TITLE, fragmentTitle);
                     } else if (null != activity) {
-                        String activityTitle = TDUtils.getActivityTitle(activity);
+                        String activityTitle = DataEyeUtils.getActivityTitle(activity);
                         if (!TextUtils.isEmpty(activityTitle)) {
-                            properties.put(TDConstants.TITLE, activityTitle);
+                            properties.put(DataEyeConstants.TITLE, activityTitle);
                         }
                     }
 
                     if (activity != null) {
-                        properties.put(TDConstants.SCREEN_NAME, String.format(Locale.CHINA, "%s|%s", activity.getClass().getCanonicalName(), fragmentName));
+                        properties.put(DataEyeConstants.SCREEN_NAME, String.format(Locale.CHINA, "%s|%s", activity.getClass().getCanonicalName(), fragmentName));
                     } else {
-                        properties.put(TDConstants.SCREEN_NAME, fragmentName);
+                        properties.put(DataEyeConstants.SCREEN_NAME, fragmentName);
                     }
 
 
@@ -292,7 +292,7 @@ public class DataEyeRuntimeBridge {
                         String screenUrl = dataEyeScreenAutoTracker.getScreenUrl();
                         JSONObject otherProperties = dataEyeScreenAutoTracker.getTrackProperties();
                         if (otherProperties != null) {
-                            TDUtils.mergeJSONObject(otherProperties, properties, instance.mConfig.getDefaultTimeZone());
+                            DataEyeUtils.mergeJSONObject(otherProperties, properties, instance.mConfig.getDefaultTimeZone());
                         }
 
                         instance.trackViewScreenInternal(screenUrl, properties);
@@ -311,7 +311,7 @@ public class DataEyeRuntimeBridge {
                         }
                     }
                 } catch (JSONException e) {
-                    TDLog.d(TAG, "JSONException occurred when track fragment events");
+                    DataEyeLog.d(TAG, "JSONException occurred when track fragment events");
                 }
             }
         });
@@ -332,9 +332,9 @@ public class DataEyeRuntimeBridge {
         final JSONObject properties = new JSONObject();
         if (!TextUtils.isEmpty(propertiesString)) {
             try {
-                TDUtils.mergeJSONObject(new JSONObject(propertiesString), properties, null);
+                DataEyeUtils.mergeJSONObject(new JSONObject(propertiesString), properties, null);
             } catch (JSONException e) {
-                TDLog.e(TAG, "Exception occurred in trackEvent");
+                DataEyeLog.e(TAG, "Exception occurred in trackEvent");
                 e.printStackTrace();
             }
         }
@@ -382,22 +382,22 @@ public class DataEyeRuntimeBridge {
                     }
 
                     long currentOnClickTimestamp = System.currentTimeMillis();
-                    String tag = (String) TDUtils.getTag(instance.getToken(), view, R.id.thinking_analytics_tag_view_onclick_timestamp);
+                    String tag = (String) DataEyeUtils.getTag(instance.getToken(), view, R.id.thinking_analytics_tag_view_onclick_timestamp);
                     if (!TextUtils.isEmpty(tag)) {
                         try {
                             long lastOnClickTimestamp = Long.parseLong(tag);
                             if ((currentOnClickTimestamp - lastOnClickTimestamp) < 500) {
-                                TDLog.i(TAG, "This onClick maybe extends from super, IGNORE");
+                                DataEyeLog.i(TAG, "This onClick maybe extends from super, IGNORE");
                                 return;
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                    TDUtils.setTag(instance.getToken(), view, R.id.thinking_analytics_tag_view_onclick_timestamp, String.valueOf(currentOnClickTimestamp));
+                    DataEyeUtils.setTag(instance.getToken(), view, R.id.thinking_analytics_tag_view_onclick_timestamp, String.valueOf(currentOnClickTimestamp));
 
                     Context context = view.getContext();
-                    Activity activity = TDUtils.getActivityFromContext(context);
+                    Activity activity = DataEyeUtils.getActivityFromContext(context);
                     if (activity != null) {
                         if (instance.isActivityAutoTrackAppClickIgnored(activity.getClass())) {
                             return;
@@ -409,18 +409,18 @@ public class DataEyeRuntimeBridge {
                     }
 
                     JSONObject properties = new JSONObject();
-                    TDUtils.addViewPathProperties(activity, view, properties);
+                    DataEyeUtils.addViewPathProperties(activity, view, properties);
 
-                    String idString = TDUtils.getViewId(view, instance.getToken());
+                    String idString = DataEyeUtils.getViewId(view, instance.getToken());
                     if (!TextUtils.isEmpty(idString)) {
-                        properties.put(TDConstants.ELEMENT_ID, idString);
+                        properties.put(DataEyeConstants.ELEMENT_ID, idString);
                     }
 
                     if (activity != null) {
-                        properties.put(TDConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
-                        String activityTitle = TDUtils.getActivityTitle(activity);
+                        properties.put(DataEyeConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
+                        String activityTitle = DataEyeUtils.getActivityTitle(activity);
                         if (!TextUtils.isEmpty(activityTitle)) {
-                            properties.put(TDConstants.TITLE, activityTitle);
+                            properties.put(DataEyeConstants.TITLE, activityTitle);
                         }
                     }
 
@@ -478,7 +478,7 @@ public class DataEyeRuntimeBridge {
                                 Method getCurrentItemMethod = view.getClass().getMethod("getCurrentItem");
                                 if (getCurrentItemMethod != null) {
                                     int currentItem = (int) getCurrentItemMethod.invoke(view);
-                                    properties.put(TDConstants.ELEMENT_POSITION, String.format(Locale.CHINA, "%d", currentItem));
+                                    properties.put(DataEyeConstants.ELEMENT_POSITION, String.format(Locale.CHINA, "%d", currentItem));
                                     Method getPageTitleMethod = viewPagerAdapter.getClass().getMethod("getPageTitle", int.class);
                                     if (getPageTitleMethod != null) {
                                         viewText = (String) getPageTitleMethod.invoke(viewPagerAdapter, new Object[]{currentItem});
@@ -569,11 +569,11 @@ public class DataEyeRuntimeBridge {
                         viewType = "Spinner";
                         try {
                             StringBuilder stringBuilder = new StringBuilder();
-                            viewText = TDUtils.traverseView(stringBuilder, (ViewGroup) view);
+                            viewText = DataEyeUtils.traverseView(stringBuilder, (ViewGroup) view);
                             if (!TextUtils.isEmpty(viewText)) {
                                 viewText = viewText.toString().substring(0, viewText.length() - 1);
                             }
-                            properties.put(TDConstants.ELEMENT_POSITION, ((Spinner) view).getSelectedItemPosition());
+                            properties.put(DataEyeConstants.ELEMENT_POSITION, ((Spinner) view).getSelectedItemPosition());
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -593,7 +593,7 @@ public class DataEyeRuntimeBridge {
                     } else if (view instanceof ViewGroup) {
                         try {
                             StringBuilder stringBuilder = new StringBuilder();
-                            viewText = TDUtils.traverseView(stringBuilder, (ViewGroup) view);
+                            viewText = DataEyeUtils.traverseView(stringBuilder, (ViewGroup) view);
                             if (!TextUtils.isEmpty(viewText)) {
                                 viewText = viewText.toString().substring(0, viewText.length() - 1);
                             }
@@ -603,21 +603,21 @@ public class DataEyeRuntimeBridge {
                     }
 
                     if (!TextUtils.isEmpty(viewText)) {
-                        properties.put(TDConstants.ELEMENT_CONTENT, viewText.toString());
+                        properties.put(DataEyeConstants.ELEMENT_CONTENT, viewText.toString());
                     }
 
-                    properties.put(TDConstants.ELEMENT_TYPE, viewType);
-                    TDUtils.getFragmentNameFromView(view, properties);
+                    properties.put(DataEyeConstants.ELEMENT_TYPE, viewType);
+                    DataEyeUtils.getFragmentNameFromView(view, properties);
 
-                    JSONObject p = (JSONObject) TDUtils.getTag(instance.getToken(), view,
+                    JSONObject p = (JSONObject) DataEyeUtils.getTag(instance.getToken(), view,
                             R.id.thinking_analytics_tag_view_properties);
                     if (p != null) {
-                        TDUtils.mergeJSONObject(p, properties, instance.mConfig.getDefaultTimeZone());
+                        DataEyeUtils.mergeJSONObject(p, properties, instance.mConfig.getDefaultTimeZone());
                     }
 
-                    instance.autoTrack(TDConstants.APP_CLICK_EVENT_NAME, properties);
+                    instance.autoTrack(DataEyeConstants.APP_CLICK_EVENT_NAME, properties);
                 } catch (Exception e) {
-                    TDLog.e(TAG, "onViewClickMethod error: " + e.toString());
+                    DataEyeLog.e(TAG, "onViewClickMethod error: " + e.toString());
                     e.printStackTrace();
                 }
             }
@@ -645,7 +645,7 @@ public class DataEyeRuntimeBridge {
                         return;
                     }
 
-                    Activity activity = TDUtils.getActivityFromContext(context);
+                    Activity activity = DataEyeUtils.getActivityFromContext(context);
                     if (activity != null) {
                         if (instance.isActivityAutoTrackAppClickIgnored(activity.getClass())) {
                             return;
@@ -666,33 +666,33 @@ public class DataEyeRuntimeBridge {
 
                     JSONObject properties = new JSONObject();
 
-                    TDUtils.addViewPathProperties(activity, view, properties);
+                    DataEyeUtils.addViewPathProperties(activity, view, properties);
 
                     if (activity != null) {
-                        properties.put(TDConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
-                        String activityTitle = TDUtils.getActivityTitle(activity);
+                        properties.put(DataEyeConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
+                        String activityTitle = DataEyeUtils.getActivityTitle(activity);
                         if (!TextUtils.isEmpty(activityTitle)) {
-                            properties.put(TDConstants.TITLE, activityTitle);
+                            properties.put(DataEyeConstants.TITLE, activityTitle);
                         }
                     }
 
-                    String idString = TDUtils.getViewId(expandableListView);
+                    String idString = DataEyeUtils.getViewId(expandableListView);
                     if (!TextUtils.isEmpty(idString)) {
-                        properties.put(TDConstants.ELEMENT_ID, idString);
+                        properties.put(DataEyeConstants.ELEMENT_ID, idString);
                     }
 
                     if (childPosition < 0) {
-                        properties.put(TDConstants.ELEMENT_POSITION, String.format(Locale.CHINA, "%d", groupPosition));
+                        properties.put(DataEyeConstants.ELEMENT_POSITION, String.format(Locale.CHINA, "%d", groupPosition));
                     } else {
-                        properties.put(TDConstants.ELEMENT_POSITION, String.format(Locale.CHINA, "%d:%d", groupPosition, childPosition));
+                        properties.put(DataEyeConstants.ELEMENT_POSITION, String.format(Locale.CHINA, "%d:%d", groupPosition, childPosition));
                     }
-                    properties.put(TDConstants.ELEMENT_TYPE, "ExpandableListView");
+                    properties.put(DataEyeConstants.ELEMENT_TYPE, "ExpandableListView");
 
                     String viewText = null;
                     if (view instanceof ViewGroup) {
                         try {
                             StringBuilder stringBuilder = new StringBuilder();
-                            viewText = TDUtils.traverseView(stringBuilder, (ViewGroup) view);
+                            viewText = DataEyeUtils.traverseView(stringBuilder, (ViewGroup) view);
                             if (!TextUtils.isEmpty(viewText)) {
                                 viewText = viewText.substring(0, viewText.length() - 1);
                             }
@@ -705,15 +705,15 @@ public class DataEyeRuntimeBridge {
 
                     //element_content
                     if (!TextUtils.isEmpty(viewText)) {
-                        properties.put(TDConstants.ELEMENT_CONTENT, viewText);
+                        properties.put(DataEyeConstants.ELEMENT_CONTENT, viewText);
                     }
 
-                    TDUtils.getFragmentNameFromView(expandableListView, properties);
+                    DataEyeUtils.getFragmentNameFromView(expandableListView, properties);
 
-                    JSONObject p = (JSONObject) TDUtils.getTag(instance.getToken(), view,
+                    JSONObject p = (JSONObject) DataEyeUtils.getTag(instance.getToken(), view,
                             R.id.thinking_analytics_tag_view_properties);
                     if (p != null) {
-                        TDUtils.mergeJSONObject(p, properties, instance.mConfig.getDefaultTimeZone());
+                        DataEyeUtils.mergeJSONObject(p, properties, instance.mConfig.getDefaultTimeZone());
                     }
 
 
@@ -729,7 +729,7 @@ public class DataEyeRuntimeBridge {
                                     jsonObject = trackProperties.getThinkingChildItemTrackProperties(groupPosition, childPosition);
                                 }
                                 if (jsonObject != null && PropertyUtils.checkProperty(jsonObject)) {
-                                    TDUtils.mergeJSONObject(jsonObject, properties, instance.mConfig.getDefaultTimeZone());
+                                    DataEyeUtils.mergeJSONObject(jsonObject, properties, instance.mConfig.getDefaultTimeZone());
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -737,10 +737,10 @@ public class DataEyeRuntimeBridge {
                         }
                     }
 
-                    instance.autoTrack(TDConstants.APP_CLICK_EVENT_NAME, properties);
+                    instance.autoTrack(DataEyeConstants.APP_CLICK_EVENT_NAME, properties);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    TDLog.i(TAG, " ExpandableListView.OnChildClickListener.onGroupClick AOP ERROR: " + e.getMessage());
+                    DataEyeLog.i(TAG, " ExpandableListView.OnChildClickListener.onGroupClick AOP ERROR: " + e.getMessage());
                 }
             }
         });
@@ -765,7 +765,7 @@ public class DataEyeRuntimeBridge {
                     }
 
                     Context context = dialog.getContext();
-                    Activity activity = TDUtils.getActivityFromContext(context);
+                    Activity activity = DataEyeUtils.getActivityFromContext(context);
 
                     if (activity == null) {
                         activity = dialog.getOwnerActivity();
@@ -785,10 +785,10 @@ public class DataEyeRuntimeBridge {
 
                     try {
                         if (dialog.getWindow() != null) {
-                            String idString = (String) TDUtils.getTag(instance.getToken(), dialog.getWindow().getDecorView(),
+                            String idString = (String) DataEyeUtils.getTag(instance.getToken(), dialog.getWindow().getDecorView(),
                                     R.id.thinking_analytics_tag_view_id);
                             if (!TextUtils.isEmpty(idString)) {
-                                properties.put(TDConstants.ELEMENT_ID, idString);
+                                properties.put(DataEyeConstants.ELEMENT_ID, idString);
                             }
                         }
                     } catch (Exception e) {
@@ -796,14 +796,14 @@ public class DataEyeRuntimeBridge {
                     }
 
                     if (activity != null) {
-                        properties.put(TDConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
-                        String activityTitle = TDUtils.getActivityTitle(activity);
+                        properties.put(DataEyeConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
+                        String activityTitle = DataEyeUtils.getActivityTitle(activity);
                         if (!TextUtils.isEmpty(activityTitle)) {
-                            properties.put(TDConstants.TITLE, activityTitle);
+                            properties.put(DataEyeConstants.TITLE, activityTitle);
                         }
                     }
 
-                    properties.put(TDConstants.ELEMENT_TYPE, "Dialog");
+                    properties.put(DataEyeConstants.ELEMENT_TYPE, "Dialog");
 
                     Class<?> alertDialogClass = null;
                     try {
@@ -824,7 +824,7 @@ public class DataEyeRuntimeBridge {
                         Button button = alertDialog.getButton(which);
                         if (button != null) {
                             if (!TextUtils.isEmpty(button.getText())) {
-                                properties.put(TDConstants.ELEMENT_CONTENT, button.getText());
+                                properties.put(DataEyeConstants.ELEMENT_CONTENT, button.getText());
                             }
                         } else {
                             ListView listView = alertDialog.getListView();
@@ -833,7 +833,7 @@ public class DataEyeRuntimeBridge {
                                 Object object = listAdapter.getItem(which);
                                 if (object != null) {
                                     if (object instanceof String) {
-                                        properties.put(TDConstants.ELEMENT_CONTENT, object);
+                                        properties.put(DataEyeConstants.ELEMENT_CONTENT, object);
                                     }
                                 }
                             }
@@ -852,7 +852,7 @@ public class DataEyeRuntimeBridge {
 
                         if (button != null) {
                             if (!TextUtils.isEmpty(button.getText())) {
-                                properties.put(TDConstants.ELEMENT_CONTENT, button.getText());
+                                properties.put(DataEyeConstants.ELEMENT_CONTENT, button.getText());
                             }
                         } else {
                             try {
@@ -864,7 +864,7 @@ public class DataEyeRuntimeBridge {
                                         Object object = listAdapter.getItem(which);
                                         if (object != null) {
                                             if (object instanceof String) {
-                                                properties.put(TDConstants.ELEMENT_CONTENT, object);
+                                                properties.put(DataEyeConstants.ELEMENT_CONTENT, object);
                                             }
                                         }
                                     }
@@ -875,10 +875,10 @@ public class DataEyeRuntimeBridge {
                         }
                     }
 
-                    instance.autoTrack(TDConstants.APP_CLICK_EVENT_NAME, properties);
+                    instance.autoTrack(DataEyeConstants.APP_CLICK_EVENT_NAME, properties);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    TDLog.i(TAG, " DialogInterface.OnClickListener.onClick AOP ERROR: " + e.getMessage());
+                    DataEyeLog.i(TAG, " DialogInterface.OnClickListener.onClick AOP ERROR: " + e.getMessage());
                 }
 
             }
@@ -905,7 +905,7 @@ public class DataEyeRuntimeBridge {
                         return;
                     }
 
-                    Activity activity = TDUtils.getActivityFromContext(context);
+                    Activity activity = DataEyeUtils.getActivityFromContext(context);
                     if (activity != null) {
                         if (instance.isActivityAutoTrackAppClickIgnored(activity.getClass())) {
                             return;
@@ -921,17 +921,17 @@ public class DataEyeRuntimeBridge {
                     List<Class> mIgnoredViewTypeList = instance.getIgnoredViewTypeList();
                     if (mIgnoredViewTypeList != null) {
                         if (adapterView instanceof ListView) {
-                            properties.put(TDConstants.ELEMENT_TYPE, "ListView");
+                            properties.put(DataEyeConstants.ELEMENT_TYPE, "ListView");
                             if (isViewIgnored(instance, ListView.class)) {
                                 return;
                             }
                         } else if (adapterView instanceof GridView) {
-                            properties.put(TDConstants.ELEMENT_TYPE, "GridView");
+                            properties.put(DataEyeConstants.ELEMENT_TYPE, "GridView");
                             if (isViewIgnored(instance, GridView.class)) {
                                 return;
                             }
                         } else if (adapterView instanceof Spinner) {
-                            properties.put(TDConstants.ELEMENT_TYPE, "Spinner");
+                            properties.put(DataEyeConstants.ELEMENT_TYPE, "Spinner");
                             if (isViewIgnored(instance, Spinner.class)) {
                                 return;
                             }
@@ -944,35 +944,35 @@ public class DataEyeRuntimeBridge {
                             DataEyeAdapterViewItemTrackProperties objectProperties = (DataEyeAdapterViewItemTrackProperties) adapter;
                             JSONObject jsonObject = objectProperties.getThinkingItemTrackProperties(position);
                             if (jsonObject != null && PropertyUtils.checkProperty(jsonObject)) {
-                                TDUtils.mergeJSONObject(jsonObject, properties, instance.mConfig.getDefaultTimeZone());
+                                DataEyeUtils.mergeJSONObject(jsonObject, properties, instance.mConfig.getDefaultTimeZone());
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
 
-                    TDUtils.addViewPathProperties(activity, view, properties);
+                    DataEyeUtils.addViewPathProperties(activity, view, properties);
 
-                    String idString = TDUtils.getViewId(adapterView, instance.getToken());
+                    String idString = DataEyeUtils.getViewId(adapterView, instance.getToken());
                     if (!TextUtils.isEmpty(idString)) {
-                        properties.put(TDConstants.ELEMENT_ID, idString);
+                        properties.put(DataEyeConstants.ELEMENT_ID, idString);
                     }
 
                     if (activity != null) {
-                        properties.put(TDConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
-                        String activityTitle = TDUtils.getActivityTitle(activity);
+                        properties.put(DataEyeConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
+                        String activityTitle = DataEyeUtils.getActivityTitle(activity);
                         if (!TextUtils.isEmpty(activityTitle)) {
-                            properties.put(TDConstants.TITLE, activityTitle);
+                            properties.put(DataEyeConstants.TITLE, activityTitle);
                         }
                     }
 
-                    properties.put(TDConstants.ELEMENT_POSITION, String.valueOf(position));
+                    properties.put(DataEyeConstants.ELEMENT_POSITION, String.valueOf(position));
 
                     String viewText = null;
                     if (view instanceof ViewGroup) {
                         try {
                             StringBuilder stringBuilder = new StringBuilder();
-                            viewText = TDUtils.traverseView(stringBuilder, (ViewGroup) view);
+                            viewText = DataEyeUtils.traverseView(stringBuilder, (ViewGroup) view);
                             if (!TextUtils.isEmpty(viewText)) {
                                 viewText = viewText.substring(0, viewText.length() - 1);
                             }
@@ -984,21 +984,21 @@ public class DataEyeRuntimeBridge {
                     }
 
                     if (!TextUtils.isEmpty(viewText)) {
-                        properties.put(TDConstants.ELEMENT_CONTENT, viewText);
+                        properties.put(DataEyeConstants.ELEMENT_CONTENT, viewText);
                     }
 
-                    TDUtils.getFragmentNameFromView(adapterView, properties);
+                    DataEyeUtils.getFragmentNameFromView(adapterView, properties);
 
-                    JSONObject p = (JSONObject) TDUtils.getTag(instance.getToken(), view,
+                    JSONObject p = (JSONObject) DataEyeUtils.getTag(instance.getToken(), view,
                             R.id.thinking_analytics_tag_view_properties);
                     if (p != null) {
-                        TDUtils.mergeJSONObject(p, properties, instance.mConfig.getDefaultTimeZone());
+                        DataEyeUtils.mergeJSONObject(p, properties, instance.mConfig.getDefaultTimeZone());
                     }
 
-                    instance.autoTrack(TDConstants.APP_CLICK_EVENT_NAME, properties);
+                    instance.autoTrack(DataEyeConstants.APP_CLICK_EVENT_NAME, properties);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    TDLog.i(TAG, " AdapterView.OnItemClickListener.onItemClick AOP ERROR: " + e.getMessage());
+                    DataEyeLog.i(TAG, " AdapterView.OnItemClickListener.onItemClick AOP ERROR: " + e.getMessage());
                 }
 
             }
@@ -1035,7 +1035,7 @@ public class DataEyeRuntimeBridge {
                         return;
                     }
 
-                    Activity activity = TDUtils.getActivityFromContext(context);
+                    Activity activity = DataEyeUtils.getActivityFromContext(context);
                     if (activity != null) {
                         if (instance.isActivityAutoTrackAppClickIgnored(activity.getClass())) {
                             return;
@@ -1051,27 +1051,27 @@ public class DataEyeRuntimeBridge {
 
                     JSONObject properties = new JSONObject();
                     if (activity != null) {
-                        properties.put(TDConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
-                        String activityTitle = TDUtils.getActivityTitle(activity);
+                        properties.put(DataEyeConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
+                        String activityTitle = DataEyeUtils.getActivityTitle(activity);
                         if (!TextUtils.isEmpty(activityTitle)) {
-                            properties.put(TDConstants.TITLE, activityTitle);
+                            properties.put(DataEyeConstants.TITLE, activityTitle);
                         }
                     }
 
                     if (!TextUtils.isEmpty(idString)) {
-                        properties.put(TDConstants.ELEMENT_ID, idString);
+                        properties.put(DataEyeConstants.ELEMENT_ID, idString);
                     }
 
                     if (!TextUtils.isEmpty(menuItem.getTitle())) {
-                        properties.put(TDConstants.ELEMENT_CONTENT, menuItem.getTitle());
+                        properties.put(DataEyeConstants.ELEMENT_CONTENT, menuItem.getTitle());
                     }
 
-                    properties.put(TDConstants.ELEMENT_TYPE, "MenuItem");
+                    properties.put(DataEyeConstants.ELEMENT_TYPE, "MenuItem");
 
-                    instance.autoTrack(TDConstants.APP_CLICK_EVENT_NAME, properties);
+                    instance.autoTrack(DataEyeConstants.APP_CLICK_EVENT_NAME, properties);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    TDLog.i(TAG, "track MenuItem click error: " + e.getMessage());
+                    DataEyeLog.i(TAG, "track MenuItem click error: " + e.getMessage());
                 }
 
             }
@@ -1098,13 +1098,13 @@ public class DataEyeRuntimeBridge {
 
                     JSONObject properties = new JSONObject();
 
-                    properties.put(TDConstants.ELEMENT_CONTENT, tabName);
-                    properties.put(TDConstants.ELEMENT_TYPE, "TabHost");
+                    properties.put(DataEyeConstants.ELEMENT_CONTENT, tabName);
+                    properties.put(DataEyeConstants.ELEMENT_TYPE, "TabHost");
 
-                    instance.autoTrack(TDConstants.APP_CLICK_EVENT_NAME, properties);
+                    instance.autoTrack(DataEyeConstants.APP_CLICK_EVENT_NAME, properties);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    TDLog.i(TAG, " onTabChanged AOP ERROR: " + e.getMessage());
+                    DataEyeLog.i(TAG, " onTabChanged AOP ERROR: " + e.getMessage());
                 }
 
             }
@@ -1147,7 +1147,7 @@ public class DataEyeRuntimeBridge {
                 }
             }
 
-            if ("1".equals(TDUtils.getTag(instance.getToken(), view, R.id.thinking_analytics_tag_view_ignored))) {
+            if ("1".equals(DataEyeUtils.getTag(instance.getToken(), view, R.id.thinking_analytics_tag_view_ignored))) {
                 return true;
             }
 

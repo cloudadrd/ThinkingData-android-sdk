@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import java.util.Date;
 import java.util.TimeZone;
 
-import cn.dataeye.android.utils.TDConstants;
+import cn.dataeye.android.utils.DataEyeConstants;
 
 abstract class DataEyeAnalyticsEvent {
     private final String mEventName;
@@ -31,7 +31,7 @@ abstract class DataEyeAnalyticsEvent {
 
     abstract String getExtraValue();
 
-    abstract TDConstants.DataType getDataType();
+    abstract DataEyeConstants.DataType getDataType();
 
     String getEventName() {
         return mEventName;

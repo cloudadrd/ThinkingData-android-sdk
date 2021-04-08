@@ -5,8 +5,8 @@ import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import cn.dataeye.android.DataEyeTDConfig;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.DataEyeConfig;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +38,7 @@ public class MultiAppIdTest {
     public void setUp() {
         ThinkingAnalyticsSDK.enableTrackLog(true);
         final Context mAppContext = ApplicationProvider.getApplicationContext();
-        final DataEyeTDConfig mConfig = DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
+        final DataEyeConfig mConfig = DataEyeConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
         final DataHandle dataHandle = new DataHandle(mAppContext) {
             @Override
             protected DatabaseAdapter getDbAdapter(Context context) {
@@ -46,7 +46,7 @@ public class MultiAppIdTest {
                     @Override
                     public int addJSON(JSONObject j, Table table, String token) {
                         try {
-                            TDLog.i("THINKING_TEST", j.toString(4));
+                            DataEyeLog.i("THINKING_TEST", j.toString(4));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -70,7 +70,7 @@ public class MultiAppIdTest {
                 };
             }
         };
-        mInstanceDebug = new ThinkingAnalyticsSDK(DataEyeTDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
+        mInstanceDebug = new ThinkingAnalyticsSDK(DataEyeConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
             @Override
             protected DataHandle getDataHandleInstance(Context context) {
                 return dataHandle;

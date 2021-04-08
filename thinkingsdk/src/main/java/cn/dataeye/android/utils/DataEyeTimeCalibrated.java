@@ -7,14 +7,14 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class TDTimeCalibrated implements ITime {
+public class DataEyeTimeCalibrated implements ITime {
     private long mSystemElapsedRealtime;
     private TimeZone mTimeZone;
     private ICalibratedTime mCalibratedTime;
 
     private Date mDate;
 
-    public TDTimeCalibrated(ICalibratedTime calibratedTime, TimeZone timeZone) {
+    public DataEyeTimeCalibrated(ICalibratedTime calibratedTime, TimeZone timeZone) {
         mCalibratedTime = calibratedTime;
         mTimeZone = timeZone;
         mSystemElapsedRealtime = SystemClock.elapsedRealtime();
@@ -30,7 +30,7 @@ public class TDTimeCalibrated implements ITime {
     @Override
     public String getTime() {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat(TDConstants.TIME_PATTERN, Locale.CHINA);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(DataEyeConstants.TIME_PATTERN, Locale.CHINA);
             dateFormat.setTimeZone(mTimeZone);
             return dateFormat.format(getDate());
         } catch (Exception e) {
@@ -41,6 +41,6 @@ public class TDTimeCalibrated implements ITime {
 
     @Override
     public Double getZoneOffset() {
-        return TDUtils.getTimezoneOffset(getDate().getTime(), mTimeZone);
+        return DataEyeUtils.getTimezoneOffset(getDate().getTime(), mTimeZone);
     }
 }

@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class TDUtils {
+public class DataEyeUtils {
 
     private static int getChildIndex(ViewParent parent, View child) {
         try {
@@ -50,7 +50,7 @@ public class TDUtils {
             }
 
             ViewGroup _parent = (ViewGroup) parent;
-            final String childIdName = TDUtils.getViewId(child);
+            final String childIdName = DataEyeUtils.getViewId(child);
 
             String childClassName = child.getClass().getCanonicalName();
             int index = 0;
@@ -61,7 +61,7 @@ public class TDUtils {
                     continue;
                 }
 
-                String brotherIdName = TDUtils.getViewId(brother);
+                String brotherIdName = DataEyeUtils.getViewId(brother);
 
                 if (null != childIdName && !childIdName.equals(brotherIdName)) {
                     index++;
@@ -113,7 +113,7 @@ public class TDUtils {
                     stringBuffer.append("/");
                 }
             }
-            properties.put(TDConstants.ELEMENT_SELECTOR, stringBuffer.toString());
+            properties.put(DataEyeConstants.ELEMENT_SELECTOR, stringBuffer.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -217,11 +217,11 @@ public class TDUtils {
                 }
 
                 if (!TextUtils.isEmpty(fragmentName)) {
-                    String screenName = properties.optString(TDConstants.SCREEN_NAME);
+                    String screenName = properties.optString(DataEyeConstants.SCREEN_NAME);
                     if (!TextUtils.isEmpty(fragmentName)) {
-                        properties.put(TDConstants.SCREEN_NAME, String.format(Locale.CHINA, "%s|%s", screenName, fragmentName));
+                        properties.put(DataEyeConstants.SCREEN_NAME, String.format(Locale.CHINA, "%s|%s", screenName, fragmentName));
                     } else {
-                        properties.put(TDConstants.SCREEN_NAME, fragmentName);
+                        properties.put(DataEyeConstants.SCREEN_NAME, fragmentName);
                     }
                 }
             }
@@ -238,8 +238,8 @@ public class TDUtils {
                 DataEyeScreenAutoTracker dataEyeScreenAutoTracker = (DataEyeScreenAutoTracker) fragment;
                 JSONObject trackProperties = dataEyeScreenAutoTracker.getTrackProperties();
                 if (trackProperties != null) {
-                    if (trackProperties.has(TDConstants.TITLE)) {
-                        title = trackProperties.optString(TDConstants.TITLE);
+                    if (trackProperties.has(DataEyeConstants.TITLE)) {
+                        title = trackProperties.optString(DataEyeConstants.TITLE);
                     }
                 }
             }
@@ -366,7 +366,7 @@ public class TDUtils {
         }
 
         try {
-            properties.put(TDConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
+            properties.put(DataEyeConstants.SCREEN_NAME, activity.getClass().getCanonicalName());
 
             String activityTitle = activity.getTitle().toString();
 
@@ -385,7 +385,7 @@ public class TDUtils {
                 }
             }
             if (!TextUtils.isEmpty(activityTitle)) {
-                properties.put(TDConstants.TITLE, activityTitle);
+                properties.put(DataEyeConstants.TITLE, activityTitle);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -443,7 +443,7 @@ public class TDUtils {
             String key = sourceIterator.next();
             Object value = source.get(key);
             if (value instanceof Date) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat(TDConstants.TIME_PATTERN, Locale.CHINA);
+                SimpleDateFormat dateFormat = new SimpleDateFormat(DataEyeConstants.TIME_PATTERN, Locale.CHINA);
                 if (null != timeZone) {
                     dateFormat.setTimeZone(timeZone);
                 }
@@ -454,7 +454,7 @@ public class TDUtils {
                 for (int i = 0; i < originalArray.length(); i++) {
                     Object element = originalArray.get(i);
                     if (element instanceof Date) {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat(TDConstants.TIME_PATTERN, Locale.CHINA);
+                        SimpleDateFormat dateFormat = new SimpleDateFormat(DataEyeConstants.TIME_PATTERN, Locale.CHINA);
                         if (null != timeZone) {
                             dateFormat.setTimeZone(timeZone);
                         }

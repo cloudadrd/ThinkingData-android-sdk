@@ -11,7 +11,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 public class AopUtils {
-    private final static String RUNTIME_BRIDGE_CLASS = "cn.thinkingdata.android.ThinkingDataRuntimeBridge";
+    private final static String RUNTIME_BRIDGE_CLASS = "cn.dataeye.android.DataEyeRuntimeBridge";
     private static Class clazz;
     private static Object object;
 
@@ -27,7 +27,7 @@ public class AopUtils {
 
             Class clazz = null;
             try {
-                clazz = Class.forName("cn.thinkingdata.android.ThinkingDataIgnoreTrackOnClick");
+                clazz = Class.forName("cn.dataeye.android.DataEyeIgnoreTrackOnClick");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }

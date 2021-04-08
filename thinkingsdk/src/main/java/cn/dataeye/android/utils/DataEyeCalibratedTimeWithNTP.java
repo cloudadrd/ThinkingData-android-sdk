@@ -5,7 +5,7 @@ import android.os.SystemClock;
 import java.util.Date;
 
 
-public class TDCalibratedTimeWithNTP implements ICalibratedTime {
+public class DataEyeCalibratedTimeWithNTP implements ICalibratedTime {
 
     private final static String TAG = "ThinkingAnalytics.NTP";
     private final static int DEFAULT_TIME_OUT = 3000;
@@ -16,12 +16,12 @@ public class TDCalibratedTimeWithNTP implements ICalibratedTime {
     private String[] ntpServer;
 
     private final Thread mThread = new Thread(new Runnable() {
-        final TDNTPClient ntpClient = new TDNTPClient();
+        final DataEyeNTPClient ntpClient = new DataEyeNTPClient();
         @Override
         public void run() {
             for (String s : ntpServer) {
                 if (ntpClient.requestTime(s, DEFAULT_TIME_OUT)) {
-                    TDLog.i(TAG, "NTP offset from " + s + " is: " + ntpClient.getOffset());
+                    DataEyeLog.i(TAG, "NTP offset from " + s + " is: " + ntpClient.getOffset());
                     startTime = System.currentTimeMillis() + ntpClient.getOffset();
                     mSystemElapsedRealtime = SystemClock.elapsedRealtime();
                     break;
@@ -30,7 +30,7 @@ public class TDCalibratedTimeWithNTP implements ICalibratedTime {
         }
     });
 
-    public TDCalibratedTimeWithNTP(final String... ntpServer) {
+    public DataEyeCalibratedTimeWithNTP(final String... ntpServer) {
         this.ntpServer = ntpServer;
         mThread.start();
     }

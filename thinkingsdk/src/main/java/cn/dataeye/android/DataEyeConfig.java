@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 
 import cn.dataeye.android.persistence.DataEyeStorageFlushBulkSize;
 import cn.dataeye.android.persistence.DataEyeStorageFlushInterval;
-import cn.dataeye.android.utils.TDLog;
-import cn.dataeye.android.utils.TDUtils;
+import cn.dataeye.android.utils.DataEyeLog;
+import cn.dataeye.android.utils.DataEyeUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +31,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
 
-public class DataEyeTDConfig {
+public class DataEyeConfig {
     public static final String VERSION = BuildConfig.VERSION_NAME;
 
     private static final DataEyeSharedPreferencesLoader sPrefsLoader = new DataEyeSharedPreferencesLoader();
@@ -40,7 +40,7 @@ public class DataEyeTDConfig {
     static final int DEFAULT_FLUSH_INTERVAL = 15000; // 默认每 15 秒发起一次上报
     static final int DEFAULT_FLUSH_BULK_SIZE = 20; // 默认每次上报请求最多包含 20 条数据
 
-    private static final Map<Context, Map<String, DataEyeTDConfig>> sInstances = new HashMap<>();
+    private static final Map<Context, Map<String, DataEyeConfig>> sInstances = new HashMap<>();
 
     private final Set<String> mDisabledEvents = new HashSet<>();
     private final ReadWriteLock mDisabledEventsLock = new ReentrantReadWriteLock();
@@ -80,7 +80,7 @@ public class DataEyeTDConfig {
     // for Unity
     public void setModeInt(int mode) {
         if (mode < 0 || mode > 2) {
-            TDLog.d(TAG, "Invalid mode value");
+            DataEyeLog.d(TAG, "Invalid mode value");
             return;
         }
 
@@ -109,7 +109,7 @@ public class DataEyeTDConfig {
     }
 
     // Internal use only. This method should be called after the instance was initialed.
-    static DataEyeTDConfig getInstance(Context context, String token) {
+    static DataEyeConfig getInstance(Context context, String token) {
         try {
             return getInstance(context, token, "");
         } catch (IllegalArgumentException e) {
@@ -124,28 +124,28 @@ public class DataEyeTDConfig {
      * @param url 数据接收端 URL, 必须是带协议的完整 URL，否则会抛异常
      * @return TDConfig 实例
      */
-    public static DataEyeTDConfig getInstance(Context context, String token, String url) {
+    public static DataEyeConfig getInstance(Context context, String token, String url) {
         Context appContext = context.getApplicationContext();
 
         synchronized (sInstances) {
-            Map<String, DataEyeTDConfig> instances = sInstances.get(appContext);
+            Map<String, DataEyeConfig> instances = sInstances.get(appContext);
             if (null == instances) {
                 instances = new HashMap<>();
                 sInstances.put(appContext, instances);
             }
 
-            DataEyeTDConfig instance = instances.get(token);
+            DataEyeConfig instance = instances.get(token);
             if (null == instance) {
                 URL serverUrl;
 
                 try {
                     serverUrl = new URL(url);
                 } catch (MalformedURLException e) {
-                    TDLog.e(TAG, "Invalid server URL: " + url);
+                    DataEyeLog.e(TAG, "Invalid server URL: " + url);
                     throw new IllegalArgumentException(e);
                 }
 
-                instance = new DataEyeTDConfig(appContext, token, serverUrl.getProtocol()
+                instance = new DataEyeConfig(appContext, token, serverUrl.getProtocol()
                         + "://" + serverUrl.getHost()
                         + (serverUrl.getPort() > 0 ? ":" + serverUrl.getPort() : ""));
                 instances.put(token, instance);
@@ -155,7 +155,7 @@ public class DataEyeTDConfig {
         }
     }
 
-    private DataEyeTDConfig(Context context, String token, String serverUrl) {
+    private DataEyeConfig(Context context, String token, String serverUrl) {
         mContext = context.getApplicationContext();
 
         Future<SharedPreferences> storedSharedPrefs = sPrefsLoader.loadPreferences(
@@ -228,7 +228,7 @@ public class DataEyeTDConfig {
                                 newUploadInterval = data.getInt("sync_interval") * 1000;
                                 newUploadSize = data.getInt("sync_batch_size");
 
-                                TDLog.d(TAG, "Fetched remote config for (" + TDUtils.getSuffix(mToken,  4)
+                                DataEyeLog.d(TAG, "Fetched remote config for (" + DataEyeUtils.getSuffix(mToken,  4)
                                         + "):\n" + data.toString(4));
 
                                 if (data.has("disable_event_list")) {
@@ -258,13 +258,13 @@ public class DataEyeTDConfig {
                         in.close();
                         br.close();
                     } else {
-                        TDLog.d(TAG, "Getting remote config failed, responseCode is " + connection.getResponseCode());
+                        DataEyeLog.d(TAG, "Getting remote config failed, responseCode is " + connection.getResponseCode());
                     }
 
                 } catch (IOException e) {
-                    TDLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
+                    DataEyeLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
                 } catch (JSONException e) {
-                    TDLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
+                    DataEyeLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
                 } finally {
                     if (null != in) {
                         try {

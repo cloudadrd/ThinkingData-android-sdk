@@ -2,7 +2,7 @@ package cn.dataeye.android;
 
 import org.json.JSONObject;
 
-import cn.dataeye.android.utils.TDConstants;
+import cn.dataeye.android.utils.DataEyeConstants;
 
 /**
  * 可被更新的事件。对应 track_update 操作。
@@ -20,7 +20,7 @@ public class DataEyeUpdatableEvent extends DataEyeAnalyticsEvent {
 
     @Override
     String getExtraField() {
-        return TDConstants.KEY_EVENT_ID;
+        return DataEyeConstants.KEY_EVENT_ID;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class DataEyeUpdatableEvent extends DataEyeAnalyticsEvent {
     }
 
     @Override
-    TDConstants.DataType getDataType() {
-        return TDConstants.DataType.TRACK_UPDATE;
+    DataEyeConstants.DataType getDataType() {
+        return DataEyeConstants.DataType.TRACK_UPDATE;
     }
 }
