@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ThinkingData-android-sdk.iml" filepath="$PROJECT_DIR$/.idea/modules/ThinkingData-android-sdk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aopplugin/ThinkingData-android-sdk.aopplugin.iml" filepath="$PROJECT_DIR$/.idea/modules/aopplugin/ThinkingData-android-sdk.aopplugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/demox/ThinkingData-android-sdk.demox.iml" filepath="$PROJECT_DIR$/.idea/modules/demox/ThinkingData-android-sdk.demox.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/runtime/ThinkingData-android-sdk.runtime.iml" filepath="$PROJECT_DIR$/.idea/modules/runtime/ThinkingData-android-sdk.runtime.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/thinkingsdk/ThinkingData-android-sdk.thinkingsdk.iml" filepath="$PROJECT_DIR$/.idea/modules/thinkingsdk/ThinkingData-android-sdk.thinkingsdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ThinkingData-android-sdk.iml" filepath="$PROJECT_DIR$/.idea/modules/ThinkingData-android-sdk.iml" group="ThinkingData-android-sdk" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aopplugin/aopplugin.iml" filepath="$PROJECT_DIR$/.idea/modules/aopplugin/aopplugin.iml" group="ThinkingData-android-sdk/aopplugin" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/demox/demox.iml" filepath="$PROJECT_DIR$/.idea/modules/demox/demox.iml" group="ThinkingData-android-sdk/demox" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/runtime/runtime.iml" filepath="$PROJECT_DIR$/.idea/modules/runtime/runtime.iml" group="ThinkingData-android-sdk/runtime" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/thinkingsdk/thinkingsdk.iml" filepath="$PROJECT_DIR$/.idea/modules/thinkingsdk/thinkingsdk.iml" group="ThinkingData-android-sdk/thinkingsdk" />
     </modules>
   </component>
 </project>

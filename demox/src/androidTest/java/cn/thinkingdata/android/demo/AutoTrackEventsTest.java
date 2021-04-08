@@ -10,7 +10,7 @@ import androidx.test.filters.LargeTest;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import cn.thinkingdata.android.TestRunner;
-import cn.thinkingdata.android.ThinkingAnalyticsSDK;
+import cn.dataeye.android.ThinkingAnalyticsSDK;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
-import cn.thinkingdata.android.ThinkingDataTrackEvent;
+import cn.dataeye.android.ThinkingDataTrackEvent;
 
 import org.json.JSONException;
 import org.json.JSONObject;

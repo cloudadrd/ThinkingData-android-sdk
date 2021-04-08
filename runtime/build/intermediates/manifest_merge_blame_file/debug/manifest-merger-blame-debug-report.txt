@@ -1,0 +1,12 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="cn.thinkingdata.android.runtime"
+4    android:versionCode="1" >
+5
+6    <uses-sdk
+7        android:minSdkVersion="14"
+7-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+8        android:targetSdkVersion="29" />
+8-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+9
+10</manifest>

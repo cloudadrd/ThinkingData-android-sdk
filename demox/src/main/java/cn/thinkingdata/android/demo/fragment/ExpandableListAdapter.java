@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import cn.thinkingdata.android.ThinkingExpandableListViewItemTrackProperties;
+import cn.dataeye.android.ThinkingExpandableListViewItemTrackProperties;
 import cn.thinkingdata.android.demo.R;
 
 import org.json.JSONObject;

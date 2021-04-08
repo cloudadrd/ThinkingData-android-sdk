@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.thinkingdata.android.ThinkingDataFragmentTitle;
+import cn.dataeye.android.ThinkingDataFragmentTitle;
 import cn.thinkingdata.android.demo.R;
 
 @ThinkingDataFragmentTitle(title = "ListViewFragment", appId = "debug-appid")

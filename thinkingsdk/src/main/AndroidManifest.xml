@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.thinkingdata.android">
+    package="cn.dataeye.android">
 
     <!--
     This permission is required to allow the application to send events and properties to ThinkingData.
@@ -13,10 +13,10 @@
 
     <application>
         <meta-data
-            android:name="cn.thinkingdata.android.MainProcessName"
+            android:name="cn.dataeye.android.MainProcessName"
             android:value="${applicationId}" />
         <service
-            android:name="cn.thinkingdata.android.TDQuitSafelyService$TDKeepAliveService"
+            android:name="cn.dataeye.android.TDQuitSafelyService$TDKeepAliveService"
             android:stopWithTask="false"
             android:exported="false" />
 

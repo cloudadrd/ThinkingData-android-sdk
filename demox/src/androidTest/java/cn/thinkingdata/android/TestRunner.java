@@ -6,8 +6,12 @@ import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.runner.AndroidJUnitRunner;
 
+import cn.dataeye.android.DataHandle;
+import cn.dataeye.android.DatabaseAdapter;
+import cn.dataeye.android.TDConfig;
+import cn.dataeye.android.ThinkingAnalyticsSDK;
 import cn.thinkingdata.android.demo.TDTracker;
-import cn.thinkingdata.android.utils.TDLog;
+import cn.dataeye.android.utils.TDLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
