@@ -21,7 +21,7 @@ public class TDTracker {
      * 如果您使用的是私有化部署的版本，请输入以下URL:
      * http://数据采集地址:9080
      */
-    private static final String TA_SERVER_URL = "https://biapi.adsgreat.cn/logbu";
+    private static final String TA_SERVER_URL = "http://172.31.4.170:8080/v1/sdk/report";
 
     private static DataEyeAnalyticsSDK mInstance;
     private static DataEyeAnalyticsSDK mDebugInstance;

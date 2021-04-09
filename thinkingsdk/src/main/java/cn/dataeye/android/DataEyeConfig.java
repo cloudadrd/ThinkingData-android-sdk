@@ -147,7 +147,7 @@ public class DataEyeConfig {
 
                 instance = new DataEyeConfig(appContext, token, serverUrl.getProtocol()
                         + "://" + serverUrl.getHost()
-                        + (serverUrl.getPort() > 0 ? ":" + serverUrl.getPort() : ""));
+                        + (serverUrl.getPort() > 0 ? ":" + serverUrl.getPort() : ""),url);
                 instances.put(token, instance);
                 instance.getRemoteConfig();
             }
@@ -155,7 +155,7 @@ public class DataEyeConfig {
         }
     }
 
-    private DataEyeConfig(Context context, String token, String serverUrl) {
+    private DataEyeConfig(Context context, String token, String serverUrl, String originalUrl) {
         mContext = context.getApplicationContext();
 
         Future<SharedPreferences> storedSharedPrefs = sPrefsLoader.loadPreferences(
@@ -163,7 +163,8 @@ public class DataEyeConfig {
         mContextConfig = DataEyeContextConfig.getInstance(mContext);
 
         mToken = token;
-        mServerUrl = serverUrl + "/sync";
+//        mServerUrl = serverUrl + "/sync";
+        mServerUrl = originalUrl;
         mDebugUrl = serverUrl + "/data_debug";
         mConfigUrl = serverUrl + "/config?appid=" + token;
 

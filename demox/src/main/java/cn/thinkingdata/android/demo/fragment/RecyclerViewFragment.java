@@ -145,3 +145,4 @@ public class RecyclerViewFragment extends BaseFragment {
         void onFragmentInteraction(Uri uri);
     }
 }
+

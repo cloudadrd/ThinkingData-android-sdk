@@ -30,7 +30,7 @@
 16-->[oaid_sdk_1.0.23.aar] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d53a3dc7cf67b3ec896637c49631422b/jetified-oaid_sdk_1.0.23/AndroidManifest.xml:15:22-59
 17
 18    <application
-18-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:11:5-68:19
+18-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:11:5-69:19
 19        android:name="cn.thinkingdata.android.demo.DemoApplication"
 19-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:12:9-40
 20        android:allowBackup="true"
@@ -46,103 +46,105 @@
 25-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:16:9-54
 26        android:supportsRtl="true"
 26-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:17:9-35
-27        android:theme="@style/AppTheme" >
+27        android:theme="@style/AppTheme"
 27-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:18:9-40
-28        <activity
-28-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:21:9-24:59
-29            android:name="cn.thinkingdata.android.demo.ClickTestActivity"
-29-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:22:13-46
-30            android:label="@string/title_activity_click_test"
-30-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:23:13-62
-31            android:theme="@style/AppTheme.NoActionBar" />
-31-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:24:13-56
-32        <activity
-32-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:26:9-29:59
-33            android:name="cn.thinkingdata.android.demo.WebViewActivity"
-33-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:27:13-44
-34            android:label="@string/title_activity_webview"
-34-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:28:13-59
-35            android:theme="@style/AppTheme.NoActionBar" />
-35-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:29:13-56
-36
-37        <!-- 打开调试日志 -->
-38        <meta-data
-38-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:32:9-34:36
-39            android:name="cn.dataeye.android.EnableTrackLogging"
-39-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:33:13-65
-40            android:value="true" />
-40-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:34:13-33
-41
-42        <!-- 设置数据库大小下限(默认 32 M) -->
-43        <meta-data
-43-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:37:9-39:34
-44            android:name="cn.dataeye.android.MinimumDatabaseLimit"
-44-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:38:13-67
-45            android:value="16" />
-45-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:39:13-31
-46
-47        <!-- 设置缓存数据保留天数(默认 15 天) -->
-48        <meta-data
-48-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:42:9-44:33
-49            android:name="cn.dataeye.android.RetentionDays"
-49-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:43:13-60
-50            android:value="7" />
-50-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:44:13-30
-51
-52        <!-- 允许安全退出服务(默认为 true) -->
-53        <meta-data
-53-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:47:9-49:37
-54            android:name="cn.dataeye.android.EnableQuitSafely"
-54-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:48:13-63
-55            android:value="false" />
-55-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:49:13-34
-56
-57        <!-- 开启安全退出服务时，等待每个线程（缓存, 网络）退出超时时长，默认 2000 ms -->
-58        <meta-data
-58-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:52:9-54:36
-59            android:name="cn.dataeye.android.QuitSafelyTimeout"
-59-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:53:13-64
-60            android:value="1000" />
-60-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:54:13-33
-61
-62        <activity
-62-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:56:9-59:58
-63            android:name="cn.thinkingdata.android.demo.DisplayActivity"
-63-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:57:13-44
-64            android:label="@string/title_activity_display"
-64-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:58:13-59
-65            android:parentActivityName="cn.thinkingdata.android.demo.MainActivity" />
-65-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:59:13-55
-66        <activity android:name="cn.thinkingdata.android.demo.MainActivity" >
-66-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:61:9-67:20
-66-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:61:19-47
-67            <intent-filter>
-67-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:62:13-66:29
-68                <action android:name="android.intent.action.MAIN" />
-68-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:63:17-69
-68-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:63:25-66
-69
-70                <category android:name="android.intent.category.LAUNCHER" />
-70-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:65:17-77
-70-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:65:27-74
-71            </intent-filter>
-72        </activity>
-73
-74        <meta-data
-74-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:9-20:48
-75            android:name="cn.dataeye.android.MainProcessName"
-75-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-62
-76            android:value="cn.thinkingdata.android.demo" />
-76-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-45
-77
-78        <service
-78-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-25:44
-79            android:name="cn.dataeye.android.DataEyeQuitSafelyService$DataEyeKeepAliveService"
-79-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-95
-80            android:exported="false"
-80-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-37
-81            android:stopWithTask="false" />
-81-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:13-41
-82    </application>
-83
-84</manifest>
+28        android:usesCleartextTraffic="true" >
+28-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:19:9-44
+29        <activity
+29-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:22:9-25:59
+30            android:name="cn.thinkingdata.android.demo.ClickTestActivity"
+30-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:23:13-46
+31            android:label="@string/title_activity_click_test"
+31-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:24:13-62
+32            android:theme="@style/AppTheme.NoActionBar" />
+32-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:25:13-56
+33        <activity
+33-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:27:9-30:59
+34            android:name="cn.thinkingdata.android.demo.WebViewActivity"
+34-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:28:13-44
+35            android:label="@string/title_activity_webview"
+35-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:29:13-59
+36            android:theme="@style/AppTheme.NoActionBar" />
+36-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:30:13-56
+37
+38        <!-- 打开调试日志 -->
+39        <meta-data
+39-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:33:9-35:36
+40            android:name="cn.dataeye.android.EnableTrackLogging"
+40-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:34:13-65
+41            android:value="true" />
+41-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:35:13-33
+42
+43        <!-- 设置数据库大小下限(默认 32 M) -->
+44        <meta-data
+44-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:38:9-40:34
+45            android:name="cn.dataeye.android.MinimumDatabaseLimit"
+45-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:39:13-67
+46            android:value="16" />
+46-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:40:13-31
+47
+48        <!-- 设置缓存数据保留天数(默认 15 天) -->
+49        <meta-data
+49-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:43:9-45:33
+50            android:name="cn.dataeye.android.RetentionDays"
+50-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:44:13-60
+51            android:value="7" />
+51-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:45:13-30
+52
+53        <!-- 允许安全退出服务(默认为 true) -->
+54        <meta-data
+54-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:48:9-50:37
+55            android:name="cn.dataeye.android.EnableQuitSafely"
+55-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:49:13-63
+56            android:value="false" />
+56-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:50:13-34
+57
+58        <!-- 开启安全退出服务时，等待每个线程（缓存, 网络）退出超时时长，默认 2000 ms -->
+59        <meta-data
+59-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:53:9-55:36
+60            android:name="cn.dataeye.android.QuitSafelyTimeout"
+60-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:54:13-64
+61            android:value="1000" />
+61-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:55:13-33
+62
+63        <activity
+63-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:57:9-60:58
+64            android:name="cn.thinkingdata.android.demo.DisplayActivity"
+64-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:58:13-44
+65            android:label="@string/title_activity_display"
+65-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:59:13-59
+66            android:parentActivityName="cn.thinkingdata.android.demo.MainActivity" />
+66-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:60:13-55
+67        <activity android:name="cn.thinkingdata.android.demo.MainActivity" >
+67-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:62:9-68:20
+67-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:62:19-47
+68            <intent-filter>
+68-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:63:13-67:29
+69                <action android:name="android.intent.action.MAIN" />
+69-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:64:17-69
+69-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:64:25-66
+70
+71                <category android:name="android.intent.category.LAUNCHER" />
+71-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:66:17-77
+71-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:66:27-74
+72            </intent-filter>
+73        </activity>
+74
+75        <meta-data
+75-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:9-20:48
+76            android:name="cn.dataeye.android.MainProcessName"
+76-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-62
+77            android:value="cn.thinkingdata.android.demo" />
+77-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-45
+78
+79        <service
+79-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-25:44
+80            android:name="cn.dataeye.android.DataEyeQuitSafelyService$DataEyeKeepAliveService"
+80-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-95
+81            android:exported="false"
+81-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-37
+82            android:stopWithTask="false" />
+82-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:13-41
+83    </application>
+84
+85</manifest>
