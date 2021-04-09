@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import cn.dataeye.android.ThinkingDataFragmentTitle;
+import cn.dataeye.android.DataEyeFragmentTitle;
 import cn.thinkingdata.android.demo.R;
 
 
-@ThinkingDataFragmentTitle(title = "ExpandableListFragment")
+@DataEyeFragmentTitle(title = "ExpandableListFragment")
 public class ExpandableListFragment extends BaseFragment {
 
     public String[] groupStrings = {"西游记", "水浒传", "三国演义", "红楼梦"};

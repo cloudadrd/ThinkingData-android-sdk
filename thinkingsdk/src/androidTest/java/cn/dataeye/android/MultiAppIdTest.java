@@ -5,12 +5,7 @@ import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import cn.dataeye.android.DataHandle;
-import cn.dataeye.android.DatabaseAdapter;
-import cn.dataeye.android.LightThinkingAnalyticsSDK;
-import cn.dataeye.android.TDConfig;
-import cn.dataeye.android.ThinkingAnalyticsSDK;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,23 +29,23 @@ public class MultiAppIdTest {
 
     private static final int POLL_WAIT_SECONDS = 5;
 
-    private ThinkingAnalyticsSDK mInstance;
-    private ThinkingAnalyticsSDK mInstanceDebug;
+    private DataEyeAnalyticsSDK mInstance;
+    private DataEyeAnalyticsSDK mInstanceDebug;
     private final BlockingQueue<JSONObject> messages = new LinkedBlockingQueue<>();
 
     @Before
     public void setUp() {
-        ThinkingAnalyticsSDK.enableTrackLog(true);
+        DataEyeAnalyticsSDK.enableTrackLog(true);
         final Context mAppContext = ApplicationProvider.getApplicationContext();
-        final TDConfig mConfig = TDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
-        final DataHandle dataHandle = new DataHandle(mAppContext) {
+        final DataEyeConfig mConfig = DataEyeConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
+        final DataEyeDataHandle dataEyeDataHandle = new DataEyeDataHandle(mAppContext) {
             @Override
-            protected DatabaseAdapter getDbAdapter(Context context) {
-                return new DatabaseAdapter(context) {
+            protected DataEyeDatabaseAdapter getDbAdapter(Context context) {
+                return new DataEyeDatabaseAdapter(context) {
                     @Override
                     public int addJSON(JSONObject j, Table table, String token) {
                         try {
-                            TDLog.i("THINKING_TEST", j.toString(4));
+                            DataEyeLog.i("THINKING_TEST", j.toString(4));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -60,24 +55,24 @@ public class MultiAppIdTest {
                 };
             }
         };
-        mInstance = new ThinkingAnalyticsSDK(mConfig) {
+        mInstance = new DataEyeAnalyticsSDK(mConfig) {
             @Override
-            protected DataHandle getDataHandleInstance(Context context) {
-                return dataHandle;
+            protected DataEyeDataHandle getDataHandleInstance(Context context) {
+                return dataEyeDataHandle;
             }
 
             @Override
-            public ThinkingAnalyticsSDK createLightInstance() {
-                return new LightThinkingAnalyticsSDK(mConfig) {
+            public DataEyeAnalyticsSDK createLightInstance() {
+                return new LightDataEyeAnalyticsSDK(mConfig) {
                     @Override
-                    protected  DataHandle getDataHandleInstance(Context context) {return dataHandle;}
+                    protected DataEyeDataHandle getDataHandleInstance(Context context) {return dataEyeDataHandle;}
                 };
             }
         };
-        mInstanceDebug = new ThinkingAnalyticsSDK(TDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
+        mInstanceDebug = new DataEyeAnalyticsSDK(DataEyeConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
             @Override
-            protected DataHandle getDataHandleInstance(Context context) {
-                return dataHandle;
+            protected DataEyeDataHandle getDataHandleInstance(Context context) {
+                return dataEyeDataHandle;
             }
         };
     }
@@ -223,7 +218,7 @@ public class MultiAppIdTest {
 
     @Test
     public void testLightInstance() throws JSONException, InterruptedException {
-        ThinkingAnalyticsSDK lightInstance = mInstance.createLightInstance();
+        DataEyeAnalyticsSDK lightInstance = mInstance.createLightInstance();
         assertEquals(lightInstance.getDistinctId(), mInstance.getDistinctId());
         lightInstance.identify("id_light");
         lightInstance.login("account_light");

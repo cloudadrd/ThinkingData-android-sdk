@@ -23,17 +23,17 @@ public class PropertyUtils {
 
     public static boolean checkProperty(JSONObject properties){
 
-        if(properties != null && TDLog.mEnableLog) {
+        if(properties != null && DataEyeLog.mEnableLog) {
             for (Iterator iterator = properties.keys(); iterator.hasNext(); ) {
                 String key = (String) iterator.next();
 
                 if (TextUtils.isEmpty(key)) {
-                    TDLog.d(TAG, "Empty property name is not allowed.");
+                    DataEyeLog.d(TAG, "Empty property name is not allowed.");
                     //return false;
                 }
 
                 if (!(KEY_PATTERN.matcher(key).matches())) {
-                    TDLog.d(TAG, "Property name[" + key + "] is not valid. The property KEY must be string that starts with English letter, " +
+                    DataEyeLog.d(TAG, "Property name[" + key + "] is not valid. The property KEY must be string that starts with English letter, " +
                             "and contains letter, number, and '_'. The max length of the property KEY is 50. ");
                     //return false;
                 }
@@ -42,7 +42,7 @@ public class PropertyUtils {
                     Object value = properties.get(key);
 
                     if (!(value instanceof String || value instanceof Number || value instanceof Boolean || value instanceof Date || value instanceof JSONArray)) {
-                        TDLog.d(TAG, "Property value must be type String, Number, Boolean, Date, or JSONArray");
+                        DataEyeLog.d(TAG, "Property value must be type String, Number, Boolean, Date, or JSONArray");
                         //return false;
                     }
 
@@ -57,12 +57,12 @@ public class PropertyUtils {
                     if (value instanceof Number) {
                         double number = ((Number) value).doubleValue();
                         if (number > 9999999999999.999 || number < -9999999999999.999) {
-                            TDLog.d(TAG, "The number value [" + value + "] is invalid.");
+                            DataEyeLog.d(TAG, "The number value [" + value + "] is invalid.");
                             //return false;
                         }
                     }
                 } catch (JSONException e) {
-                    TDLog.d(TAG, "Unexpected parameters." + e);
+                    DataEyeLog.d(TAG, "Unexpected parameters." + e);
                     return false;
                 }
             }

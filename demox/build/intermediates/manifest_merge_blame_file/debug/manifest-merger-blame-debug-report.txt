@@ -137,8 +137,8 @@
 77
 78        <service
 78-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-25:44
-79            android:name="cn.dataeye.android.TDQuitSafelyService$TDKeepAliveService"
-79-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-85
+79            android:name="cn.dataeye.android.DataEyeQuitSafelyService$TDKeepAliveService"
+79-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-90
 80            android:exported="false"
 80-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-37
 81            android:stopWithTask="false" />

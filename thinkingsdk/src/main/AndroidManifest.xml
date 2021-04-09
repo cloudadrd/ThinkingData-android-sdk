@@ -16,7 +16,7 @@
             android:name="cn.dataeye.android.MainProcessName"
             android:value="${applicationId}" />
         <service
-            android:name="cn.dataeye.android.TDQuitSafelyService$TDKeepAliveService"
+            android:name="cn.dataeye.android.DataEyeQuitSafelyService$TDKeepAliveService"
             android:stopWithTask="false"
             android:exported="false" />
 

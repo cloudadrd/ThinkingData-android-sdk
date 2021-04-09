@@ -20,7 +20,7 @@
             android:value="dollar_openBracket_applicationId_closeBracket" />
 
         <service
-            android:name="cn.dataeye.android.TDQuitSafelyService$TDKeepAliveService"
+            android:name="cn.dataeye.android.DataEyeQuitSafelyService$TDKeepAliveService"
             android:exported="false"
             android:stopWithTask="false" />
     </application>

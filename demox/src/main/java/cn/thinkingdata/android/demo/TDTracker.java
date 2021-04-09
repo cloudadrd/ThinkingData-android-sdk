@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.dataeye.android.ThinkingAnalyticsSDK;
+import cn.dataeye.android.DataEyeAnalyticsSDK;
 
 public class TDTracker {
     /**
@@ -23,19 +23,19 @@ public class TDTracker {
      */
     private static final String TA_SERVER_URL = "https://biapi.adsgreat.cn/logbu";
 
-    private static ThinkingAnalyticsSDK mInstance;
-    private static ThinkingAnalyticsSDK mDebugInstance;
-    private static ThinkingAnalyticsSDK mLightInstance;
+    private static DataEyeAnalyticsSDK mInstance;
+    private static DataEyeAnalyticsSDK mDebugInstance;
+    private static DataEyeAnalyticsSDK mLightInstance;
 
-    public static ThinkingAnalyticsSDK getInstance() {
+    public static DataEyeAnalyticsSDK getInstance() {
         return mInstance;
     }
 
-    public static ThinkingAnalyticsSDK getLightInstance() {
+    public static DataEyeAnalyticsSDK getLightInstance() {
         return mLightInstance;
     }
 
-    public static ThinkingAnalyticsSDK getDebugInstance() {
+    public static DataEyeAnalyticsSDK getDebugInstance() {
         return mDebugInstance;
     }
 
@@ -44,7 +44,7 @@ public class TDTracker {
      * @param instance
      * @param debugInstance
      */
-    public static void initThinkingDataSDK(ThinkingAnalyticsSDK instance, ThinkingAnalyticsSDK debugInstance) {
+    public static void initThinkingDataSDK(DataEyeAnalyticsSDK instance, DataEyeAnalyticsSDK debugInstance) {
         mInstance = instance;
         mDebugInstance = debugInstance;
         setUp();
@@ -53,8 +53,8 @@ public class TDTracker {
     /** 初始化 TA SDK */
     static void initThinkingDataSDK(Context context) {
         Context mContext = context.getApplicationContext();
-        mInstance = ThinkingAnalyticsSDK.sharedInstance(mContext, TA_APP_ID, TA_SERVER_URL);
-        mDebugInstance = ThinkingAnalyticsSDK.sharedInstance(mContext, TA_APP_ID_DEBUG, TA_SERVER_URL);
+        mInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, TA_APP_ID, TA_SERVER_URL);
+        mDebugInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, TA_APP_ID_DEBUG, TA_SERVER_URL);
         setUp();
     }
 
@@ -68,19 +68,19 @@ public class TDTracker {
         mLightInstance = mInstance.createLightInstance();
 
         // enable auto track
-        List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_START);
-        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_END);
+        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
         mDebugInstance.enableAutoTrack(eventTypeList);
 
-        List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList1 = new ArrayList<>();
-        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
-        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_START);
-        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_END);
+        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList1 = new ArrayList<>();
+        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
+        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
+        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
 //        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
 //        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
 //        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);

@@ -6,10 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.dataeye.android.ThinkingDataFragmentTitle;
+import cn.dataeye.android.DataEyeFragmentTitle;
 import cn.thinkingdata.android.demo.R;
 
-@ThinkingDataFragmentTitle(title = "ListViewFragment", appId = "debug-appid")
+@DataEyeFragmentTitle(title = "ListViewFragment", appId = "debug-appid")
 public class ListViewFragment extends BaseFragment {
 
     public ListViewFragment() {

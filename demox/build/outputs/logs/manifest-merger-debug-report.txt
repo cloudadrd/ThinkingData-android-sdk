@@ -271,14 +271,14 @@ ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sd
 		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-45
 	android:name
 		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-62
-service#cn.dataeye.android.TDQuitSafelyService$TDKeepAliveService
+service#cn.dataeye.android.DataEyeQuitSafelyService$TDKeepAliveService
 ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-25:44
 	android:exported
 		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-37
 	android:stopWithTask
 		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:13-41
 	android:name
-		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-85
+		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-90
 uses-permission#com.asus.msa.SupplementaryDID.ACCESS
 ADDED from [oaid_sdk_1.0.23.aar] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d53a3dc7cf67b3ec896637c49631422b/jetified-oaid_sdk_1.0.23/AndroidManifest.xml:13:5-76
 	android:name

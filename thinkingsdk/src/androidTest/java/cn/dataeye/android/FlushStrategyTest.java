@@ -5,10 +5,6 @@ import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import cn.dataeye.android.DataHandle;
-import cn.dataeye.android.SystemInformation;
-import cn.dataeye.android.TDConfig;
-import cn.dataeye.android.ThinkingAnalyticsSDK;
 import cn.dataeye.android.utils.RemoteService;
 
 import org.json.JSONArray;
@@ -41,25 +37,25 @@ public class FlushStrategyTest {
 
     private static Context mAppContext;
     private final static String mVersionName = "1.0";
-    private static TDConfig mConfig;
-    private SystemInformation mSystemInformation;
+    private static DataEyeConfig mConfig;
+    private DataEyeSystemInformation mDataEyeSystemInformation;
 
     @Before
     public void setUp() {
-        ThinkingAnalyticsSDK.enableTrackLog(true);
+        DataEyeAnalyticsSDK.enableTrackLog(true);
         mAppContext = ApplicationProvider.getApplicationContext();
 
-        mSystemInformation = SystemInformation.getInstance(mAppContext);
+        mDataEyeSystemInformation = DataEyeSystemInformation.getInstance(mAppContext);
 
-        mConfig = TDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
+        mConfig = DataEyeConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
 
     }
 
     private void assertAutomaticData(JSONObject automaticData) throws JSONException {
-        assertEquals(automaticData.getString("#lib_version"), TDConfig.VERSION);
+        assertEquals(automaticData.getString("#lib_version"), DataEyeConfig.VERSION);
         assertEquals(automaticData.getString("#lib"), "Android");
         assertEquals(automaticData.getString("#os"), "Android");
-        Map<String, Object> deviceInfo = mSystemInformation.getDeviceInfo();
+        Map<String, Object> deviceInfo = mDataEyeSystemInformation.getDeviceInfo();
         assertEquals(automaticData.getString("#device_id"), deviceInfo.get("#device_id"));
         assertEquals(automaticData.getString("#carrier"), deviceInfo.get("#carrier"));
         assertEquals(automaticData.getString("#manufacturer"), deviceInfo.get("#manufacturer"));
@@ -71,10 +67,10 @@ public class FlushStrategyTest {
     @Test
     public void testFlushInterval() throws InterruptedException, JSONException {
         final BlockingQueue<JSONObject> messages = new LinkedBlockingQueue<>();
-        ThinkingAnalyticsSDK instance = new ThinkingAnalyticsSDK(mConfig) {
+        DataEyeAnalyticsSDK instance = new DataEyeAnalyticsSDK(mConfig) {
             @Override
-            protected DataHandle getDataHandleInstance(Context context) {
-                return new DataHandle(context) {
+            protected DataEyeDataHandle getDataHandleInstance(Context context) {
+                return new DataEyeDataHandle(context) {
 
                     @Override
                     protected int getFlushInterval(String token) {
@@ -140,10 +136,10 @@ public class FlushStrategyTest {
     @Test
     public void testFlushBulkSize() throws InterruptedException, JSONException {
         final BlockingQueue<JSONObject> messages = new LinkedBlockingQueue<>();
-        ThinkingAnalyticsSDK instance = new ThinkingAnalyticsSDK(mConfig) {
+        DataEyeAnalyticsSDK instance = new DataEyeAnalyticsSDK(mConfig) {
             @Override
-            protected DataHandle getDataHandleInstance(Context context) {
-                return new DataHandle(context) {
+            protected DataEyeDataHandle getDataHandleInstance(Context context) {
+                return new DataEyeDataHandle(context) {
                     @Override
                     protected int getFlushBulkSize(String token) {
                         return FLUSH_BULK_SIZE;
@@ -195,7 +191,7 @@ public class FlushStrategyTest {
     @Test
     public void testFlushIntervalMultiAppId() throws InterruptedException, JSONException {
         final BlockingQueue<JSONObject> messages = new LinkedBlockingQueue<>();
-        final DataHandle dataHandle = new DataHandle(mAppContext) {
+        final DataEyeDataHandle dataEyeDataHandle = new DataEyeDataHandle(mAppContext) {
             @Override
             protected int getFlushInterval(String token) {
                 return FLUSH_INTERVAL;
@@ -218,17 +214,17 @@ public class FlushStrategyTest {
             }
 
         };
-        ThinkingAnalyticsSDK instance = new ThinkingAnalyticsSDK(mConfig) {
+        DataEyeAnalyticsSDK instance = new DataEyeAnalyticsSDK(mConfig) {
             @Override
-            protected DataHandle getDataHandleInstance(Context context) {
-                return dataHandle;
+            protected DataEyeDataHandle getDataHandleInstance(Context context) {
+                return dataEyeDataHandle;
             }
         };
 
-        ThinkingAnalyticsSDK instance_debug = new ThinkingAnalyticsSDK(TDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
+        DataEyeAnalyticsSDK instance_debug = new DataEyeAnalyticsSDK(DataEyeConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
             @Override
-            protected DataHandle getDataHandleInstance(Context context) {
-                return dataHandle;
+            protected DataEyeDataHandle getDataHandleInstance(Context context) {
+                return dataEyeDataHandle;
             }
         };
 
@@ -272,7 +268,7 @@ public class FlushStrategyTest {
     @Test
     public void testFlushBulkSizeMultiAppId() throws InterruptedException, JSONException {
         final BlockingQueue<JSONObject> messages = new LinkedBlockingQueue<>();
-        final DataHandle dataHandle = new DataHandle(mAppContext) {
+        final DataEyeDataHandle dataEyeDataHandle = new DataEyeDataHandle(mAppContext) {
             @Override
             protected int getFlushBulkSize(String token) {
                 return FLUSH_BULK_SIZE;
@@ -300,17 +296,17 @@ public class FlushStrategyTest {
             }
 
         };
-        ThinkingAnalyticsSDK instance = new ThinkingAnalyticsSDK(mConfig) {
+        DataEyeAnalyticsSDK instance = new DataEyeAnalyticsSDK(mConfig) {
             @Override
-            protected DataHandle getDataHandleInstance(Context context) {
-                return dataHandle;
+            protected DataEyeDataHandle getDataHandleInstance(Context context) {
+                return dataEyeDataHandle;
             }
         };
 
-        ThinkingAnalyticsSDK instance_debug = new ThinkingAnalyticsSDK(TDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
+        DataEyeAnalyticsSDK instance_debug = new DataEyeAnalyticsSDK(DataEyeConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
             @Override
-            protected DataHandle getDataHandleInstance(Context context) {
-                return dataHandle;
+            protected DataEyeDataHandle getDataHandleInstance(Context context) {
+                return dataEyeDataHandle;
             }
         };
 

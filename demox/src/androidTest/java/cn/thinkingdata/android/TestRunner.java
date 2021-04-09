@@ -6,12 +6,12 @@ import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.runner.AndroidJUnitRunner;
 
-import cn.dataeye.android.DataHandle;
-import cn.dataeye.android.DatabaseAdapter;
-import cn.dataeye.android.TDConfig;
-import cn.dataeye.android.ThinkingAnalyticsSDK;
+import cn.dataeye.android.DataEyeDataHandle;
+import cn.dataeye.android.DataEyeDatabaseAdapter;
+import cn.dataeye.android.DataEyeConfig;
+import cn.dataeye.android.DataEyeAnalyticsSDK;
 import cn.thinkingdata.android.demo.TDTracker;
-import cn.dataeye.android.utils.TDLog;
+import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,30 +45,30 @@ public class TestRunner extends AndroidJUnitRunner {
         return messages.poll(POLL_WAIT_SECONDS, TimeUnit.SECONDS);
     }
 
-    private static ThinkingAnalyticsSDK mInstance;
-    private static ThinkingAnalyticsSDK mDebugInstance;
+    private static DataEyeAnalyticsSDK mInstance;
+    private static DataEyeAnalyticsSDK mDebugInstance;
 
-    public static ThinkingAnalyticsSDK getInstance() {
+    public static DataEyeAnalyticsSDK getInstance() {
         return  mInstance;
     }
 
-    public static ThinkingAnalyticsSDK getDebugInstance() {
+    public static DataEyeAnalyticsSDK getDebugInstance() {
         return mDebugInstance;
     }
 
     /** 初始化 TA SDK */
     private void initThinkingDataSDK() {
-        ThinkingAnalyticsSDK.enableTrackLog(true);
+        DataEyeAnalyticsSDK.enableTrackLog(true);
         Context mAppContext = ApplicationProvider.getApplicationContext();
-        TDConfig mConfig = TDConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
-        final DataHandle dataHandle = new DataHandle(mAppContext) {
+        DataEyeConfig mConfig = DataEyeConfig.getInstance(mAppContext, TA_APP_ID, TA_SERVER_URL);
+        final DataEyeDataHandle dataEyeDataHandle = new DataEyeDataHandle(mAppContext) {
             @Override
-            protected DatabaseAdapter getDbAdapter(Context context) {
-                return new DatabaseAdapter(context) {
+            protected DataEyeDatabaseAdapter getDbAdapter(Context context) {
+                return new DataEyeDatabaseAdapter(context) {
                     @Override
                     public int addJSON(JSONObject j, Table table, String token) {
                         try {
-                            TDLog.i("THINKING_TEST", j.toString(4));
+                            DataEyeLog.i("THINKING_TEST", j.toString(4));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -78,21 +78,21 @@ public class TestRunner extends AndroidJUnitRunner {
                 };
             }
         };
-        mInstance = new ThinkingAnalyticsSDK(mConfig) {
+        mInstance = new DataEyeAnalyticsSDK(mConfig) {
             @Override
-            protected DataHandle getDataHandleInstance(Context context) {
-                return dataHandle;
+            protected DataEyeDataHandle getDataHandleInstance(Context context) {
+                return dataEyeDataHandle;
             }
         };
 
-        ThinkingAnalyticsSDK.addInstance(mInstance, mAppContext, TA_APP_ID);
-        mDebugInstance = new ThinkingAnalyticsSDK(TDConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
+        DataEyeAnalyticsSDK.addInstance(mInstance, mAppContext, TA_APP_ID);
+        mDebugInstance = new DataEyeAnalyticsSDK(DataEyeConfig.getInstance(mAppContext, TA_APP_ID_DEBUG, TA_SERVER_URL)) {
             @Override
-            protected DataHandle getDataHandleInstance(Context context) {
-                return dataHandle;
+            protected DataEyeDataHandle getDataHandleInstance(Context context) {
+                return dataEyeDataHandle;
             }
         };
-        ThinkingAnalyticsSDK.addInstance(mDebugInstance, mAppContext, TA_APP_ID_DEBUG);
+        DataEyeAnalyticsSDK.addInstance(mDebugInstance, mAppContext, TA_APP_ID_DEBUG);
 
         TDTracker.initThinkingDataSDK(mInstance, mDebugInstance);
     }
