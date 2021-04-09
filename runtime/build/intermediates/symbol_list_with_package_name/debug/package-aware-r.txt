@@ -1,2 +1,0 @@
-cn.thinkingdata.android.runtime
-string app_name

@@ -737,6 +737,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         }
     }
     String getOAID() {
+        if(null == mOAID) return null;
         synchronized (mOAID) {
             String oaid = mOAID.get();
             return oaid;
@@ -744,6 +745,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     }
 
     String getIMEI() {
+        if(null == mIMEI) return null;
         synchronized (mIMEI) {
             return mIMEI.get();
         }
