@@ -35,7 +35,7 @@ public class DataEyeConfig {
     public static final String VERSION = BuildConfig.VERSION_NAME;
 
     private static final DataEyeSharedPreferencesLoader sPrefsLoader = new DataEyeSharedPreferencesLoader();
-    private static final String PREFERENCE_NAME_PREFIX = "cn.thinkingdata.android.config";
+    private static final String PREFERENCE_NAME_PREFIX = "cn.dataeye.android.config";
 
     static final int DEFAULT_FLUSH_INTERVAL = 15000; // 默认每 15 秒发起一次上报
     static final int DEFAULT_FLUSH_BULK_SIZE = 20; // 默认每次上报请求最多包含 20 条数据

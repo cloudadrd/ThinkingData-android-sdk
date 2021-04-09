@@ -21,15 +21,15 @@ class DataEyeContextConfig {
     private static final int DEFAULT_MIN_DB_LIMIT = 32; // 数据库文件最小大小，默认 32 M.
 
     // 是否打开日志
-    private static final String KEY_ENABLE_LOG = "cn.thinkingdata.android.EnableTrackLogging";
+    private static final String KEY_ENABLE_LOG = "cn.dataeye.android.EnableTrackLogging";
     // 设置数据保留天数，默认 15 天
-    private static final String KEY_RETENTION_DAYS = "cn.thinkingdata.android.RetentionDays";
+    private static final String KEY_RETENTION_DAYS = "cn.dataeye.android.RetentionDays";
     // 数据库文件最小大小，单位 Mb; 当系统空间不足时，缓存数据库达到此上限后会删除最老的 100 条数据.
-    private static final String KEY_MIN_DB_LIMIT = "cn.thinkingdata.android.MinimumDatabaseLimit";
+    private static final String KEY_MIN_DB_LIMIT = "cn.dataeye.android.MinimumDatabaseLimit";
     // 是否允许退出时等待工作线程安全退出，默认允许
-    private static final String KEY_ENABLE_QUIT_SAFELY = "cn.thinkingdata.android.EnableQuitSafely";
+    private static final String KEY_ENABLE_QUIT_SAFELY = "cn.dataeye.android.EnableQuitSafely";
     // 在允许退出时等待工作线程安全退出的情况下，请求超时时长
-    private static final String KEY_QUIT_SAFELY_TIMEOUT = "cn.thinkingdata.android.QuitSafelyTimeout";
+    private static final String KEY_QUIT_SAFELY_TIMEOUT = "cn.dataeye.android.QuitSafelyTimeout";
 
     private final static  Map<Context, DataEyeContextConfig> sInstanceMap = new HashMap<>();
 

@@ -125,36 +125,36 @@ ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/mai
 		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:29:13-56
 	android:name
 		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:27:13-44
-meta-data#cn.thinkingdata.android.EnableTrackLogging
+meta-data#cn.dataeye.android.EnableTrackLogging
 ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:32:9-34:36
 	android:value
 		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:34:13-33
 	android:name
-		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:33:13-70
-meta-data#cn.thinkingdata.android.MinimumDatabaseLimit
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:33:13-65
+meta-data#cn.dataeye.android.MinimumDatabaseLimit
 ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:37:9-39:34
 	android:value
 		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:39:13-31
 	android:name
-		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:38:13-72
-meta-data#cn.thinkingdata.android.RetentionDays
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:38:13-67
+meta-data#cn.dataeye.android.RetentionDays
 ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:42:9-44:33
 	android:value
 		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:44:13-30
 	android:name
-		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:43:13-65
-meta-data#cn.thinkingdata.android.EnableQuitSafely
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:43:13-60
+meta-data#cn.dataeye.android.EnableQuitSafely
 ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:47:9-49:37
 	android:value
 		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:49:13-34
 	android:name
-		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:48:13-68
-meta-data#cn.thinkingdata.android.QuitSafelyTimeout
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:48:13-63
+meta-data#cn.dataeye.android.QuitSafelyTimeout
 ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:52:9-54:36
 	android:value
 		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:54:13-33
 	android:name
-		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:53:13-69
+		ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:53:13-64
 activity#cn.thinkingdata.android.demo.DisplayActivity
 ADDED from /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:56:9-59:58
 	android:parentActivityName
@@ -271,14 +271,14 @@ ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sd
 		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-45
 	android:name
 		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-62
-service#cn.dataeye.android.DataEyeQuitSafelyService$TDKeepAliveService
+service#cn.dataeye.android.DataEyeQuitSafelyService$DataEyeKeepAliveService
 ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-25:44
 	android:exported
 		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-37
 	android:stopWithTask
 		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:13-41
 	android:name
-		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-90
+		ADDED from [:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-95
 uses-permission#com.asus.msa.SupplementaryDID.ACCESS
 ADDED from [oaid_sdk_1.0.23.aar] /Users/mirinda/.gradle/caches/transforms-2/files-2.1/d53a3dc7cf67b3ec896637c49631422b/jetified-oaid_sdk_1.0.23/AndroidManifest.xml:13:5-76
 	android:name

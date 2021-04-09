@@ -72,7 +72,7 @@ public class DataEyeQuitSafelyService {
     void start() {
         try {
             if (DataEyeContextConfig.getInstance(mContext).quitSafelyEnabled()) {
-                mContext.startService(new Intent(mContext, TDKeepAliveService.class));
+                mContext.startService(new Intent(mContext, DataEyeKeepAliveService.class));
             }
         } catch (Exception e) {
             DataEyeLog.w(TAG, "Unexpected exception occurred: " + e.getMessage());
@@ -92,7 +92,7 @@ public class DataEyeQuitSafelyService {
 
             quitSafely(DataEyeDataHandle.THREAD_NAME_SAVE_WORKER, DataEyeContextConfig.getInstance(mContext).getQuitSafelyTimeout());
             quitSafely(DataEyeDataHandle.THREAD_NAME_SEND_WORKER, DataEyeContextConfig.getInstance(mContext).getQuitSafelyTimeout());
-            mContext.stopService(new Intent(mContext, TDKeepAliveService.class));
+            mContext.stopService(new Intent(mContext, DataEyeKeepAliveService.class));
         }
     }
 
@@ -208,7 +208,7 @@ public class DataEyeQuitSafelyService {
             if (notTDDebugException) {
                 processException(e);
             } else {
-                mContext.stopService(new Intent(mContext, TDKeepAliveService.class));
+                mContext.stopService(new Intent(mContext, DataEyeKeepAliveService.class));
             }
 
             if (mDefaultExceptionHandler != null) {
@@ -225,7 +225,7 @@ public class DataEyeQuitSafelyService {
         }
     }
 
-    public static class TDKeepAliveService extends Service {
+    public static class DataEyeKeepAliveService extends Service {
 
         @Override
         public IBinder onBind(Intent intent) {

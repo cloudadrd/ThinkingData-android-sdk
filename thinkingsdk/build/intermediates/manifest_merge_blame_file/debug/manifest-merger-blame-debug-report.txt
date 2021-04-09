@@ -31,8 +31,8 @@
 21
 22        <service
 22-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/src/main/AndroidManifest.xml:18:9-21:40
-23            android:name="cn.dataeye.android.DataEyeQuitSafelyService$TDKeepAliveService"
-23-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/src/main/AndroidManifest.xml:19:13-90
+23            android:name="cn.dataeye.android.DataEyeQuitSafelyService$DataEyeKeepAliveService"
+23-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/src/main/AndroidManifest.xml:19:13-95
 24            android:exported="false"
 24-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/src/main/AndroidManifest.xml:21:13-37
 25            android:stopWithTask="false" />

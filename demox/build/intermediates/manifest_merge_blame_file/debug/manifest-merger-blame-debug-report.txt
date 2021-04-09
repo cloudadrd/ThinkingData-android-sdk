@@ -68,40 +68,40 @@
 37        <!-- 打开调试日志 -->
 38        <meta-data
 38-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:32:9-34:36
-39            android:name="cn.thinkingdata.android.EnableTrackLogging"
-39-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:33:13-70
+39            android:name="cn.dataeye.android.EnableTrackLogging"
+39-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:33:13-65
 40            android:value="true" />
 40-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:34:13-33
 41
 42        <!-- 设置数据库大小下限(默认 32 M) -->
 43        <meta-data
 43-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:37:9-39:34
-44            android:name="cn.thinkingdata.android.MinimumDatabaseLimit"
-44-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:38:13-72
+44            android:name="cn.dataeye.android.MinimumDatabaseLimit"
+44-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:38:13-67
 45            android:value="16" />
 45-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:39:13-31
 46
 47        <!-- 设置缓存数据保留天数(默认 15 天) -->
 48        <meta-data
 48-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:42:9-44:33
-49            android:name="cn.thinkingdata.android.RetentionDays"
-49-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:43:13-65
+49            android:name="cn.dataeye.android.RetentionDays"
+49-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:43:13-60
 50            android:value="7" />
 50-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:44:13-30
 51
 52        <!-- 允许安全退出服务(默认为 true) -->
 53        <meta-data
 53-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:47:9-49:37
-54            android:name="cn.thinkingdata.android.EnableQuitSafely"
-54-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:48:13-68
+54            android:name="cn.dataeye.android.EnableQuitSafely"
+54-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:48:13-63
 55            android:value="false" />
 55-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:49:13-34
 56
 57        <!-- 开启安全退出服务时，等待每个线程（缓存, 网络）退出超时时长，默认 2000 ms -->
 58        <meta-data
 58-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:52:9-54:36
-59            android:name="cn.thinkingdata.android.QuitSafelyTimeout"
-59-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:53:13-69
+59            android:name="cn.dataeye.android.QuitSafelyTimeout"
+59-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:53:13-64
 60            android:value="1000" />
 60-->/Users/mirinda/Documents/ACode/ThinkingData-android-sdk/demox/src/main/AndroidManifest.xml:54:13-33
 61
@@ -137,8 +137,8 @@
 77
 78        <service
 78-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:9-25:44
-79            android:name="cn.dataeye.android.DataEyeQuitSafelyService$TDKeepAliveService"
-79-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-90
+79            android:name="cn.dataeye.android.DataEyeQuitSafelyService$DataEyeKeepAliveService"
+79-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:13-95
 80            android:exported="false"
 80-->[:thinkingsdk] /Users/mirinda/Documents/ACode/ThinkingData-android-sdk/thinkingsdk/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-37
 81            android:stopWithTask="false" />

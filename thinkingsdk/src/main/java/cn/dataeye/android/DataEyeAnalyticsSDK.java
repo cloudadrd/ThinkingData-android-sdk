@@ -201,7 +201,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      * @param config TDConfig 实例
      * @param light 是否是轻实例（内部使用)
      */
-    DataEyeAnalyticsSDK(DataEyeConfig config, boolean... light) {
+     DataEyeAnalyticsSDK(DataEyeConfig config, boolean... light) {
         mConfig = config;
 
         if (light.length > 0 && light[0]) {
