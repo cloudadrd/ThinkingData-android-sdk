@@ -48,7 +48,7 @@ public class HttpService implements RemoteService {
                 } else {
                     connection.setRequestProperty("Content-Type", "text/plain");
                     try {
-                        query = encodeData(params);
+                         query = encodeData(params);
                     } catch (IOException e) {
                         throw new InvalidParameterException(e.getMessage());
                     }
@@ -128,5 +128,14 @@ public class HttpService implements RemoteService {
         byte[] compressed = os.toByteArray();
         os.close();
         return new String(Base64Coder.encode(compressed));
+    }
+    private byte[] strToGZip(final String rawMessage) throws IOException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream(rawMessage.getBytes().length);
+        GZIPOutputStream gos = new GZIPOutputStream(os);
+        gos.write(rawMessage.getBytes());
+        gos.close();
+        byte[] compressed = os.toByteArray();
+        os.close();
+        return compressed;
     }
 }

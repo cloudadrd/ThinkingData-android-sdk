@@ -1,9 +1,17 @@
 package cn.thinkingdata.android.demo;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,15 +28,14 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final int PHONE_STATE = 1000;
     private Button mButtonSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        
-        initView();
+        requestReadPhoneState(this);
     }
 
     private void initView() {
@@ -214,4 +221,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this, ClickTestActivity.class);
         startActivity(intent);
     }
+
+    private void initDataEye(){
+        TDTracker.initThinkingDataSDK(getApplicationContext());
+        NtpTime.startCalibrateTime();
+        initView();
+    }
+
+    public void requestReadPhoneState(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int hasWriteContactsPermission = activity.checkSelfPermission(Manifest.permission.READ_PHONE_STATE);
+            if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+                activity.requestPermissions(new String[] {Manifest.permission.READ_PHONE_STATE}, PHONE_STATE);
+            }else{
+                initDataEye();
+            }
+        }else{
+            initDataEye();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PHONE_STATE: {
+                initDataEye();
+                return;
+            }
+            default:
+                break;
+
+        }
+    }
+
+
 }
