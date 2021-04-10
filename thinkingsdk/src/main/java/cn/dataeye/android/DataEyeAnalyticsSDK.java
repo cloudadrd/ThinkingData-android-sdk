@@ -58,7 +58,6 @@ import com.bun.miitmdid.interfaces.IIdentifierListener;
 import com.bun.miitmdid.interfaces.IdSupplier;
 
 public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
-    static Boolean f = false; //是否上报了用户属性
 
     /**
      * 当 SDK 初始化完成后，可以通过此接口获得保存的单例
@@ -135,31 +134,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                     sAppFirstInstallationMap.get(config.mContext).add(config.mToken);
                 }
             }
-            //添加用户属性 fit
-            if (f == true)
-                return instance;
-
-            try {
-                JSONObject properties = new JSONObject();
-                String fit = timeStamp2Date(DataEyeSystemInformation.getInstance(config.mContext).getFIT(), "yyyy-MM-dd HH:mm:ss.SSS")                ;
-                properties.put("fit",fit);
-                properties.put("zone_offset", Integer.toString(TimeZone.getDefault().getOffset(System.currentTimeMillis()) / (60 * 1000 * 60)));
-                instance.user_setOnce(properties);
-                f = true;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
             return instance;
         }
-    }
-
-    private static String timeStamp2Date(long time, String format) {
-        if (format == null || format.isEmpty()) {
-            format = "yyyy-MM-dd HH:mm:ss";
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        return sdf.format(new Date(time));
     }
 
      // only for automatic test
@@ -511,6 +487,14 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         }
     }
 
+    private static String timeStamp2Date(long time, String format) {
+        if (format == null || format.isEmpty()) {
+            format = "yyyy-MM-dd HH:mm:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        return sdf.format(new Date(time));
+    }
+
     private JSONObject obtainDefaultEventProperties(String eventName) {
 
         JSONObject finalProperties = new JSONObject();
@@ -529,6 +513,11 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             }
 
             finalProperties.put(DataEyeConstants.KEY_NETWORK_TYPE, mDataEyeSystemInformation.getNetworkType());
+
+            if(eventName == "ta_app_install"){
+                String fit = timeStamp2Date(DataEyeSystemInformation.getInstance(mConfig.mContext).getFIT(), "yyyy-MM-dd HH:mm:ss.SSS");
+                finalProperties.put(DataEyeConstants.KEY_FIRST_INSTALL_TIME, fit);
+            }
             if (!TextUtils.isEmpty(mDataEyeSystemInformation.getAppVersionName())) {
                 finalProperties.put(DataEyeConstants.KEY_APP_VERSION, mDataEyeSystemInformation.getAppVersionName());
             }
