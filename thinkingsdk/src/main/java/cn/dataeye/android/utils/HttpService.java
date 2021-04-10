@@ -36,33 +36,47 @@ public class HttpService implements RemoteService {
             }
 
             if (null != params) {
-                String query;
-
+                String queryD;
+                byte[] query;
                 connection.setDoOutput(true);
                 connection.setRequestMethod("POST");
                 if (debug) {
-                    query = params;
+                    queryD = params;
                     connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                     connection.setUseCaches(false);
                     connection.setRequestProperty( "charset", "utf-8");
+                    if (extraHeaders != null) {
+                        for (Map.Entry<String, String> entry : extraHeaders.entrySet()) {
+                            connection.setRequestProperty(entry.getKey(), entry.getValue());
+                        }
+                    }
+                    connection.setFixedLengthStreamingMode(queryD.getBytes("UTF-8").length);
+                    out = connection.getOutputStream();
+                    bout = new BufferedOutputStream(out);
+                    bout.write(queryD.getBytes("UTF-8"));
                 } else {
-                    connection.setRequestProperty("Content-Type", "text/plain");
+//                    connection.setRequestProperty("Content-Type", "text/plain");
+                    connection.setRequestProperty("Content-Type", "application/gzip");
                     try {
-                         query = encodeData(params);
+                         query = strToGZip(params);
+                        if (extraHeaders != null) {
+                            for (Map.Entry<String, String> entry : extraHeaders.entrySet()) {
+                                connection.setRequestProperty(entry.getKey(), entry.getValue());
+                            }
+                        }
+                        out = connection.getOutputStream();
+                        bout = new BufferedOutputStream(out);
+                        bout.write(query);
                     } catch (IOException e) {
                         throw new InvalidParameterException(e.getMessage());
                     }
                 }
-                if (extraHeaders != null) {
-                    for (Map.Entry<String, String> entry : extraHeaders.entrySet()) {
-                        connection.setRequestProperty(entry.getKey(), entry.getValue());
-                    }
-                }
 
-                connection.setFixedLengthStreamingMode(query.getBytes("UTF-8").length);
-                out = connection.getOutputStream();
-                bout = new BufferedOutputStream(out);
-                bout.write(query.getBytes("UTF-8"));
+
+//                connection.setFixedLengthStreamingMode(query.getBytes("UTF-8").length);
+//                out = connection.getOutputStream();
+//                bout = new BufferedOutputStream(out);
+//                bout.write(query.getBytes("UTF-8"));
 
                 bout.flush();
                 bout.close();
