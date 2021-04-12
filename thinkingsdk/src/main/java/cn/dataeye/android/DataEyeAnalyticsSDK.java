@@ -514,7 +514,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
             finalProperties.put(DataEyeConstants.KEY_NETWORK_TYPE, mDataEyeSystemInformation.getNetworkType());
 
-            if(eventName == "ta_app_install"){
+            if(eventName == "app_install"){
                 String fit = timeStamp2Date(DataEyeSystemInformation.getInstance(mConfig.mContext).getFIT(), "yyyy-MM-dd HH:mm:ss.SSS");
                 finalProperties.put(DataEyeConstants.KEY_FIRST_INSTALL_TIME, fit);
             }
@@ -891,17 +891,17 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      * 自动采集事件类型
      */
     public enum AutoTrackEventType {
-        /** APP 启动事件 ta_app_start */
+        /** APP 启动事件 app_start */
         APP_START(DataEyeConstants.APP_START_EVENT_NAME),
-        /** APP 关闭事件 ta_app_end */
+        /** APP 关闭事件 app_end */
         APP_END(DataEyeConstants.APP_END_EVENT_NAME),
-        /** 控件点击事件 ta_app_click */
+        /** 控件点击事件 app_click */
         APP_CLICK(DataEyeConstants.APP_CLICK_EVENT_NAME),
-        /** 页面浏览事件 ta_app_view */
+        /** 页面浏览事件 app_view */
         APP_VIEW_SCREEN(DataEyeConstants.APP_VIEW_EVENT_NAME),
-        /** APP 崩溃事件 ta_app_crash */
+        /** APP 崩溃事件 app_crash */
         APP_CRASH(DataEyeConstants.APP_CRASH_EVENT_NAME),
-        /** APP 安装事件 ta_app_install */
+        /** APP 安装事件 app_install */
         APP_INSTALL(DataEyeConstants.APP_INSTALL_EVENT_NAME);
 
         private final String eventName;
