@@ -1514,7 +1514,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     // 本地缓存（SharePreference) 相关变量，所有实例共享
     private static final DataEyeSharedPreferencesLoader sPrefsLoader = new DataEyeSharedPreferencesLoader();
     private static Future<SharedPreferences> sStoredSharedPrefs;
-    private static final String PREFERENCE_NAME = "com.thinkingdata.analyse";
+    private static final String PREFERENCE_NAME = "com.dataeye.analyse";
     private static StorageLoginID sOldLoginId;
     private static final Object sOldLoginIdLock = new Object();
     private static StorageRandomID sRandomID;

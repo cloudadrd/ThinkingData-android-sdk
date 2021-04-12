@@ -70,8 +70,8 @@ public class TDTracker {
         // enable auto track
         List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
         eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
-//        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
-//        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
+        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
 //        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
@@ -79,8 +79,8 @@ public class TDTracker {
 
         List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList1 = new ArrayList<>();
         eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
-//        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
-//        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
+        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
+        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
 //        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
 //        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
 //        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
