@@ -1558,7 +1558,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     DataEyeConfig mConfig;
     private DataEyeSystemInformation mDataEyeSystemInformation;
 
-    private static final String TAG = "ThinkingAnalyticsSDK";
+    private static final String TAG = "DataEyeAnalyticsSDK";
 
     // 对启动事件的特殊处理，记录开启自动采集的时间
     private ITime mAutoTrackStartTime;

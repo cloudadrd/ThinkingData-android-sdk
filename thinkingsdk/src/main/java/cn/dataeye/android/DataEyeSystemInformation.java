@@ -304,7 +304,7 @@ class DataEyeSystemInformation {
     }
 
 
-    private final static  String TAG = "ThinkingAnalytics.SystemInformation";
+    private final static  String TAG = "DataEyeAnalytics.DataEyeSystemInformation";
     private String mAppVersionName;
     private final Map<String, Object> mDeviceInfo;
     private final Context mContext;

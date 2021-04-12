@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DataEyeDatabaseAdapter {
-    private static final String TAG = "ThinkingAnalytics.DatabaseAdapter";
+    private static final String TAG = "DataEyeAnalytics.DataEyebaseAdapter";
     public enum Table {
         EVENTS("events");
 

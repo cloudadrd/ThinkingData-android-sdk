@@ -35,7 +35,7 @@ import java.util.UUID;
  */
 public class DataEyeDataHandle {
 
-    private static final String TAG = "ThinkingAnalytics.DataHandle";
+    private static final String TAG = "DataEyeAnalytics.DataEyeDataHandle";
     static final String THREAD_NAME_SAVE_WORKER = "thinkingData.sdk.saveMessageWorker";
     static final String THREAD_NAME_SEND_WORKER = "thinkingData.sdk.sendMessageWorker";
 
@@ -219,6 +219,8 @@ public class DataEyeDataHandle {
                             DataEyeLog.w(TAG, "Saving data to database failed.");
                         } else {
                             DataEyeLog.i(TAG, "Data enqueued(" + DataEyeUtils.getSuffix(token, 4) + "):\n" + data.toString(4));
+                            DataEyeLog.d(TAG, "Data-enqueued(" + DataEyeUtils.getSuffix(token, 4) + "):\n" + data.toString(4));
+
                         }
                         checkSendStrategy(token, ret);
                     } catch (Exception e) {

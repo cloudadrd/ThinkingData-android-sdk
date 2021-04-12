@@ -49,7 +49,7 @@ import java.util.Locale;
  * 自动采集模块会在相关事件发生时通过反射调用此类中的函数进行埋点.
  */
 public class DataEyeRuntimeBridge {
-    private final static String TAG = "ThinkingAnalytics.ThinkingDataRuntimeBridge";
+    private final static String TAG = "DataEyeAnalytics.DataEyeRuntimeBridge";
 
     // Called when onCreateView is executed.
     public static void onFragmentCreateView(Object fragment, View rootView) {

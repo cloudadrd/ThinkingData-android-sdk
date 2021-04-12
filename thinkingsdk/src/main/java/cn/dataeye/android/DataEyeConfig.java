@@ -405,5 +405,5 @@ public class DataEyeConfig {
 
     private TimeZone mDefaultTimeZone;
 
-    private static final String TAG = "ThinkingAnalytics.TDConfig";
+    private static final String TAG = "DataEyeAnalytics.DataEyeConfig";
 }

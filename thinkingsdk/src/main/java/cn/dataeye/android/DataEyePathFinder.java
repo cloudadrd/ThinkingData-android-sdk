@@ -270,6 +270,6 @@ public class DataEyePathFinder {
 
     private final IntStack mIndexStack;
 
-    private static final String TAG = "ThinkingAnalytics.PathFinder";
+    private static final String TAG = "DataEyeAnalytics.DataEyePathFinder";
 
 }

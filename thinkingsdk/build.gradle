@@ -27,6 +27,12 @@ android {
             debuggable true
             jniDebuggable true
             minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            android.libraryVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "DataEyeSDK-Debug.aar"
+                }
+            }
         }
         release {
             minifyEnabled true
@@ -34,7 +40,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             android.libraryVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "DataEyeSDK-Release.aar"
+                    if (variant.buildType.name == 'debug') {
+                        outputFileName = "DataEyeSDK-Debug.aar"
+                    }else{
+                        outputFileName = "DataEyeSDK-Release.aar"
+                    }
                 }
             }
         }

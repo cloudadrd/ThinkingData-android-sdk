@@ -21,7 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 public class DataEyeQuitSafelyService {
-    static final String TAG = "ThinkingAnalytics.Quit";
+    static final String TAG = "DataEyeAnalytics.Quit";
 
     private static DataEyeQuitSafelyService sInstance;
     private Context mContext;
