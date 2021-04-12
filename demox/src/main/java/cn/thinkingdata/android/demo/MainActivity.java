@@ -73,6 +73,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+        try {
+            JSONObject properties = new JSONObject();
+            properties.put("wxOpenId","weixin id");
+            properties.put("NetworkFirmId","");
+            properties.put("NetworkPlacementId",15);
+            properties.put("AdsourceId","403711");
+            properties.put("Ecpm",100);
+            properties.put("TopOnPlacementId","123456");
+            properties.put("AdType","RewardedVideo");
+            properties.put("ScenarioId","");
+            properties.put("topon_Channel","ks");
+            TDTracker.getInstance().track("ad_imp",properties);
+            TDTracker.getInstance().flush();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
