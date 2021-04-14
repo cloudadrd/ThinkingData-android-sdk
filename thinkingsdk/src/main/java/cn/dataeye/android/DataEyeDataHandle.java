@@ -219,8 +219,6 @@ public class DataEyeDataHandle {
                             DataEyeLog.w(TAG, "Saving data to database failed.");
                         } else {
                             DataEyeLog.i(TAG, "Data enqueued(" + DataEyeUtils.getSuffix(token, 4) + "):\n" + data.toString(4));
-                            DataEyeLog.d(TAG, "Data-enqueued(" + DataEyeUtils.getSuffix(token, 4) + "):\n" + data.toString(4));
-
                         }
                         checkSendStrategy(token, ret);
                     } catch (Exception e) {

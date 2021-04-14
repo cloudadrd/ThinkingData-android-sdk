@@ -21,7 +21,8 @@ public class TDTracker {
      * 如果您使用的是私有化部署的版本，请输入以下URL:
      * http://数据采集地址:9080
      */
-    private static final String TA_SERVER_URL = "http://172.31.4.170:8080/v1/sdk/report";
+//    private static final String TA_SERVER_URL = "http://172.31.4.170:8080/v1/sdk/report";
+    private static final String TA_SERVER_URL = "http://deapi.adsgreat.cn/v1/sdk/report";
 
     private static DataEyeAnalyticsSDK mInstance;
     private static DataEyeAnalyticsSDK mDebugInstance;
@@ -53,7 +54,7 @@ public class TDTracker {
     /** 初始化 TA SDK */
     static void initThinkingDataSDK(Context context) {
         Context mContext = context.getApplicationContext();
-        mInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, TA_APP_ID, TA_SERVER_URL);
+        mInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, "1007", TA_SERVER_URL);//TA_APP_ID
         mDebugInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, TA_APP_ID_DEBUG, TA_SERVER_URL);
         setUp();
     }
@@ -69,9 +70,9 @@ public class TDTracker {
 
         // enable auto track
         List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
-        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
-        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
-        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
+//        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
+//        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
+//        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
 //        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);

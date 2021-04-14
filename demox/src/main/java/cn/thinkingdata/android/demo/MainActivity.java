@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         try {
+//            for (int i= 0;i<20; i++){
             JSONObject properties = new JSONObject();
             properties.put("wxOpenId","weixin id");
             properties.put("NetworkFirmId","");
@@ -87,7 +89,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             properties.put("topon_Channel","ks");
             TDTracker.getInstance().track("ad_imp",properties);
             TDTracker.getInstance().flush();
-        } catch (JSONException e) {
+//            Thread.sleep(2000);
+//            Log.i("ad_imp++++++++++++++++++++++++++++", "count:"+i);
+//            }
+        } catch (JSONException /*| InterruptedException*/ e) {
             e.printStackTrace();
         }
     }
@@ -267,9 +272,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             default:
                 break;
-
         }
     }
-
 
 }
