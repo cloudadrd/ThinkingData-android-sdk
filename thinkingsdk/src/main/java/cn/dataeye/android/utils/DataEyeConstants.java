@@ -88,6 +88,7 @@ public class DataEyeConstants {
     public static final String KEY_REFERRER = "#referrer";
     public static final String KEY_NETWORK_TYPE = "#network_type";
     public static final String KEY_FIRST_INSTALL_TIME = "#fit";
+    public static final String KEY_REYUN_APPID = "#reyun_appid";
     public static final String KEY_APP_VERSION = "#app_version";
     public static final String KEY_DURATION = "#duration";
     public static final String KEY_ZONE_OFFSET = "#zone_offset";
