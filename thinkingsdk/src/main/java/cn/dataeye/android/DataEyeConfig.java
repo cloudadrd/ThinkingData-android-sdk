@@ -194,92 +194,92 @@ public class DataEyeConfig {
     }
 
     private void getRemoteConfig() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                HttpURLConnection connection = null;
-                InputStream in = null;
-
-                try {
-                    URL url = new URL(mConfigUrl);
-                    connection = (HttpURLConnection) url.openConnection();
-                    final SSLSocketFactory socketFactory = getSSLSocketFactory();
-                    if (null != socketFactory && connection instanceof HttpsURLConnection) {
-                        ((HttpsURLConnection) connection).setSSLSocketFactory(socketFactory);
-                    }
-                    connection.setRequestMethod("GET");
-
-                    if (200 == connection.getResponseCode()) {
-                        in = connection.getInputStream();
-
-                        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-                        StringBuffer buffer = new StringBuffer();
-                        String line;
-                        while((line = br.readLine())!=null) {
-                            buffer.append(line);
-                        }
-                        JSONObject rjson = new JSONObject(buffer.toString());
-
-                        if (rjson.getString("code").equals("0")) {
-
-                            int newUploadInterval = mFlushInterval.get();
-                            int newUploadSize = mFlushBulkSize.get();
-                            try {
-                                JSONObject data = rjson.getJSONObject("data");
-                                newUploadInterval = data.getInt("sync_interval") * 1000;
-                                newUploadSize = data.getInt("sync_batch_size");
-
-                                DataEyeLog.d(TAG, "Fetched remote config for (" + DataEyeUtils.getSuffix(mToken,  4)
-                                        + "):\n" + data.toString(4));
-
-                                if (data.has("disable_event_list")) {
-                                    mDisabledEventsLock.writeLock().lock();
-                                    try {
-                                        JSONArray disabledEventList = data.getJSONArray("disable_event_list");
-                                        for (int i = 0; i < disabledEventList.length(); i++) {
-                                            mDisabledEvents.add(disabledEventList.getString(i));
-                                        }
-                                    } finally {
-                                        mDisabledEventsLock.writeLock().unlock();
-                                    }
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            if (mFlushBulkSize.get() != newUploadSize) {
-                                mFlushBulkSize.put(newUploadSize);
-                            }
-
-                            if (mFlushInterval.get() != newUploadInterval) {
-                                mFlushInterval.put(newUploadInterval);
-                            }
-                        }
-
-                        in.close();
-                        br.close();
-                    } else {
-                        DataEyeLog.d(TAG, "Getting remote config failed, responseCode is " + connection.getResponseCode());
-                    }
-
-                } catch (IOException e) {
-                    DataEyeLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
-                } catch (JSONException e) {
-                    DataEyeLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
-                } finally {
-                    if (null != in) {
-                        try {
-                            in.close();
-                        } catch (final IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (null != connection) {
-                        connection.disconnect();
-                    }
-                }
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                HttpURLConnection connection = null;
+//                InputStream in = null;
+//
+//                try {
+//                    URL url = new URL(mConfigUrl);
+//                    connection = (HttpURLConnection) url.openConnection();
+//                    final SSLSocketFactory socketFactory = getSSLSocketFactory();
+//                    if (null != socketFactory && connection instanceof HttpsURLConnection) {
+//                        ((HttpsURLConnection) connection).setSSLSocketFactory(socketFactory);
+//                    }
+//                    connection.setRequestMethod("GET");
+//
+//                    if (200 == connection.getResponseCode()) {
+//                        in = connection.getInputStream();
+//
+//                        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+//                        StringBuffer buffer = new StringBuffer();
+//                        String line;
+//                        while((line = br.readLine())!=null) {
+//                            buffer.append(line);
+//                        }
+//                        JSONObject rjson = new JSONObject(buffer.toString());
+//
+//                        if (rjson.getString("code").equals("0")) {
+//
+//                            int newUploadInterval = mFlushInterval.get();
+//                            int newUploadSize = mFlushBulkSize.get();
+//                            try {
+//                                JSONObject data = rjson.getJSONObject("data");
+//                                newUploadInterval = data.getInt("sync_interval") * 1000;
+//                                newUploadSize = data.getInt("sync_batch_size");
+//
+//                                DataEyeLog.d(TAG, "Fetched remote config for (" + DataEyeUtils.getSuffix(mToken,  4)
+//                                        + "):\n" + data.toString(4));
+//
+//                                if (data.has("disable_event_list")) {
+//                                    mDisabledEventsLock.writeLock().lock();
+//                                    try {
+//                                        JSONArray disabledEventList = data.getJSONArray("disable_event_list");
+//                                        for (int i = 0; i < disabledEventList.length(); i++) {
+//                                            mDisabledEvents.add(disabledEventList.getString(i));
+//                                        }
+//                                    } finally {
+//                                        mDisabledEventsLock.writeLock().unlock();
+//                                    }
+//                                }
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//
+//                            if (mFlushBulkSize.get() != newUploadSize) {
+//                                mFlushBulkSize.put(newUploadSize);
+//                            }
+//
+//                            if (mFlushInterval.get() != newUploadInterval) {
+//                                mFlushInterval.put(newUploadInterval);
+//                            }
+//                        }
+//
+//                        in.close();
+//                        br.close();
+//                    } else {
+//                        DataEyeLog.d(TAG, "Getting remote config failed, responseCode is " + connection.getResponseCode());
+//                    }
+//
+//                } catch (IOException e) {
+//                    DataEyeLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
+//                } catch (JSONException e) {
+//                    DataEyeLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
+//                } finally {
+//                    if (null != in) {
+//                        try {
+//                            in.close();
+//                        } catch (final IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    if (null != connection) {
+//                        connection.disconnect();
+//                    }
+//                }
+//            }
+//        }).start();
     }
 
     String getServerUrl() {
