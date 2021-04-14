@@ -12,14 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 
-import cn.dataeye.android.persistence.StorageEnableFlag;
-import cn.dataeye.android.persistence.StorageIMEI;
-import cn.dataeye.android.persistence.StorageIdentifyId;
-import cn.dataeye.android.persistence.StorageLoginID;
-import cn.dataeye.android.persistence.StorageOAID;
-import cn.dataeye.android.persistence.StorageOptOutFlag;
-import cn.dataeye.android.persistence.StorageRandomID;
-import cn.dataeye.android.persistence.StorageSuperProperties;
+import cn.dataeye.android.persistence.*;
 import cn.dataeye.android.utils.ICalibratedTime;
 import cn.dataeye.android.utils.ITime;
 import cn.dataeye.android.utils.PropertyUtils;
@@ -188,6 +181,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             mEnableFlag = null;
             mOAID = null;
             mIMEI = null;
+            mReyunAppID = null;
             mEnableTrackOldData = false;
             mTrackTimer = new HashMap<>();
             mMessages = getDataHandleInstance(config.mContext);
@@ -216,6 +210,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         mEnableFlag = new StorageEnableFlag(storedPrefs);
         mOAID = new StorageOAID(storedPrefs);
         mIMEI = new StorageIMEI(storedPrefs);
+        mReyunAppID = new StorageReyunAppID(storedPrefs);
         mDataEyeSystemInformation = DataEyeSystemInformation.getInstance(config.mContext);
 
         //设置aid到accountid
@@ -517,6 +512,10 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             if(eventName == "app_install"){
                 String fit = timeStamp2Date(DataEyeSystemInformation.getInstance(mConfig.mContext).getFIT(), "yyyy-MM-dd HH:mm:ss.SSS");
                 finalProperties.put(DataEyeConstants.KEY_FIRST_INSTALL_TIME, fit);
+
+                if(!TextUtils.isEmpty(mReyunAppID.get())){
+                    finalProperties.put(DataEyeConstants.KEY_REYUN_APPID, mReyunAppID.get());
+                }
             }
             if (!TextUtils.isEmpty(mDataEyeSystemInformation.getAppVersionName())) {
                 finalProperties.put(DataEyeConstants.KEY_APP_VERSION, mDataEyeSystemInformation.getAppVersionName());
@@ -666,6 +665,18 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
         synchronized (mIdentifyId) {
             mIdentifyId.put(identity);
+        }
+    }
+
+    public void reyunAppID(String reyunAppID){
+        if(hasDisabled()) return;
+        if (TextUtils.isEmpty(reyunAppID)) {
+            DataEyeLog.w(TAG,"The reyunAppID cannot be empty.");
+            if (mConfig.shouldThrowException()) throw new DataEyeDebugException("reyunAppID id cannot be empty");
+            return;
+        }
+        synchronized (mReyunAppID) {
+            mReyunAppID.put(reyunAppID);
         }
     }
 
@@ -1528,6 +1539,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     private final StorageSuperProperties mSuperProperties;
     private final StorageOAID mOAID;
     private final StorageIMEI mIMEI;
+    private final StorageReyunAppID mReyunAppID;
 
     // 动态公共属性接口
     private DynamicSuperPropertiesTracker mDynamicSuperPropertiesTracker;

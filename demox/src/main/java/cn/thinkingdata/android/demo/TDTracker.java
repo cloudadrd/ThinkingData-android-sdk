@@ -65,18 +65,19 @@ public class TDTracker {
 
         // set distinct id
         mInstance.identify("instance_id");
-        mDebugInstance.identify("debug_instance_id");
-        mLightInstance = mInstance.createLightInstance();
+//        mDebugInstance.identify("debug_instance_id");
+//        mLightInstance = mInstance.createLightInstance();
+        mInstance.reyunAppID("123456");
 
         // enable auto track
-        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
+//        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();
 //        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
 //        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
 //        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
 //        eventTypeList.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
-        mDebugInstance.enableAutoTrack(eventTypeList);
+//        mDebugInstance.enableAutoTrack(eventTypeList);
 
         List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList1 = new ArrayList<>();
         eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
