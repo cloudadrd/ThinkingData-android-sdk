@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             // 对 login 事件记录时长
             TDTracker.getInstance().timeEvent("user_login");
-            TDTracker.getLightInstance().timeEvent("user_login");
+//            TDTracker.getLightInstance().timeEvent("user_login");
             try {
                 Thread.currentThread().sleep(1000);
             } catch (Exception e) {
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             // 设置账号ID
             TDTracker.getInstance().login(username);
-            TDTracker.getLightInstance().login("child_" + username);
+            //TDTracker.getLightInstance().login("child_" + username);
 
             // 设置用户属性
             try {
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 JSONObject properties = new JSONObject();
                 properties.put("user_name", username);
-                TDTracker.getLightInstance().track("user_login", properties);
+//                TDTracker.getLightInstance().track("user_login", properties);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         TDTracker.getInstance().track("test_event", properties);
-        TDTracker.getLightInstance().track("test_event", properties, NtpTime.getCalibratedDate());
+        //TDTracker.getLightInstance().track("test_event", properties, NtpTime.getCalibratedDate());
     }
 
     /** Called when the user taps the Set Super Properties button */
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             superProperties.put("SUPER_PROPERTY_CHANNEL","B1");
             TDTracker.getInstance().setSuperProperties(superProperties);
             superProperties.put("SUPER_PROPERTY_STRING","A1");
-            TDTracker.getLightInstance().setSuperProperties(superProperties);
+            //TDTracker.getLightInstance().setSuperProperties(superProperties);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -225,13 +225,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // 清除公共事件属性 Channel
     public void unsetChannelProperties(View view) {
         TDTracker.getInstance().unsetSuperProperty("SUPER_PROPERTY_CHANNEL");
-        TDTracker.getLightInstance().unsetSuperProperty("SUPER_PROPERTY_CHANNEL");
+        //TDTracker.getLightInstance().unsetSuperProperty("SUPER_PROPERTY_CHANNEL");
     }
 
     // 清空所有公共事件属性
     public void unsetAllSuperProperties(View view) {
         TDTracker.getInstance().clearSuperProperties();
-        TDTracker.getLightInstance().clearSuperProperties();
+        //TDTracker.getLightInstance().clearSuperProperties();
     }
 
     public void flush(View view) {
