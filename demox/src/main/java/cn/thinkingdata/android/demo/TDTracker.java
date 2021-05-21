@@ -54,7 +54,7 @@ public class TDTracker {
     /** 初始化 TA SDK */
     static void initThinkingDataSDK(Context context) {
         Context mContext = context.getApplicationContext();
-        mInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, "1007", TA_SERVER_URL);//TA_APP_ID
+        mInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, "1006", TA_SERVER_URL);//TA_APP_ID
         mDebugInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, TA_APP_ID_DEBUG, TA_SERVER_URL);
         setUp();
     }
@@ -67,7 +67,7 @@ public class TDTracker {
         mInstance.identify("instance_id");
 //        mDebugInstance.identify("debug_instance_id");
 //        mLightInstance = mInstance.createLightInstance();
-        mInstance.reyunAppID("123456");
+        mInstance.reyunAppID("766533dcc96788a7367acda3860e816c"); //766533dcc96788a7367acda3860e816c  //123456
 
         // enable auto track
 //        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList = new ArrayList<>();

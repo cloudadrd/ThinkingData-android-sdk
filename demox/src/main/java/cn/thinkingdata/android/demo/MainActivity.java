@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         try {
-//            for (int i= 0;i<20; i++){
+            for (int i= 0;i<20; i++){
             JSONObject properties = new JSONObject();
             properties.put("wxOpenId","weixin id");
             properties.put("NetworkFirmId","");
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             TDTracker.getInstance().flush();
 //            Thread.sleep(2000);
 //            Log.i("ad_imp++++++++++++++++++++++++++++", "count:"+i);
-//            }
+            }
         } catch (JSONException /*| InterruptedException*/ e) {
             e.printStackTrace();
         }
