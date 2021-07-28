@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             properties.put("AdType","RewardedVideo");
             properties.put("ScenarioId","");
             properties.put("topon_Channel","ks");
+            properties.put("Currency","CNY");
             TDTracker.getInstance().track("ad_imp",properties);
             TDTracker.getInstance().flush();
 //            Thread.sleep(2000);
