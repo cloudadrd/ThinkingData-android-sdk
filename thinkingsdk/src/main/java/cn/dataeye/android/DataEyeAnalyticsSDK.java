@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,7 +25,6 @@ import cn.dataeye.android.utils.DataEyeTime;
 import cn.dataeye.android.utils.DataEyeTimeCalibrated;
 import cn.dataeye.android.utils.DataEyeTimeConstant;
 import cn.dataeye.android.utils.DataEyeUtils;
-import cn.dataeye.android.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -170,7 +170,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      * @param config TDConfig 实例
      * @param light 是否是轻实例（内部使用)
      */
-     DataEyeAnalyticsSDK(DataEyeConfig config, boolean... light) {
+     DataEyeAnalyticsSDK(final DataEyeConfig config, boolean... light) {
         mConfig = config;
 
         if (light.length > 0 && light[0]) {
@@ -180,7 +180,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             mOptOutFlag = null;
             mEnableFlag = null;
             mOAID = null;
-            mIMEI = null;
+            mGAID = null;
             mReyunAppID = null;
             mEnableTrackOldData = false;
             mTrackTimer = new HashMap<>();
@@ -209,28 +209,38 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         mOptOutFlag = new StorageOptOutFlag(storedPrefs);
         mEnableFlag = new StorageEnableFlag(storedPrefs);
         mOAID = new StorageOAID(storedPrefs);
-        mIMEI = new StorageIMEI(storedPrefs);
+        mGAID = new StorageGAID(storedPrefs);
         mReyunAppID = new StorageReyunAppID(storedPrefs);
         mDataEyeSystemInformation = DataEyeSystemInformation.getInstance(config.mContext);
 
         //设置aid到accountid
         mLoginId.put(mDataEyeSystemInformation.getAndroidID(config.mContext));
 
-        //设置oaid
-        MdidSdkHelper.InitSdk(config.mContext, true, new IIdentifierListener() {
-            @Override
-            public void OnSupport(boolean b, final IdSupplier idSupplier) {
-                if (idSupplier != null && idSupplier.isSupported()) {
-                    mOAID.put(idSupplier.getOAID());
-                }
-            }
-        });
 
-        //设置imei
-        String IMEI = DataEyeUtils.getIMEI(config.mContext);
-        if(IMEI != null){
-            mIMEI.put(IMEI);
-        }
+         //设置gaid
+         new Thread(){
+             @Override
+             public void run() {
+                 String GAID = DataEyeUtils.getGAID(config.mContext);
+                 if(GAID != null){
+                     mGAID.put(GAID);
+                 }
+             }
+         }.start();
+
+        //设置oaid
+         try{
+             MdidSdkHelper.InitSdk(config.mContext, true, new IIdentifierListener() {
+                 @Override
+                 public void OnSupport(boolean b, final IdSupplier idSupplier) {
+                     if (idSupplier != null && idSupplier.isSupported()) {
+                         mOAID.put(idSupplier.getOAID());
+                     }
+                 }
+             });
+         }catch (Exception e){
+             mOAID.put("");
+         };
 
         mMessages = getDataHandleInstance(config.mContext);
 
@@ -744,10 +754,10 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         }
     }
 
-    String getIMEI() {
-        if(null == mIMEI) return null;
-        synchronized (mIMEI) {
-            return mIMEI.get();
+    String getGAID() {
+        if(null == mGAID) return null;
+        synchronized (mGAID) {
+            return mGAID.get();
         }
     }
 
@@ -1538,7 +1548,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     private final StorageOptOutFlag mOptOutFlag;
     private final StorageSuperProperties mSuperProperties;
     private final StorageOAID mOAID;
-    private final StorageIMEI mIMEI;
+    private final StorageGAID mGAID;
     private final StorageReyunAppID mReyunAppID;
 
     // 动态公共属性接口
