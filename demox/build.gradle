@@ -54,5 +54,4 @@ dependencies {
     implementation project(':thinkingsdk')
     //implementation project(':runtime')
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation files('libs/oaid_sdk_1.0.23.aar')
 }
