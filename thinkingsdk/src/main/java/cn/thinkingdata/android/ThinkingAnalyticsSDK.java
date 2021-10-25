@@ -1594,6 +1594,19 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
         return result;
     }
 
+    public static long getTimeFormat() {
+        Date time;
+        sCalibratedTimeLock.readLock().lock();
+        if (null != sCalibratedTime) {
+            time = sCalibratedTime.get(SystemClock.elapsedRealtime());
+        } else {
+            time = new Date();
+        }
+        sCalibratedTimeLock.readLock().unlock();
+        return time.getTime();
+    }
+
+
     // 获取与指定 date 和 timeZone 相关的 ITime 实例
     // 如果 timeZone 为 null, 则不会在事件中上传 #zone_offset 字段.
     private ITime getTime(Date date, TimeZone timeZone) {
