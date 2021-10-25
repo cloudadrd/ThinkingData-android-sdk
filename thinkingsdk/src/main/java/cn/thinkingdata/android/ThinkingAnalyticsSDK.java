@@ -200,7 +200,7 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
      * @param config TDConfig 实例
      * @param light 是否是轻实例（内部使用)
      */
-    ThinkingAnalyticsSDK(TDConfig config, boolean... light) {
+    ThinkingAnalyticsSDK(final TDConfig config, boolean... light) {
         mConfig = config;
 
         if (light.length > 0 && light[0]) {
@@ -254,11 +254,17 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
             }
         });
 
-        //GAID
-        String GAID = TDUtils.getGAID(config.mContext);
-        if(GAID != null){
-            mGAID.put(GAID);
-        }
+
+        //设置gaid
+        new Thread(){
+            @Override
+            public void run() {
+                String GAID = TDUtils.getGAID(config.mContext);
+                if(GAID != null){
+                    mGAID.put(GAID);
+                }
+            }
+        }.start();
 
         mMessages = getDataHandleInstance(config.mContext);
 
