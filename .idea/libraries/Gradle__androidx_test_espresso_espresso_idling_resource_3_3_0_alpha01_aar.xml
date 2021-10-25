@@ -3,12 +3,17 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7fa03939ee61f096758122f8f68825bf/espresso-idling-resource-3.3.0-alpha01/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7fa03939ee61f096758122f8f68825bf/espresso-idling-resource-3.3.0-alpha01/res" />
+      <root url="file://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/7fa03939ee61f096758122f8f68825bf/espresso-idling-resource-3.3.0-alpha01/res" />
+      <root url="jar://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/7fa03939ee61f096758122f8f68825bf/espresso-idling-resource-3.3.0-alpha01/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/7fa03939ee61f096758122f8f68825bf/espresso-idling-resource-3.3.0-alpha01/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.test.espresso/espresso-idling-resource/3.3.0-alpha01/ac774bb29e6171578dc7508bf390a4a3ccbedfea/espresso-idling-resource-3.3.0-alpha01-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.test.espresso/espresso-idling-resource/3.3.0-alpha01/ac774bb29e6171578dc7508bf390a4a3ccbedfea/espresso-idling-resource-3.3.0-alpha01-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.test.espresso/espresso-idling-resource/3.3.0-alpha01/e32b6085196d5db8cfeb8ecd6e6257395dbc0c15/espresso-idling-resource-3.3.0-alpha01-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.test.espresso/espresso-idling-resource/3.3.0-alpha01/e32b6085196d5db8cfeb8ecd6e6257395dbc0c15/espresso-idling-resource-3.3.0-alpha01-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -1,0 +1,508 @@
+---- AspectJ Properties ---
+AspectJ Compiler 1.8.9 built on Monday Mar 14, 2016 at 21:18:16 GMT
+---- Dump Properties ---
+Dump file: ajcore.20211025.112208.575.txt
+Dump reason: java.util.ConcurrentModificationException
+Dump on exception: true
+Dump at exit condition: abort
+---- Exception Information ---
+java.util.ConcurrentModificationException
+	at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:911)
+	at java.util.ArrayList$Itr.next(ArrayList.java:861)
+	at org.aspectj.bridge.MessageHandler.hasAnyMessage(MessageHandler.java:160)
+	at org.aspectj.weaver.Dump.shouldDumpOnExit(Dump.java:179)
+	at org.aspectj.weaver.Dump.dumpOnExit(Dump.java:147)
+	at org.aspectj.weaver.Dump.dumpOnExit(Dump.java:135)
+	at org.aspectj.ajdt.ajc.AjdtCommand.doCommand(AjdtCommand.java:116)
+	at org.aspectj.ajdt.ajc.AjdtCommand.runCommand(AjdtCommand.java:60)
+	at org.aspectj.tools.ajc.Main.run(Main.java:371)
+	at sun.reflect.GeneratedMethodAccessor209.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite$PojoCachedMethodSite.invoke(PojoMetaMethodSite.java:190)
+	at org.codehaus.groovy.runtime.callsite.PojoMetaMethodSite.call(PojoMetaMethodSite.java:55)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:135)
+	at cn.thinkingdata.android.plugin.internal.TDTask.call(TDTask.groovy:78)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+---- System Properties ---
+java.vendor=Oracle Corporation
+com.apple.mrj.application.live-resize=false
+sun.java.launcher=SUN_STANDARD
+idea.executable=studio
+sun.management.compiler=HotSpot 64-Bit Tiered Compilers
+idea.paths.selector=AndroidStudio2020.3
+idea.vendor.name=Google
+jnidispatch.path=/Users/tianwenshi/Library/Caches/Google/AndroidStudio2020.3/tmp/jna6005216897183950141.tmp
+os.name=Mac OS X
+sun.boot.class.path=/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/classes
+java.vm.specification.vendor=Oracle Corporation
+java.runtime.version=1.8.0_271-b09
+jb.vmOptionsFile=/Applications/Android Studio.app/Contents/bin/studio.vmoptions,/Users/tianwenshi/Library/Application Support/Google/AndroidStudio2020.3/studio.vmoptions
+jna.loaded=true
+io.netty.serviceThreadPrefix=Netty 
+user.name=tianwenshi
+aspectj.multithreaded=true
+io.netty.allocator.cacheTrimIntervalMillis=600000
+java.rmi.server.disableHttp=true
+idea.active=true
+idea.home.path=/Applications/Android Studio.app/Contents
+user.language=zh
+idea.version=2020.3
+jdk.attach.allowAttachSelf=true
+sun.boot.library.path=/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib
+jna.nosys=true
+io.netty.allocator.useCacheForAllThreads=false
+idea.fatal.error.notification=disabled
+java.vm.compressedOopsMode=Zero based
+swing.bufferPerWindow=true
+CVS_PASSFILE=~/.cvspass
+java.version=1.8.0_271
+user.timezone=Asia/Shanghai
+sun.arch.data.model=64
+java.util.concurrent.ForkJoinPool.common.threadFactory=com.intellij.concurrency.IdeaForkJoinWorkerThreadFactory
+jna.tmpdir=/Users/tianwenshi/Library/Caches/Google/AndroidStudio2020.3/tmp
+java.endorsed.dirs=
+sun.cpu.isalist=
+sun.jnu.encoding=UTF-8
+file.encoding.pkg=sun.io
+file.separator=/
+java.specification.name=Java Platform API Specification
+java.class.version=52.0
+user.country=CN
+jna.boot.library.path=
+java.home=/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre
+java.vm.info=mixed mode
+os.version=10.16
+jdk.http.auth.tunneling.disabledSchemes=""
+path.separator=:
+java.vm.version=25.271-b09
+idea.smooth.progress=false
+idea.no.launcher=false
+user.variant=
+com.jetbrains.suppressWindowRaise=false
+idea.max.content.load.filesize=20000
+java.awt.printerjob=sun.lwawt.macosx.CPrinterJob
+javax.swing.rebaseCssSizeMap=true
+sun.io.unicode.encoding=UnicodeBig
+idea.cycle.buffer.size=1024
+awt.toolkit=sun.lwawt.macosx.LWCToolkit
+log4j.defaultInitOverride=true
+io.netty.processId=48574
+user.script=Hans
+idea.platform.prefix=AndroidStudio
+idea.dynamic.classpath=false
+user.home=/Users/tianwenshi
+java.version.date=2021-01-19
+java.specification.vendor=Oracle Corporation
+apple.laf.useScreenMenuBar=true
+library.jansi.path=/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/native/jansi/null/osx
+java.library.path=/Users/tianwenshi/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.
+java.vendor.url=http://java.oracle.com/
+java.vm.vendor=Oracle Corporation
+gopherProxySet=false
+java.runtime.name=OpenJDK Runtime Environment
+sun.java.command=org.gradle.launcher.daemon.bootstrap.GradleDaemon 5.6.4
+java.class.path=/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/wrapper/dists/gradle-5.6.4-all/ankdp27end7byghfw1q2sw75f/gradle-5.6.4/lib/gradle-launcher-5.6.4.jar
+io.netty.machineId=28:f0:76:ff:fe:16:65:0e
+jdk.debug=release
+java.vm.specification.name=Java Virtual Machine Specification
+idea.xdebug.key=-Xdebug
+io.netty.allocator.numDirectArenas=1
+java.vm.specification.version=1.8
+idea.popup.weight=heavy
+sun.cpu.endian=little
+sun.os.patch.level=unknown
+java.awt.headless=true
+java.io.tmpdir=/var/folders/6c/q9hwvhp95z1_ks2rzbxt53nm0000gn/T/
+java.vendor.url.bug=https://bugreport.java.com/bugreport/
+java.rmi.server.hostname=127.0.0.1
+jna.platform.library.path=/usr/lib:/usr/lib
+kotlinx.coroutines.debug=off
+os.arch=x86_64
+java.awt.graphicsenv=sun.awt.CGraphicsEnvironment
+idea.max.intellisense.filesize=2500
+java.ext.dirs=/Users/tianwenshi/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java
+idea.jre.check=true
+user.dir=/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk
+line.separator=
+
+java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+jdk.module.illegalAccess.silent=true
+pty4j.tmpdir=/Users/tianwenshi/Library/Caches/Google/AndroidStudio2020.3/tmp
+file.encoding=UTF-8
+studio.record.file=/Users/tianwenshi/Library/Caches/Google/AndroidStudio2020.3/tmp/AndroidStudio.6fd12bd5-97f3-409d-932e-34cec7ba8a70
+pty4j.preferred.native.folder=/Applications/Android Studio.app/Contents/lib/pty4j-native
+java.specification.version=1.8
+io.netty.allocator.numHeapArenas=1
+---- Command Line ---
+-showWeaveInfo
+-encoding
+UTF-8
+-source
+1.7
+-target
+1.7
+-classpath
+/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/tda/debug/includefiles:/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/tda/debug/excludefiles:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/3d4769d1e96aa4d8279906bab1b753bb/jetified-oaid_sdk_1.0.23-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/6d037460f9c6d6004501a2cabdef3760/jetified-ThinkingAnalyticsRuntime-2.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.13/bfc5a877fd80648e5467239d370735654aaf7a92/aspectjrt-1.8.13.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/ee9e4e9f5925cc3226da32a19fb51eee/material-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/c3e99d5f85131c52ed2ddfdeebbb17a9/appcompat-1.0.2-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/22963e717829ea6a6104ea18d8a07a17/constraintlayout-1.1.3-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/dbc5f65ad5d74eaf2fd8e5bdb79b8674/legacy-support-v4-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/eec30cea69495dc1dea3be77367bf2c6/vectordrawable-animated-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/60b772f3c9b4153fbd70b9205d13d218/vectordrawable-1.0.1-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/6201e49da58f4aab9c71d1fb28ec9c15/recyclerview-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/d26bc12e7549c6ce1f0175680c087c84/fragment-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/4543cc1b9a5c781118e1935ab68259a1/legacy-support-core-ui-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/1f0b861bdf7a1d87ad1cc019cee04bbe/legacy-support-core-utils-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/d00a54cb141d1f746f3133ca13a72e32/media-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/571e6320c3b370570e0eedf73403806d/transition-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/539c49890aeec8cdcd624d9b0b73c322/loader-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/1acab16180d6325725c897c745783add/viewpager-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/0d0680bd8107c76d2af8b89c3a1fcd2a/coordinatorlayout-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/dc80ee6e6507e6fc3998c0f773c0989f/drawerlayout-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/ba9ed7bb6f029865aa9461af2db76ca0/slidingpanelayout-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/82c4cdf6ae30f9fbe612c9730680f5de/customview-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/2fd6ce5c5a2792f4e488d0aef883ee8a/swiperefreshlayout-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/9b5ebe3f99c20eed5d09b9775555bce8/asynclayoutinflater-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/07613e96fe121d82f7a8dbe437fa405a/core-1.0.1-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/4375796ec99b8aaaf4746194522a552a/versionedparcelable-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.collection/collection/1.0.0/42858b26cafdaa69b6149f45dfc2894007bc2c7a/collection-1.0.0.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/695f21561a394cef8146818b1c7a1322/cursoradapter-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/63ef595cb7d9ea1d78fe653fe63cc2df/cardview-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/2fd09f69807bfa448a9552f0d19e2656/lifecycle-runtime-2.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/dc7e5d5f0b877c92d64ffbf003317c83/documentfile-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/fa31efa432d6450cb1bba4d11c189245/localbroadcastmanager-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/6ab7e96cc251b943f47f2c15d9ba5e3d/print-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/217cc6673341ea135d6ba55554895749/lifecycle-viewmodel-2.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/e97f15a14ea49782ee0323a34a14519e/interpolator-1.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/71c74560ebc20fcf079ae1de6b7cad46/lifecycle-livedata-2.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/fb33c67630ceb5dd5f775587f95350d1/lifecycle-livedata-core-2.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.0.0/e070ffae07452331bc5684734fce6831d531785c/lifecycle-common-2.0.0.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/93a950ee0e155324d20f6bee70e57ccc/core-runtime-2.0.0-runtime.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.arch.core/core-common/2.0.0/bb21b9a11761451b51624ac428d1f1bb5deeac38/core-common-2.0.0.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.annotation/annotation/1.0.0/45599f2cd5965ac05a1488fa2a5c0cdd7c499ead/annotation-1.0.0.jar:/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.constraintlayout/constraintlayout-solver/1.1.3/54abe9ffb22cc9019b0b6fcc10f185cc4e67b34e/constraintlayout-solver-1.1.3.jar:/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/thinkingsdk/build/intermediates/runtime_library_classes/debug/classes.jar:/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar
+-bootclasspath
+/Users/tianwenshi/Library/Android/sdk/platforms/android-29/android.jar
+-inpath
+/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar
+-aspectpath
+/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/tda/debug/aspects
+-outjar
+/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/transforms/tda/debug/43.jar
+-Xlint:ignore
+-warn:none
+---- Full Classpath ---
+/Users/tianwenshi/Library/Android/sdk/platforms/android-29/android.jar(21171708 bytes)
+/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar(310603 bytes)
+/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/tda/debug/aspects(1 entries)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext/sunec.jar(43191 bytes)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext/nashorn.jar(2024156 bytes)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext/cldrdata.jar(3860563 bytes)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext/jfxrt.jar(18599905 bytes)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext/dnsns.jar(8286 bytes)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext/localedata.jar(1179462 bytes)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar(285868 bytes)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar(283206 bytes)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext/jaccess.jar(44516 bytes)
+/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/ext/zipfs.jar(69303 bytes)
+/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/tda/debug/includefiles(1 entries)
+/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/tda/debug/excludefiles(0 entries)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/3d4769d1e96aa4d8279906bab1b753bb/jetified-oaid_sdk_1.0.23-runtime.jar(84530 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/6d037460f9c6d6004501a2cabdef3760/jetified-ThinkingAnalyticsRuntime-2.0.0-runtime.jar(11404 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.13/bfc5a877fd80648e5467239d370735654aaf7a92/aspectjrt-1.8.13.jar(118753 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/ee9e4e9f5925cc3226da32a19fb51eee/material-1.0.0-runtime.jar(526456 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/c3e99d5f85131c52ed2ddfdeebbb17a9/appcompat-1.0.2-runtime.jar(720993 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/22963e717829ea6a6104ea18d8a07a17/constraintlayout-1.1.3-runtime.jar(62245 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/dbc5f65ad5d74eaf2fd8e5bdb79b8674/legacy-support-v4-1.0.0-runtime.jar(22 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/eec30cea69495dc1dea3be77367bf2c6/vectordrawable-animated-1.0.0-runtime.jar(34011 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/60b772f3c9b4153fbd70b9205d13d218/vectordrawable-1.0.1-runtime.jar(32967 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/6201e49da58f4aab9c71d1fb28ec9c15/recyclerview-1.0.0-runtime.jar(377293 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/d26bc12e7549c6ce1f0175680c087c84/fragment-1.0.0-runtime.jar(165900 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/4543cc1b9a5c781118e1935ab68259a1/legacy-support-core-ui-1.0.0-runtime.jar(9649 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/1f0b861bdf7a1d87ad1cc019cee04bbe/legacy-support-core-utils-1.0.0-runtime.jar(1818 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/d00a54cb141d1f746f3133ca13a72e32/media-1.0.0-runtime.jar(365521 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/571e6320c3b370570e0eedf73403806d/transition-1.0.0-runtime.jar(182036 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/539c49890aeec8cdcd624d9b0b73c322/loader-1.0.0-runtime.jar(34991 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/1acab16180d6325725c897c745783add/viewpager-1.0.0-runtime.jar(55100 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/0d0680bd8107c76d2af8b89c3a1fcd2a/coordinatorlayout-1.0.0-runtime.jar(41087 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/dc80ee6e6507e6fc3998c0f773c0989f/drawerlayout-1.0.0-runtime.jar(31203 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/ba9ed7bb6f029865aa9461af2db76ca0/slidingpanelayout-1.0.0-runtime.jar(22907 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/82c4cdf6ae30f9fbe612c9730680f5de/customview-1.0.0-runtime.jar(33425 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/2fd6ce5c5a2792f4e488d0aef883ee8a/swiperefreshlayout-1.0.0-runtime.jar(33637 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/9b5ebe3f99c20eed5d09b9775555bce8/asynclayoutinflater-1.0.0-runtime.jar(6641 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/07613e96fe121d82f7a8dbe437fa405a/core-1.0.1-runtime.jar(623629 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/4375796ec99b8aaaf4746194522a552a/versionedparcelable-1.0.0-runtime.jar(27894 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.collection/collection/1.0.0/42858b26cafdaa69b6149f45dfc2894007bc2c7a/collection-1.0.0.jar(41692 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/695f21561a394cef8146818b1c7a1322/cursoradapter-1.0.0-runtime.jar(11290 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/63ef595cb7d9ea1d78fe653fe63cc2df/cardview-1.0.0-runtime.jar(21461 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/2fd09f69807bfa448a9552f0d19e2656/lifecycle-runtime-2.0.0-runtime.jar(8841 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/dc7e5d5f0b877c92d64ffbf003317c83/documentfile-1.0.0-runtime.jar(11068 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/fa31efa432d6450cb1bba4d11c189245/localbroadcastmanager-1.0.0-runtime.jar(6629 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/6ab7e96cc251b943f47f2c15d9ba5e3d/print-1.0.0-runtime.jar(15294 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/217cc6673341ea135d6ba55554895749/lifecycle-viewmodel-2.0.0-runtime.jar(6835 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/e97f15a14ea49782ee0323a34a14519e/interpolator-1.0.0-runtime.jar(7451 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/71c74560ebc20fcf079ae1de6b7cad46/lifecycle-livedata-2.0.0-runtime.jar(10029 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/fb33c67630ceb5dd5f775587f95350d1/lifecycle-livedata-core-2.0.0-runtime.jar(8419 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-common/2.0.0/e070ffae07452331bc5684734fce6831d531785c/lifecycle-common-2.0.0.jar(20306 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/93a950ee0e155324d20f6bee70e57ccc/core-runtime-2.0.0-runtime.jar(5513 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.arch.core/core-common/2.0.0/bb21b9a11761451b51624ac428d1f1bb5deeac38/core-common-2.0.0.jar(11249 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.annotation/annotation/1.0.0/45599f2cd5965ac05a1488fa2a5c0cdd7c499ead/annotation-1.0.0.jar(25378 bytes)
+/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.constraintlayout/constraintlayout-solver/1.1.3/54abe9ffb22cc9019b0b6fcc10f185cc4e67b34e/constraintlayout-solver-1.1.3.jar(121203 bytes)
+/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/thinkingsdk/build/intermediates/runtime_library_classes/debug/classes.jar(350329 bytes)
+/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar(310603 bytes)
+---- Compiler Messages ---
+info Pipelining compilation
+info weaver operating in reweavable mode.  Need to verify any required types exist.
+info woven class androidx.fragment.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.cardview.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.fragment.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.fragment.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$anim (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$array (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.cardview.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$anim (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$mipmap (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.fragment.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.constraintlayout.widget.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$bool (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.fragment.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.constraintlayout.widget.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.cardview.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.fragment.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.localbroadcastmanager.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.lifecycle.livedata.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$anim (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.fragment.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.lifecycle.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$animator (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.lifecycle.viewmodel.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.fragment.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.runtime.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.cardview.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$bool (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.runtime.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.cursoradapter.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.fragment.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.constraintlayout.widget.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.v4.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.interpolator.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.print.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$interpolator (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$bool (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.arch.core.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.fragment.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.viewpager.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.recyclerview.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.lifecycle.livedata.core.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$anim (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$interpolator (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.versionedparcelable.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$anim (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreutils.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.cardview.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.loader.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.swiperefreshlayout.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$menu (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.fragment.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.constraintlayout.widget.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.documentfile.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.slidingpanelayout.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$animator (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.media.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$bool (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.google.android.material.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.legacy.coreui.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.vectordrawable.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R$integer (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.customview.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.coordinatorlayout.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.core.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.demo.R$styleable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R$style (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$id (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.transition.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class cn.thinkingdata.android.R$bool (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.cardview.R$attr (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$layout (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.asynclayoutinflater.R$drawable (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class com.bun.miitmdid.R$dimen (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.appcompat.R$string (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)
+info woven class androidx.drawerlayout.R$color (from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/debug/R.jar)

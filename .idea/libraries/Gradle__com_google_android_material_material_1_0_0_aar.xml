@@ -2,10 +2,14 @@
   <library name="Gradle: com.google.android.material:material:1.0.0@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/res" />
+      <root url="jar://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/42ce1a037b8b18618c5eaa60592d6685/material-1.0.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

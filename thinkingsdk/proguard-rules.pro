@@ -116,3 +116,6 @@
 -keep class androidx.appcompat.app.ActionBar {*;}
 -keep class * extends android.support.v7.app.ActionBar {*;}
 -keep class * extends androidx.appcompat.app.ActionBar {*;}
+
+#for oaid
+-keep class com.bun.miitmdid.core.** {*;}

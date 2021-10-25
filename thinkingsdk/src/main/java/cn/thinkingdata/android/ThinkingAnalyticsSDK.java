@@ -19,7 +19,7 @@ import cn.thinkingdata.android.persistence.StorageOptOutFlag;
 import cn.thinkingdata.android.persistence.StorageRandomID;
 import cn.thinkingdata.android.persistence.StorageSuperProperties;
 import cn.thinkingdata.android.persistence.StorageOAID;
-import cn.thinkingdata.android.persistence.StorageIMEI;
+import cn.thinkingdata.android.persistence.StorageGAID;
 import cn.thinkingdata.android.utils.ICalibratedTime;
 import cn.thinkingdata.android.utils.ITime;
 import cn.thinkingdata.android.utils.TDCalibratedTime;
@@ -210,7 +210,7 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
             mOptOutFlag = null;
             mEnableFlag = null;
             mOAID = null;
-            mIMEI = null;
+            mGAID = null;
             mEnableTrackOldData = false;
             mTrackTimer = new HashMap<>();
             mMessages = getDataHandleInstance(config.mContext);
@@ -238,7 +238,7 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
         mOptOutFlag = new StorageOptOutFlag(storedPrefs);
         mEnableFlag = new StorageEnableFlag(storedPrefs);
         mOAID = new StorageOAID(storedPrefs);
-        mIMEI = new StorageIMEI(storedPrefs);
+        mGAID = new StorageGAID(storedPrefs);
         mSystemInformation = SystemInformation.getInstance(config.mContext);
 
         //设置aid到accountid
@@ -254,10 +254,10 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
             }
         });
 
-        //设置imei
-        String IMEI = TDUtils.getIMEI(config.mContext);
-        if(IMEI != null){
-            mIMEI.put(IMEI);
+        //GAID
+        String GAID = TDUtils.getGAID(config.mContext);
+        if(GAID != null){
+            mGAID.put(GAID);
         }
 
         mMessages = getDataHandleInstance(config.mContext);
@@ -742,9 +742,9 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
         }
     }
 
-    String getIMEI() {
-        synchronized (mIMEI) {
-            return mIMEI.get();
+    String getGAID() {
+        synchronized (mGAID) {
+            return mGAID.get();
         }
     }
 
@@ -1535,7 +1535,7 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
     private final StorageOptOutFlag mOptOutFlag;
     private final StorageSuperProperties mSuperProperties;
     private final StorageOAID mOAID;
-    private final StorageIMEI mIMEI;
+    private final StorageGAID mGAID;
 
     // 动态公共属性接口
     private DynamicSuperPropertiesTracker mDynamicSuperPropertiesTracker;

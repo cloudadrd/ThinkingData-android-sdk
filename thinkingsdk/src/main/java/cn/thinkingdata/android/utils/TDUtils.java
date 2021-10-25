@@ -63,37 +63,15 @@ public class TDUtils {
      * @return 获取手机IMEI
      */
     @SuppressLint({"HardwareIds", "MissingPermission"})
-    public static String getIMEI(final Context context) {
-        if (!isPermissionGranted(context, READ_PHONE_STATE)) {
-            return null;
-        }
-        String imei = "";
+    public static String getGAID(final Context context) {
         try {
-            TelephonyManager mTelephony =
-                    (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (mTelephony == null) return null;
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    if (mTelephony.getPhoneCount() == 2) {
-                        imei = mTelephony.getImei(0);
-                    } else {
-                        imei = mTelephony.getImei();
-                    }
-                } else {
-                    if (mTelephony.getPhoneCount() == 2) {
-                        imei = mTelephony.getDeviceId(0);
-                    } else {
-                        imei = mTelephony.getDeviceId();
-                    }
-                }
-            } else {
-                imei = mTelephony.getDeviceId();
-            }
+            AdvertisingIdClient.AdInfo adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context);
+            String gaid = adInfo.getId();
+            return gaid;
         } catch (Exception e) {
-            Log.d("getIMEI",e.getMessage());
+            e.printStackTrace();
+            return "";
         }
-        return imei;
     }
 
     private static int getChildIndex(ViewParent parent, View child) {

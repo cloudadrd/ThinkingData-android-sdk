@@ -3,10 +3,14 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/daa19d657177e14eda765a05de3ed4cc/vectordrawable-1.0.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/daa19d657177e14eda765a05de3ed4cc/vectordrawable-1.0.1/res" />
+      <root url="jar://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/daa19d657177e14eda765a05de3ed4cc/vectordrawable-1.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/daa19d657177e14eda765a05de3ed4cc/vectordrawable-1.0.1/res" />
+      <root url="file://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/daa19d657177e14eda765a05de3ed4cc/vectordrawable-1.0.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.vectordrawable/vectordrawable/1.0.1/583e25ffe77f2e89c6f3218a46657a500938b83f/vectordrawable-1.0.1-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../appsflyer-android-app/app/gradle/wrapper/caches/modules-2/files-2.1/androidx.vectordrawable/vectordrawable/1.0.1/583e25ffe77f2e89c6f3218a46657a500938b83f/vectordrawable-1.0.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

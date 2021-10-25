@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Gradle: aspectjtools">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/aopplugin/libs/aspectjtools.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
