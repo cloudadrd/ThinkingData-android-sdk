@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import cn.dataeye.android.DataEyeFragmentTitle;
+import cn.gamedataeye.android.GameDataEyeFragmentTitle;
 import cn.thinkingdata.android.demo.R;
 
 
-@DataEyeFragmentTitle(title = "ExpandableListFragment")
+@GameDataEyeFragmentTitle(title = "ExpandableListFragment")
 public class ExpandableListFragment extends BaseFragment {
 
     public String[] groupStrings = {"西游记", "水浒传", "三国演义", "红楼梦"};
@@ -44,9 +44,9 @@ public class ExpandableListFragment extends BaseFragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_expandablelist, container, false);
         mExpandableListView = view.findViewById(R.id.expandable_list);
-        final ExpandableListAdapter adapter = new ExpandableListAdapter(groupStrings, childStrings);
+        final ExpandableListAdapterGame adapter = new ExpandableListAdapterGame(groupStrings, childStrings);
         mExpandableListView.setAdapter(adapter);
-        adapter.setOnGroupExpandedListener(new ExpandableListAdapter.OnGroupExpandedListener() {
+        adapter.setOnGroupExpandedListener(new ExpandableListAdapterGame.OnGroupExpandedListener() {
             @Override
             public void onGroupExpanded(int groupPosition) {
                 expandOnlyOne(groupPosition);

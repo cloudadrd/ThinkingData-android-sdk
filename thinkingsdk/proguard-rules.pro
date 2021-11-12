@@ -23,8 +23,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--dontwarn cn.dataeye.android.**
--keep class cn.dataeye.android.** {
+-dontwarn cn.gamedataeye.android.**
+-keep class cn.gamedataeye.android.** {
 *;
 }
 -keep class **.R$* {

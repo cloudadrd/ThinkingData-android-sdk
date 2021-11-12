@@ -30,7 +30,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             android.libraryVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "DataEyeSDK-Debug.aar"
+                    outputFileName = "GameDataEyeSDK-Debug.aar"
                 }
             }
         }
@@ -41,9 +41,9 @@ android {
             android.libraryVariants.all { variant ->
                 variant.outputs.all {
                     if (variant.buildType.name == 'debug') {
-                        outputFileName = "DataEyeSDK-Debug.aar"
+                        outputFileName = "GameDataEyeSDK-Debug.aar"
                     }else{
-                        outputFileName = "DataEyeSDK-Release.aar"
+                        outputFileName = "GameDataEyeSDK-Release.aar"
                     }
                 }
             }

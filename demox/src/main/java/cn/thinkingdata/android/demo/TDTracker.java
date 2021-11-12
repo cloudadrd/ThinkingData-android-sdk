@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.dataeye.android.DataEyeAnalyticsSDK;
+import cn.gamedataeye.android.GameDataEyeAnalyticsSDK;
 
 public class TDTracker {
     /**
@@ -24,19 +24,19 @@ public class TDTracker {
 //    private static final String TA_SERVER_URL = "http://172.31.4.170:8080/v1/sdk/report";
     private static final String TA_SERVER_URL = "http://deapi.adsgreat.cn/v1/sdk/report";
 
-    private static DataEyeAnalyticsSDK mInstance;
-    private static DataEyeAnalyticsSDK mDebugInstance;
-    private static DataEyeAnalyticsSDK mLightInstance;
+    private static GameDataEyeAnalyticsSDK mInstance;
+    private static GameDataEyeAnalyticsSDK mDebugInstance;
+    private static GameDataEyeAnalyticsSDK mLightInstance;
 
-    public static DataEyeAnalyticsSDK getInstance() {
+    public static GameDataEyeAnalyticsSDK getInstance() {
         return mInstance;
     }
 
-    public static DataEyeAnalyticsSDK getLightInstance() {
+    public static GameDataEyeAnalyticsSDK getLightInstance() {
         return mLightInstance;
     }
 
-    public static DataEyeAnalyticsSDK getDebugInstance() {
+    public static GameDataEyeAnalyticsSDK getDebugInstance() {
         return mDebugInstance;
     }
 
@@ -45,7 +45,7 @@ public class TDTracker {
      * @param instance
      * @param debugInstance
      */
-    public static void initThinkingDataSDK(DataEyeAnalyticsSDK instance, DataEyeAnalyticsSDK debugInstance) {
+    public static void initThinkingDataSDK(GameDataEyeAnalyticsSDK instance, GameDataEyeAnalyticsSDK debugInstance) {
         mInstance = instance;
         mDebugInstance = debugInstance;
         setUp();
@@ -54,8 +54,8 @@ public class TDTracker {
     /** 初始化 TA SDK */
     static void initThinkingDataSDK(Context context) {
         Context mContext = context.getApplicationContext();
-        mInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, "1006", TA_SERVER_URL);//TA_APP_ID
-        mDebugInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, TA_APP_ID_DEBUG, TA_SERVER_URL);
+        mInstance = GameDataEyeAnalyticsSDK.sharedInstance(mContext, "1006", TA_SERVER_URL);//TA_APP_ID
+        mDebugInstance = GameDataEyeAnalyticsSDK.sharedInstance(mContext, TA_APP_ID_DEBUG, TA_SERVER_URL);
         setUp();
     }
 
@@ -79,10 +79,10 @@ public class TDTracker {
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
 //        mDebugInstance.enableAutoTrack(eventTypeList);
 
-        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList1 = new ArrayList<>();
-        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
-        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
-        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
+        List<GameDataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList1 = new ArrayList<>();
+        eventTypeList1.add(GameDataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
+        eventTypeList1.add(GameDataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
+        eventTypeList1.add(GameDataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
 //        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
 //        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
 //        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);

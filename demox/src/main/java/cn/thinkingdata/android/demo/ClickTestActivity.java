@@ -29,7 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
-import cn.dataeye.android.DataEyeTrackViewOnClick;
+import cn.gamedataeye.android.GameDataEyeTrackViewOnClick;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -165,7 +165,7 @@ public class ClickTestActivity extends AppCompatActivity {
         Toast.makeText(ClickTestActivity.this, "Checkbox Clicked", Toast.LENGTH_SHORT).show();
     }
 
-    @DataEyeTrackViewOnClick
+    @GameDataEyeTrackViewOnClick
     public void switchClicked(View view) {
         Toast.makeText(ClickTestActivity.this, "SwitchButton Clicked", Toast.LENGTH_SHORT).show();
     }
@@ -175,7 +175,7 @@ public class ClickTestActivity extends AppCompatActivity {
 
     }
 
-    @DataEyeTrackViewOnClick
+    @GameDataEyeTrackViewOnClick
     public void toggleButtonClicked(View view) {
         Toast.makeText(ClickTestActivity.this, "ToggleButton Clicked", Toast.LENGTH_SHORT).show();
     }

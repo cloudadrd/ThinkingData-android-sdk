@@ -11,14 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import cn.dataeye.android.DataEyeScreenAutoTracker;
+import cn.gamedataeye.android.GameDataEyeScreenAutoTracker;
 import cn.thinkingdata.android.demo.fragment.ExpandableListFragment;
 import cn.thinkingdata.android.demo.fragment.ListViewFragment;
 import cn.thinkingdata.android.demo.fragment.RecyclerViewFragment;
 
 import org.json.JSONObject;
 
-public class DisplayActivity extends AppCompatActivity implements RecyclerViewFragment.OnFragmentInteractionListener, DataEyeScreenAutoTracker {
+public class DisplayActivity extends AppCompatActivity implements RecyclerViewFragment.OnFragmentInteractionListener, GameDataEyeScreenAutoTracker {
 
     private TextView mTextMessage;
     private String mMessage;
