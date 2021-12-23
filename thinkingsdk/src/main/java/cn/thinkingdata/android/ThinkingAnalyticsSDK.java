@@ -178,6 +178,20 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
     }
 
 
+    public static long getTimeFormat() {
+        Date time;
+        sCalibratedTimeLock.readLock().lock();
+        if (null != sCalibratedTime) {
+            time = sCalibratedTime.get(SystemClock.elapsedRealtime());
+        } else {
+            time = new Date();
+        }
+        sCalibratedTimeLock.readLock().unlock();
+        return time.getTime();
+    }
+
+
+
     // only the first instance is allowed to bind old data.
     private static boolean isOldDataTracked() {
         synchronized (sInstanceMap) {

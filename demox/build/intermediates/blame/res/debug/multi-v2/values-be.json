@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/demox/build/intermediates/incremental/mergeDebugResources/merged.dir/values-be/values-be.xml",
+            "outputFile": "/Users/tujiantao/develop/git/ThinkingData-android-sdk/demox/build/intermediates/incremental/mergeDebugResources/merged.dir/values-be/values-be.xml",
             "map": [
                 {
-                    "source": "/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/c489c59949ace31c44fc233a958c60e1/appcompat-1.0.2/res/values-be/values-be.xml",
+                    "source": "/Users/tujiantao/.gradle/caches/transforms-2/files-2.1/c489c59949ace31c44fc233a958c60e1/appcompat-1.0.2/res/values-be/values-be.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/tianwenshi/Documents/GitHub/appsflyer-android-app/app/gradle/wrapper/caches/transforms-2/files-2.1/d0721e40023b39ad20af154960126215/core-1.0.1/res/values-be/values-be.xml",
+                    "source": "/Users/tujiantao/.gradle/caches/transforms-2/files-2.1/d0721e40023b39ad20af154960126215/core-1.0.1/res/values-be/values-be.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

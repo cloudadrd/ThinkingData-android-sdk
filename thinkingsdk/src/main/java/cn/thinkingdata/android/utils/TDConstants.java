@@ -36,17 +36,14 @@ public class TDConstants {
         private static final Map<String, DataType> lookup = new HashMap<>();
 
         //Populate the lookup table on loading time
-        static
-        {
-            for(DataType type : DataType.values())
-            {
+        static {
+            for (DataType type : DataType.values()) {
                 lookup.put(type.getType(), type);
             }
         }
 
         //This method can be used for reverse lookup purpose
-        public static DataType get(String type)
-        {
+        public static DataType get(String type) {
             return lookup.get(type);
         }
     }
@@ -62,7 +59,7 @@ public class TDConstants {
     public static final String KEY_CRASH_REASON = "#app_crashed_reason";
     public static final String KEY_RESUME_FROM_BACKGROUND = "#resume_from_background";
 
-    public static final String KEY_EVENT_ID  = "#event_id";
+    public static final String KEY_EVENT_ID = "#event_id";
     public static final String KEY_FIRST_CHECK_ID = "#first_check_id";
 
     public static final String ELEMENT_ID = "#element_id";
@@ -76,6 +73,7 @@ public class TDConstants {
 
     // Main data constants
     public static final String KEY_TYPE = "#type";
+    public static final String KEY_TIMESTAMP = "#timestamp";
     public static final String KEY_TIME = "#time";
     public static final String KEY_DISTINCT_ID = "#distinct_id";
     public static final String KEY_ACCOUNT_ID = "#account_id";

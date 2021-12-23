@@ -1,31 +1,31 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
-INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
-INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
-INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
-INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
+ADDED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
+INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
+INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
+INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
+INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
 	package
-		ADDED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:2:5-46
-		INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
-		INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+		ADDED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:2:5-46
+		INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+		INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
 	android:versionCode
-		INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
-		ADDED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
-		INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+		INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+		ADDED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:1-2:49
+		INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:11-69
+		ADDED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml:1:11-69
 uses-sdk
-INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
-INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
-INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
-INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
-		ADDED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
-		INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+		INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+		ADDED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+		INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
-		ADDED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
-		INJECTED from /Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+		INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+		ADDED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+		INJECTED from /Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml

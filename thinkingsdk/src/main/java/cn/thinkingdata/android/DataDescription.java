@@ -55,6 +55,7 @@ class DataDescription {
 
     /**
      * 获取数据，可能会阻塞，不要在主线程中调用
+     *
      * @return 待上报数据
      */
     public JSONObject get() {
@@ -62,6 +63,7 @@ class DataDescription {
 
         try {
             finalData.put(TDConstants.KEY_TYPE, mType.getType());
+            finalData.put(TDConstants.KEY_TIMESTAMP, ThinkingAnalyticsSDK.getTimeFormat());
             // 有可能会阻塞
             finalData.put(TDConstants.KEY_TIME, mTime.getTime());
             finalData.put(TDConstants.KEY_DISTINCT_ID, mDistinctId);

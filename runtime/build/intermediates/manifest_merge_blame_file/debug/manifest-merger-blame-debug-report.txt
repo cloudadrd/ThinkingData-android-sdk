@@ -5,8 +5,8 @@
 5
 6    <uses-sdk
 7        android:minSdkVersion="14"
-7-->/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+7-->/Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
 8        android:targetSdkVersion="29" />
-8-->/Users/tianwenshi/Documents/GitHub/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
+8-->/Users/tujiantao/develop/git/ThinkingData-android-sdk/runtime/src/main/AndroidManifest.xml
 9
 10</manifest>
