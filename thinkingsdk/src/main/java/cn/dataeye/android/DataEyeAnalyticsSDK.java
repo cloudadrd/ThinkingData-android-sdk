@@ -54,8 +54,9 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 当 SDK 初始化完成后，可以通过此接口获得保存的单例
+     *
      * @param context app context
-     * @param appId APP ID
+     * @param appId   APP ID
      * @return SDK 实例
      */
     public static DataEyeAnalyticsSDK sharedInstance(Context context, String appId) {
@@ -64,9 +65,10 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 初始化 SDK. 在调用此接口之前，track 功能不可用.
+     *
      * @param context app context
-     * @param appId APP ID
-     * @param url 接收端地址
+     * @param appId   APP ID
+     * @param url     接收端地址
      * @return SDK 实例
      */
     public static DataEyeAnalyticsSDK sharedInstance(Context context, String appId, String url) {
@@ -74,7 +76,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     }
 
     /**
-     *  谨慎使用此接口，大多数情况下会默认绑定老版本数据到第一个实例化的 SDK 中
+     * 谨慎使用此接口，大多数情况下会默认绑定老版本数据到第一个实例化的 SDK 中
+     *
      * @param trackOldData 是否绑定老版本(1.2.0 及之前)的数据
      */
     public static DataEyeAnalyticsSDK sharedInstance(Context context, String appId, String url, boolean trackOldData) {
@@ -131,7 +134,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         }
     }
 
-     // only for automatic test
+    // only for automatic test
     static void addInstance(DataEyeAnalyticsSDK instance, Context context, String appId) {
         synchronized (sInstanceMap) {
             Map<String, DataEyeAnalyticsSDK> instances = sInstanceMap.get(context);
@@ -167,10 +170,11 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * SDK 构造函数，需要传入 TDConfig 实例. 用户可以获取 TDConfig 实例， 并做相关配置后初始化 SDK.
+     *
      * @param config TDConfig 实例
-     * @param light 是否是轻实例（内部使用)
+     * @param light  是否是轻实例（内部使用)
      */
-     DataEyeAnalyticsSDK(final DataEyeConfig config, boolean... light) {
+    DataEyeAnalyticsSDK(final DataEyeConfig config, boolean... light) {
         mConfig = config;
 
         if (light.length > 0 && light[0]) {
@@ -217,30 +221,31 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         mLoginId.put(mDataEyeSystemInformation.getAndroidID(config.mContext));
 
 
-         //设置gaid
-         new Thread(){
-             @Override
-             public void run() {
-                 String GAID = DataEyeUtils.getGAID(config.mContext);
-                 if(GAID != null){
-                     mGAID.put(GAID);
-                 }
-             }
-         }.start();
+        //设置gaid
+        new Thread() {
+            @Override
+            public void run() {
+                String GAID = DataEyeUtils.getGAID(config.mContext);
+                if (GAID != null) {
+                    mGAID.put(GAID);
+                }
+            }
+        }.start();
 
         //设置oaid
-         try{
-             MdidSdkHelper.InitSdk(config.mContext, true, new IIdentifierListener() {
-                 @Override
-                 public void OnSupport(boolean b, final IdSupplier idSupplier) {
-                     if (idSupplier != null && idSupplier.isSupported()) {
-                         mOAID.put(idSupplier.getOAID());
-                     }
-                 }
-             });
-         }catch (Exception e){
-             mOAID.put("");
-         };
+        try {
+            MdidSdkHelper.InitSdk(config.mContext, true, new IIdentifierListener() {
+                @Override
+                public void OnSupport(boolean b, final IdSupplier idSupplier) {
+                    if (idSupplier != null && idSupplier.isSupported()) {
+                        mOAID.put(idSupplier.getOAID());
+                    }
+                }
+            });
+        } catch (Exception e) {
+            mOAID.put("");
+        }
+        ;
 
         mMessages = getDataHandleInstance(config.mContext);
 
@@ -270,6 +275,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 打开/关闭 日志打印
+     *
      * @param enableLog true 打开日志; false 关闭日志
      */
     public static void enableTrackLog(boolean enableLog) {
@@ -278,7 +284,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 谨慎调用此接口。此接口用于使用第三方框架或者游戏引擎的场景中，更准确的设置上报方式。
-     * @param libName 对应事件表中 #lib 预置属性
+     *
+     * @param libName    对应事件表中 #lib 预置属性
      * @param libVersion 对应事件标准 #lib_version 预置属性
      */
     public static void setCustomerLibInfo(String libName, String libVersion) {
@@ -347,11 +354,17 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      * 允许上报的网络类型
      */
     public enum ThinkingdataNetworkType {
-        /** 默认设置，在3G、4G、5G、WiFi 环境下上报数据 */
+        /**
+         * 默认设置，在3G、4G、5G、WiFi 环境下上报数据
+         */
         NETWORKTYPE_DEFAULT,
-        /** 只在 WiFi 环境上报数据 */
+        /**
+         * 只在 WiFi 环境上报数据
+         */
         NETWORKTYPE_WIFI,
-        /** 在所有网络类型中上报 */
+        /**
+         * 在所有网络类型中上报
+         */
         NETWORKTYPE_ALL
     }
 
@@ -365,10 +378,17 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     public void setNetworkType(int type) {
         ThinkingdataNetworkType networkType;
         switch (type) {
-            case 0: networkType = ThinkingdataNetworkType.NETWORKTYPE_DEFAULT; break;
-            case 1: networkType = ThinkingdataNetworkType.NETWORKTYPE_WIFI; break;
-            case 2: networkType = ThinkingdataNetworkType.NETWORKTYPE_ALL; break;
-            default: return;
+            case 0:
+                networkType = ThinkingdataNetworkType.NETWORKTYPE_DEFAULT;
+                break;
+            case 1:
+                networkType = ThinkingdataNetworkType.NETWORKTYPE_WIFI;
+                break;
+            case 2:
+                networkType = ThinkingdataNetworkType.NETWORKTYPE_ALL;
+                break;
+            default:
+                return;
         }
         setNetworkType(networkType);
     }
@@ -408,20 +428,22 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     private void track(String eventName, JSONObject properties, ITime time, boolean doFormatChecking, Map<String, String> extraFields, DataEyeConstants.DataType type) {
         if (mConfig.isDisabledEvent(eventName)) {
-            DataEyeLog.d(TAG, "Ignoring disabled event [" + eventName +"]");
+            DataEyeLog.d(TAG, "Ignoring disabled event [" + eventName + "]");
             return;
         }
 
         try {
-            if(doFormatChecking && PropertyUtils.isInvalidName(eventName)) {
+            if (doFormatChecking && PropertyUtils.isInvalidName(eventName)) {
                 DataEyeLog.w(TAG, "Event name[" + eventName + "] is invalid. Event name must be string that starts with English letter, " +
                         "and contains letter, number, and '_'. The max length of the event name is 50.");
-                if (mConfig.shouldThrowException()) throw new DataEyeDebugException("Invalid event name: " + eventName);
+                if (mConfig.shouldThrowException())
+                    throw new DataEyeDebugException("Invalid event name: " + eventName);
             }
 
             if (doFormatChecking && !PropertyUtils.checkProperty(properties)) {
                 DataEyeLog.w(TAG, "The data contains invalid key or value: " + properties.toString());
-                if (mConfig.shouldThrowException()) throw new DataEyeDebugException("Invalid properties. Please refer to SDK debug log for detail reasons.");
+                if (mConfig.shouldThrowException())
+                    throw new DataEyeDebugException("Invalid properties. Please refer to SDK debug log for detail reasons.");
             }
 
             JSONObject finalProperties = obtainDefaultEventProperties(eventName);
@@ -519,11 +541,11 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
             finalProperties.put(DataEyeConstants.KEY_NETWORK_TYPE, mDataEyeSystemInformation.getNetworkType());
 
-            if(eventName == "app_install"){
+            if (eventName == "app_install") {
                 String fit = timeStamp2Date(DataEyeSystemInformation.getInstance(mConfig.mContext).getFIT(), "yyyy-MM-dd HH:mm:ss.SSS");
                 finalProperties.put(DataEyeConstants.KEY_FIRST_INSTALL_TIME, fit);
 
-                if(!TextUtils.isEmpty(mReyunAppID.get())){
+                if (!TextUtils.isEmpty(mReyunAppID.get())) {
                     finalProperties.put(DataEyeConstants.KEY_REYUN_APPID, mReyunAppID.get());
                 }
             }
@@ -561,7 +583,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         try {
             if (null == propertyValue) {
                 DataEyeLog.d(TAG, "user_add value must be Number");
-                if (mConfig.shouldThrowException()) throw new DataEyeDebugException("Invalid property values for user add.");
+                if (mConfig.shouldThrowException())
+                    throw new DataEyeDebugException("Invalid property values for user add.");
             } else {
                 JSONObject properties = new JSONObject();
                 properties.put(propertyName, propertyValue);
@@ -595,7 +618,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     @Override
     public void user_setOnce(JSONObject properties) {
-       user_setOnce(properties, null);
+        user_setOnce(properties, null);
     }
 
     public void user_setOnce(JSONObject properties, Date date) {
@@ -616,7 +639,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         if (hasDisabled()) return;
         if (!PropertyUtils.checkProperty(properties)) {
             DataEyeLog.w(TAG, "The data contains invalid key or value: " + properties.toString());
-            if (mConfig.shouldThrowException()) throw new DataEyeDebugException("Invalid properties. Please refer to SDK debug log for detail reasons.");
+            if (mConfig.shouldThrowException())
+                throw new DataEyeDebugException("Invalid properties. Please refer to SDK debug log for detail reasons.");
         }
         try {
             ITime time = date == null ? getTime() : getTime(date, null);
@@ -668,8 +692,9 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     public void identify(String identity) {
         if (hasDisabled()) return;
         if (TextUtils.isEmpty(identity)) {
-            DataEyeLog.w(TAG,"The identity cannot be empty.");
-            if (mConfig.shouldThrowException()) throw new DataEyeDebugException("distinct id cannot be empty");
+            DataEyeLog.w(TAG, "The identity cannot be empty.");
+            if (mConfig.shouldThrowException())
+                throw new DataEyeDebugException("distinct id cannot be empty");
             return;
         }
 
@@ -678,11 +703,12 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         }
     }
 
-    public void reyunAppID(String reyunAppID){
-        if(hasDisabled()) return;
+    public void reyunAppID(String reyunAppID) {
+        if (hasDisabled()) return;
         if (TextUtils.isEmpty(reyunAppID)) {
-            DataEyeLog.w(TAG,"The reyunAppID cannot be empty.");
-            if (mConfig.shouldThrowException()) throw new DataEyeDebugException("reyunAppID id cannot be empty");
+            DataEyeLog.w(TAG, "The reyunAppID cannot be empty.");
+            if (mConfig.shouldThrowException())
+                throw new DataEyeDebugException("reyunAppID id cannot be empty");
             return;
         }
         synchronized (mReyunAppID) {
@@ -746,8 +772,9 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             return loginId;
         }
     }
+
     String getOAID() {
-        if(null == mOAID) return null;
+        if (null == mOAID) return null;
         synchronized (mOAID) {
             String oaid = mOAID.get();
             return oaid;
@@ -755,7 +782,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     }
 
     String getGAID() {
-        if(null == mGAID) return null;
+        if (null == mGAID) return null;
         synchronized (mGAID) {
             return mGAID.get();
         }
@@ -776,10 +803,9 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     @Override
     public String getDistinctId() {
         String identifyId = getIdentifyID();
-        if(identifyId == null) {
+        if (identifyId == null) {
             return getRandomID();
-        } else
-        {
+        } else {
             return identifyId;
         }
     }
@@ -796,7 +822,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         if (hasDisabled()) return;
         try {
             if (superProperties == null || !PropertyUtils.checkProperty(superProperties)) {
-                if (mConfig.shouldThrowException()) throw new DataEyeDebugException("Set super properties failed. Please refer to the SDK debug log for details.");
+                if (mConfig.shouldThrowException())
+                    throw new DataEyeDebugException("Set super properties failed. Please refer to the SDK debug log for details.");
                 return;
             }
 
@@ -816,6 +843,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     public interface DynamicSuperPropertiesTracker {
         /**
          * 获取动态公共属性
+         *
          * @return 动态公共属性
          */
         JSONObject getDynamicSuperProperties();
@@ -856,7 +884,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     public void timeEvent(final String eventName) {
         if (hasDisabled()) return;
         try {
-            if(PropertyUtils.isInvalidName(eventName)) {
+            if (PropertyUtils.isInvalidName(eventName)) {
                 DataEyeLog.w(TAG, "timeEvent event name[" + eventName + "] is not valid");
                 //if (mConfig.shouldThrowException()) throw new TDDebugException("Invalid event name for time event");
                 //return;
@@ -897,7 +925,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     }
 
     boolean isAutoTrackEventTypeIgnored(AutoTrackEventType eventType) {
-        if (eventType != null  && !mAutoTrackEventTypeList.contains(eventType)) {
+        if (eventType != null && !mAutoTrackEventTypeList.contains(eventType)) {
             return true;
         }
         return false;
@@ -912,17 +940,29 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      * 自动采集事件类型
      */
     public enum AutoTrackEventType {
-        /** APP 启动事件 app_start */
+        /**
+         * APP 启动事件 app_start
+         */
         APP_START(DataEyeConstants.APP_START_EVENT_NAME),
-        /** APP 关闭事件 app_end */
+        /**
+         * APP 关闭事件 app_end
+         */
         APP_END(DataEyeConstants.APP_END_EVENT_NAME),
-        /** 控件点击事件 app_click */
+        /**
+         * 控件点击事件 app_click
+         */
         APP_CLICK(DataEyeConstants.APP_CLICK_EVENT_NAME),
-        /** 页面浏览事件 app_view */
+        /**
+         * 页面浏览事件 app_view
+         */
         APP_VIEW_SCREEN(DataEyeConstants.APP_VIEW_EVENT_NAME),
-        /** APP 崩溃事件 app_crash */
+        /**
+         * APP 崩溃事件 app_crash
+         */
         APP_CRASH(DataEyeConstants.APP_CRASH_EVENT_NAME),
-        /** APP 安装事件 app_install */
+        /**
+         * APP 安装事件 app_install
+         */
         APP_INSTALL(DataEyeConstants.APP_INSTALL_EVENT_NAME);
 
         private final String eventName;
@@ -1170,6 +1210,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     private static final int APP_END = 1 << 1;
     private static final int APP_CRASH = 1 << 4;
     private static final int APP_INSTALL = 1 << 5;
+
     public void enableAutoTrack(int types) {
         List<AutoTrackEventType> eventTypeList = new ArrayList<>();
         if ((types & APP_START) > 0) {
@@ -1216,7 +1257,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             timeEvent(DataEyeConstants.APP_END_EVENT_NAME);
         }
 
-        if (eventTypeList.contains(AutoTrackEventType.APP_INSTALL))  {
+        if (eventTypeList.contains(AutoTrackEventType.APP_INSTALL)) {
             synchronized (sInstanceMap) {
                 if (sAppFirstInstallationMap.containsKey(mConfig.mContext) &&
                         sAppFirstInstallationMap.get(mConfig.mContext).contains(getToken())) {
@@ -1378,7 +1419,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     public void setJsBridge(WebView webView) {
         if (null == webView) {
             DataEyeLog.d(TAG, "SetJsBridge failed due to parameter webView is null");
-            if (mConfig.shouldThrowException()) throw new DataEyeDebugException("webView cannot be null for setJsBridge");
+            if (mConfig.shouldThrowException())
+                throw new DataEyeDebugException("webView cannot be null for setJsBridge");
             return;
         }
 
@@ -1402,7 +1444,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
             addJavascriptInterface.invoke(x5WebView, new DataEyeWebAppInterface(this), "ThinkingData_APP_JS_Bridge");
         } catch (Exception e) {
-            DataEyeLog.w(TAG, "setJsBridgeForX5WebView failed: " +  e.toString());
+            DataEyeLog.w(TAG, "setJsBridgeForX5WebView failed: " + e.toString());
         }
 
     }
@@ -1420,7 +1462,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         void process(DataEyeAnalyticsSDK instance);
     }
 
-    /* package */ static void allInstances(InstanceProcessor processor) {
+    /* package */
+    static void allInstances(InstanceProcessor processor) {
         synchronized (sInstanceMap) {
             for (final Map<String, DataEyeAnalyticsSDK> instances : sInstanceMap.values()) {
                 for (final DataEyeAnalyticsSDK instance : instances.values()) {
@@ -1437,6 +1480,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 打开/关闭 实例功能. 当关闭 SDK 功能时，之前的缓存数据会保留，并继续上报; 但是不会追踪之后的数据和改动.
+     *
      * @param enabled true 打开上报; false 关闭上报
      */
     @Override
@@ -1462,7 +1506,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      */
     @Override
     public void optOutTracking() {
-        DataEyeLog.d(TAG, "optOutTracking..." );
+        DataEyeLog.d(TAG, "optOutTracking...");
         mOptOutFlag.put(true);
         mMessages.emptyMessageQueue(getToken());
 
@@ -1482,13 +1526,14 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
      */
     @Override
     public void optInTracking() {
-        DataEyeLog.d(TAG, "optInTracking..." );
+        DataEyeLog.d(TAG, "optInTracking...");
         mOptOutFlag.put(false);
         mMessages.flush(getToken());
     }
 
     /**
      * 当前实例 Enable 状态. 通过 enableTracking 设置
+     *
      * @return true 已经恢复上报; false 已暂停上报.
      */
     public boolean isEnabled() {
@@ -1497,6 +1542,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 当前实例是否可以上报
+     *
      * @return true 已开启; false 停止
      */
     boolean hasDisabled() {
@@ -1505,6 +1551,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 当前实例 OptOut 状态. 通过 optOutTracking(), optInTracking() 设置
+     *
      * @return true 已停止上报; false 未停止上报.
      */
     public boolean hasOptOut() {
@@ -1513,6 +1560,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 创建轻量级的 SDK 实例. 轻量级的 SDK 实例不支持缓存本地账号ID，访客ID，公共属性等.
+     *
      * @return SDK 实例
      */
     @Override
@@ -1522,6 +1570,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 获取当前实例的 APP ID
+     *
      * @return APP ID
      */
     public String getToken() {
@@ -1529,7 +1578,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     }
 
     public String getTimeString(Date date) {
-       return getTime(date, mConfig.getDefaultTimeZone()).getTime();
+        return getTime(date, mConfig.getDefaultTimeZone()).getTime();
     }
 
     // 本地缓存（SharePreference) 相关变量，所有实例共享
@@ -1584,10 +1633,13 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     // 对启动事件的特殊处理，记录开启自动采集的时间
     private ITime mAutoTrackStartTime;
+
     synchronized ITime getAutoTrackStartTime() {
         return mAutoTrackStartTime;
     }
+
     private JSONObject mAutoTrackStartProperties;
+
     synchronized JSONObject getAutoTrackStartProperties() {
         return mAutoTrackStartProperties == null ? new JSONObject() : mAutoTrackStartProperties;
     }
@@ -1608,6 +1660,18 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         return result;
     }
 
+    public static long getTimeFormat() {
+        Date time;
+        sCalibratedTimeLock.readLock().lock();
+        if (null != sCalibratedTime) {
+            time = sCalibratedTime.get(SystemClock.elapsedRealtime());
+        } else {
+            time = new Date();
+        }
+        sCalibratedTimeLock.readLock().unlock();
+        return time.getTime();
+    }
+
     // 获取与指定 date 和 timeZone 相关的 ITime 实例
     // 如果 timeZone 为 null, 则不会在事件中上传 #zone_offset 字段.
     private ITime getTime(Date date, TimeZone timeZone) {
@@ -1626,6 +1690,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 校准时间
+     *
      * @param timestamp 当前时间戳
      */
     public static void calibrateTime(long timestamp) {
@@ -1634,6 +1699,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 使用指定的 NTP Server 校准时间
+     *
      * @param ntpServer NTP Server 列表
      */
     public static void calibrateTimeWithNtp(String... ntpServer) {
@@ -1648,6 +1714,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
      * 使用自定义的 ICalibratedTime 校准时间
+     *
      * @param calibratedTime ICalibratedTime 实例
      */
     private static void setCalibratedTime(ICalibratedTime calibratedTime) {
@@ -1713,7 +1780,7 @@ class LightDataEyeAnalyticsSDK extends DataEyeAnalyticsSDK {
         if (hasDisabled()) return;
         synchronized (mSuperProperties) {
             Iterator keys = mSuperProperties.keys();
-            while(keys.hasNext()) {
+            while (keys.hasNext()) {
                 keys.next();
                 keys.remove();
             }

@@ -77,6 +77,7 @@ public class DataEyeConstants {
     // Main data constants
     public static final String KEY_TYPE = "#type";
     public static final String KEY_TIME = "#time";
+    public static final String KEY_TIMESTAMP = "#timestamp";
     public static final String KEY_DISTINCT_ID = "#distinct_id";
     public static final String KEY_ACCOUNT_ID = "#account_id";
     public static final String KEY_OAID = "#oaid";

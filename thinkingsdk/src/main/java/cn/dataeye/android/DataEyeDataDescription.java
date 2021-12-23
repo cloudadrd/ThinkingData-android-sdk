@@ -55,6 +55,7 @@ class DataEyeDataDescription {
 
     /**
      * 获取数据，可能会阻塞，不要在主线程中调用
+     *
      * @return 待上报数据
      */
     public JSONObject get() {
@@ -64,6 +65,7 @@ class DataEyeDataDescription {
             finalData.put(DataEyeConstants.KEY_TYPE, mType.getType());
             // 有可能会阻塞
             finalData.put(DataEyeConstants.KEY_TIME, mTime.getTime());
+            finalData.put(DataEyeConstants.KEY_TIMESTAMP, DataEyeAnalyticsSDK.getTimeFormat());
             finalData.put(DataEyeConstants.KEY_DISTINCT_ID, mDistinctId);
             if (null != mAccountId) {
                 finalData.put(DataEyeConstants.KEY_ACCOUNT_ID, mAccountId);
