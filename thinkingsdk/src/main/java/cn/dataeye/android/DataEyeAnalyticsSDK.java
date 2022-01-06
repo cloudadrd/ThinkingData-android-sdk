@@ -168,6 +168,10 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         return DataEyeDataHandle.getInstance(context);
     }
 
+
+    static final Boolean[] OAID_GAID_SYNC = new Boolean[]{false, false};
+
+
     /**
      * SDK 构造函数，需要传入 TDConfig 实例. 用户可以获取 TDConfig 实例， 并做相关配置后初始化 SDK.
      *
@@ -225,9 +229,16 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         new Thread() {
             @Override
             public void run() {
-                String GAID = DataEyeUtils.getGAID(config.mContext);
-                if (GAID != null) {
-                    mGAID.put(GAID);
+                synchronized (OAID_GAID_SYNC) {
+                    String GAID = DataEyeUtils.getGAID(config.mContext);
+                    if (GAID != null) {
+                        mGAID.put(GAID);
+                    }
+                    OAID_GAID_SYNC[1] = true;
+                    if (OAID_GAID_SYNC[0]) {
+                        OAID_GAID_SYNC.notifyAll();
+                    }
+
                 }
             }
         }.start();
@@ -237,8 +248,14 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             MdidSdkHelper.InitSdk(config.mContext, true, new IIdentifierListener() {
                 @Override
                 public void OnSupport(boolean b, final IdSupplier idSupplier) {
-                    if (idSupplier != null && idSupplier.isSupported()) {
-                        mOAID.put(idSupplier.getOAID());
+                    synchronized (OAID_GAID_SYNC) {
+                        if (idSupplier != null && idSupplier.isSupported()) {
+                            mOAID.put(idSupplier.getOAID());
+                        }
+                        OAID_GAID_SYNC[0] = true;
+                        if (OAID_GAID_SYNC[1]) {
+                            OAID_GAID_SYNC.notifyAll();
+                        }
                     }
                 }
             });
@@ -1235,7 +1252,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     }
 
     @Override
-    public void enableAutoTrack(List<AutoTrackEventType> eventTypeList) {
+    public void enableAutoTrack(final List<AutoTrackEventType> eventTypeList) {
         if (hasDisabled()) return;
 
         mAutoTrack = true;
@@ -1243,6 +1260,26 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             return;
         }
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronized (OAID_GAID_SYNC) {
+                    if (!OAID_GAID_SYNC[0] || !OAID_GAID_SYNC[1]) {
+                        try {
+                            OAID_GAID_SYNC.wait(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                enableAutoTrackLast(eventTypeList);
+            }
+        }).start();
+
+    }
+
+    public void enableAutoTrackLast(List<AutoTrackEventType> eventTypeList) {
         if (eventTypeList.contains(AutoTrackEventType.APP_CRASH)) {
             mTrackCrash = true;
             DataEyeQuitSafelyService quitSafelyService = DataEyeQuitSafelyService.getInstance(mConfig.mContext);
