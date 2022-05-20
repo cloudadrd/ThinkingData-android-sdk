@@ -62,7 +62,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
     androidTestUtil 'androidx.test:orchestrator:1.2.0'
 
-    implementation files('libs/oaid_sdk_1.0.23.aar')
+    implementation files('libs/com.huawei.hms.ads-identifier-3.4.39.302.aar')
 }
 
 // 创建 Jar 包

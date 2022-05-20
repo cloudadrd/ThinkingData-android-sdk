@@ -30,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,10 +46,7 @@ import java.util.TimeZone;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import com.bun.miitmdid.core.MdidSdkHelper;
-import com.bun.miitmdid.interfaces.IIdentifierListener;
-import com.bun.miitmdid.interfaces.IdSupplier;
+import com.huawei.hms.ads.identifier.AdvertisingIdClient;
 
 public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
@@ -244,25 +242,34 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         }.start();
 
         //设置oaid
-        try {
-            MdidSdkHelper.InitSdk(config.mContext, true, new IIdentifierListener() {
-                @Override
-                public void OnSupport(boolean b, final IdSupplier idSupplier) {
-                    synchronized (OAID_GAID_SYNC) {
-                        if (idSupplier != null && idSupplier.isSupported()) {
-                            mOAID.put(idSupplier.getOAID());
+        new Thread() {
+            @Override
+            public void run() {
+                //Get advertising id information. Do not call this method in the main thread.
+                synchronized (OAID_GAID_SYNC) {
+                    try {
+                        AdvertisingIdClient.Info info = AdvertisingIdClient.getAdvertisingIdInfo(config.mContext);
+                        if (null != info) {
+                            String OAID = info.getId();
+                            if (OAID != null){
+                                mOAID.put(OAID);
+                            }
                         }
+                        OAID_GAID_SYNC[0] = true;
+                        if (OAID_GAID_SYNC[1]) {
+                            OAID_GAID_SYNC.notifyAll();
+                        }
+                    } catch (IOException e) {
+                        DataEyeLog.e(TAG, "getAdvertisingIdInfo IOException");
+                        mOAID.put("");
                         OAID_GAID_SYNC[0] = true;
                         if (OAID_GAID_SYNC[1]) {
                             OAID_GAID_SYNC.notifyAll();
                         }
                     }
                 }
-            });
-        } catch (Exception e) {
-            mOAID.put("");
-        }
-        ;
+            }
+        }.start();
 
         mMessages = getDataHandleInstance(config.mContext);
 
