@@ -261,45 +261,50 @@ class DataEyeSystemInformation {
             return "NULL";
         }
 
-        // Wifi
-        ConnectivityManager manager = (ConnectivityManager)
-                mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (manager != null) {
-            NetworkInfo networkInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
-                return "WIFI";
+        try {
+            // Wifi
+            ConnectivityManager manager = (ConnectivityManager)
+                    mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (manager != null) {
+                NetworkInfo networkInfo = manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+                if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+                    return "WIFI";
+                }
             }
+
+            TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context
+                    .TELEPHONY_SERVICE);
+
+            if (null != telephonyManager) {
+                int networkType = telephonyManager.getNetworkType();
+
+                switch (networkType) {
+                    case TelephonyManager.NETWORK_TYPE_GPRS:
+                    case TelephonyManager.NETWORK_TYPE_EDGE:
+                    case TelephonyManager.NETWORK_TYPE_CDMA:
+                    case TelephonyManager.NETWORK_TYPE_1xRTT:
+                    case TelephonyManager.NETWORK_TYPE_IDEN:
+                        return "2G";
+                    case TelephonyManager.NETWORK_TYPE_UMTS:
+                    case TelephonyManager.NETWORK_TYPE_EVDO_0:
+                    case TelephonyManager.NETWORK_TYPE_EVDO_A:
+                    case TelephonyManager.NETWORK_TYPE_HSDPA:
+                    case TelephonyManager.NETWORK_TYPE_HSUPA:
+                    case TelephonyManager.NETWORK_TYPE_HSPA:
+                    case TelephonyManager.NETWORK_TYPE_EVDO_B:
+                    case TelephonyManager.NETWORK_TYPE_EHRPD:
+                    case TelephonyManager.NETWORK_TYPE_HSPAP:
+                        return "3G";
+                    case TelephonyManager.NETWORK_TYPE_LTE:
+                        return "4G";
+                    case TelephonyManager.NETWORK_TYPE_NR:
+                        return "5G";
+                }
+            }
+        } catch (Exception e) {
+            DataEyeLog.d(TAG, "getNetworkType, Exception = " + e);
         }
 
-        TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context
-                .TELEPHONY_SERVICE);
-
-        if (null != telephonyManager) {
-            int networkType = telephonyManager.getNetworkType();
-
-            switch (networkType) {
-                case TelephonyManager.NETWORK_TYPE_GPRS:
-                case TelephonyManager.NETWORK_TYPE_EDGE:
-                case TelephonyManager.NETWORK_TYPE_CDMA:
-                case TelephonyManager.NETWORK_TYPE_1xRTT:
-                case TelephonyManager.NETWORK_TYPE_IDEN:
-                    return "2G";
-                case TelephonyManager.NETWORK_TYPE_UMTS:
-                case TelephonyManager.NETWORK_TYPE_EVDO_0:
-                case TelephonyManager.NETWORK_TYPE_EVDO_A:
-                case TelephonyManager.NETWORK_TYPE_HSDPA:
-                case TelephonyManager.NETWORK_TYPE_HSUPA:
-                case TelephonyManager.NETWORK_TYPE_HSPA:
-                case TelephonyManager.NETWORK_TYPE_EVDO_B:
-                case TelephonyManager.NETWORK_TYPE_EHRPD:
-                case TelephonyManager.NETWORK_TYPE_HSPAP:
-                    return "3G";
-                case TelephonyManager.NETWORK_TYPE_LTE:
-                    return "4G";
-                case TelephonyManager.NETWORK_TYPE_NR:
-                    return "5G";
-            }
-        }
         return "NULL";
     }
 
