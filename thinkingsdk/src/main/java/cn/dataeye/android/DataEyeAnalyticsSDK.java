@@ -173,6 +173,13 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     static final Boolean[] OAID_GAID_SYNC = new Boolean[]{false, false};
 
 
+    private void notifyMe() {
+        synchronized (OAID_GAID_SYNC) {
+            OAID_GAID_SYNC.notifyAll();
+        }
+
+    }
+
     /**
      * SDK 构造函数，需要传入 TDConfig 实例. 用户可以获取 TDConfig 实例， 并做相关配置后初始化 SDK.
      *
@@ -243,7 +250,13 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                                 if (idSupplier != null && idSupplier.isSupported()) {
                                     mOAID.put(idSupplier.getOAID());
                                 }
-                                OAID_GAID_SYNC.notifyAll();
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        notifyMe();
+                                    }
+                                });
+
                             }
                         });
                     } catch (Exception e) {
