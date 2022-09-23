@@ -172,9 +172,10 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     static final Boolean[] OAID_GAID_SYNC = new Boolean[]{false, false};
 
+    Object object = new Object();
 
     private void notifyMe() {
-        synchronized (OAID_GAID_SYNC) {
+        synchronized (object) {
             OAID_GAID_SYNC.notifyAll();
         }
 
@@ -237,7 +238,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         new Thread() {
             @Override
             public void run() {
-                synchronized (OAID_GAID_SYNC) {
+                synchronized (object) {
                     String GAID = DataEyeUtils.getGAID(config.mContext);
                     if (GAID != null) {
                         mGAID.put(GAID);
@@ -1273,14 +1274,13 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             @Override
             public void run() {
                 synchronized (OAID_GAID_SYNC) {
-                    if (!OAID_GAID_SYNC[0] || !OAID_GAID_SYNC[1]) {
-                        try {
-                            OAID_GAID_SYNC.wait(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        OAID_GAID_SYNC.wait(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
+
 
                 enableAutoTrackLast(eventTypeList);
             }
