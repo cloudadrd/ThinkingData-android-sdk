@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -234,35 +235,30 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                     if (GAID != null) {
                         mGAID.put(GAID);
                     }
-                    OAID_GAID_SYNC[1] = true;
-                    if (OAID_GAID_SYNC[0]) {
+                    //设置oaid
+                    try {
+                        MdidSdkHelper.InitSdk(config.mContext, true, new IIdentifierListener() {
+                            @Override
+                            public void OnSupport(boolean b, final IdSupplier idSupplier) {
+                                if (idSupplier != null && idSupplier.isSupported()) {
+                                    mOAID.put(idSupplier.getOAID());
+                                }
+                                OAID_GAID_SYNC.notifyAll();
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        mOAID.put("");
                         OAID_GAID_SYNC.notifyAll();
                     }
 
+
                 }
+
+
             }
         }.start();
 
-        //设置oaid
-        try {
-            MdidSdkHelper.InitSdk(config.mContext, true, new IIdentifierListener() {
-                @Override
-                public void OnSupport(boolean b, final IdSupplier idSupplier) {
-                    synchronized (OAID_GAID_SYNC) {
-                        if (idSupplier != null && idSupplier.isSupported()) {
-                            mOAID.put(idSupplier.getOAID());
-                        }
-                        OAID_GAID_SYNC[0] = true;
-                        if (OAID_GAID_SYNC[1]) {
-                            OAID_GAID_SYNC.notifyAll();
-                        }
-                    }
-                }
-            });
-        } catch (Exception e) {
-            mOAID.put("");
-        }
-        ;
 
         mMessages = getDataHandleInstance(config.mContext);
 
