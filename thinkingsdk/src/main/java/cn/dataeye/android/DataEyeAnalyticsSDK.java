@@ -1321,7 +1321,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         mAutoTrackEventTypeList.clear();
         mAutoTrackEventTypeList.addAll(eventTypeList);
         if (mAutoTrackEventTypeList.contains(AutoTrackEventType.APP_START)) {
-            mLifecycleCallbacks.onAppStartEventEnabled();
+            mLifecycleCallbacks.onAppStartEventEnabled(mConfig.mContext);
         }
     }
 

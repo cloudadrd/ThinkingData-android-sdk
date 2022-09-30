@@ -4,6 +4,8 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +34,8 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
 
     private final List<WeakReference<Activity>> mStartedActivityList = new ArrayList<>();
 
+    private volatile boolean isTrackAppStart = false;
+
     DataEyeActivityLifecycleCallbacks(DataEyeAnalyticsSDK instance, String mainProcessName) {
         this.mThinkingDataInstance = instance;
         this.mMainProcessName = mainProcessName;
@@ -58,6 +62,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
     @Override
     public void onActivityStarted(Activity activity) {
         try {
+            DataEyeLog.i(TAG, "onActivityStarted: activity = " + activity);
             synchronized (mActivityLifecycleCallbacksLock) {
                 if (mStartedActivityList.size() == 0) {
                     try {
@@ -80,18 +85,25 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
         }
     }
 
-    private void trackAppStart(Activity activity, ITime time) {
-        if (isMainProcess(activity)) {
+    private void trackAppStart(Context context, ITime time) {
+        if (isMainProcess(context)) {
+            if (isTrackAppStart) {
+                return;
+            }
             if (mThinkingDataInstance.isAutoTrackEnabled()) {
                 try {
                     if (!mThinkingDataInstance.isAutoTrackEventTypeIgnored(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START)) {
 
                         JSONObject properties = new JSONObject();
                         properties.put(DataEyeConstants.KEY_RESUME_FROM_BACKGROUND, resumeFromBackground);
-                        DataEyeUtils.getScreenNameAndTitleFromActivity(properties, activity);
+
+                        if (context != null && context instanceof Activity) {
+                            DataEyeUtils.getScreenNameAndTitleFromActivity(properties, (Activity) context);
+                        }
 
                         if (null == time) {
                             mThinkingDataInstance.autoTrack(DataEyeConstants.APP_START_EVENT_NAME, properties);
+                            isTrackAppStart = true;
                         } else {
                             if (!mThinkingDataInstance.hasDisabled()) {
                                 // track APP_START with cached time and properties.
@@ -103,6 +115,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
                                 dataEyeDataDescription.eventName = DataEyeConstants.APP_START_EVENT_NAME;
 
                                 mThinkingDataInstance.trackInternal(dataEyeDataDescription);
+                                isTrackAppStart = true;
                             }
                         }
                     }
@@ -120,6 +133,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
 
     @Override
     public void onActivityResumed(Activity activity) {
+        DataEyeLog.i(TAG, "onActivityResumed: activity = " + activity);
         synchronized (mActivityLifecycleCallbacksLock) {
             if (notStartedActivity(activity, false)) {
                 DataEyeLog.i(TAG, "onActivityResumed: the SDK was initialized after the onActivityStart of " + activity);
@@ -156,7 +170,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
                     } else {
                         DataEyeAutoTrackAppViewScreenUrl autoTrackAppViewScreenUrl = activity.getClass().getAnnotation(DataEyeAutoTrackAppViewScreenUrl.class);
                         if (autoTrackAppViewScreenUrl != null && (TextUtils.isEmpty(autoTrackAppViewScreenUrl.appId()) ||
-                                        mThinkingDataInstance.getToken().equals(autoTrackAppViewScreenUrl.appId()))) {
+                                mThinkingDataInstance.getToken().equals(autoTrackAppViewScreenUrl.appId()))) {
                             String screenUrl = autoTrackAppViewScreenUrl.url();
                             if (TextUtils.isEmpty(screenUrl)) {
                                 screenUrl = activity.getClass().getCanonicalName();
@@ -177,6 +191,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
 
     @Override
     public void onActivityPaused(Activity activity) {
+        DataEyeLog.i(TAG, "onActivityPaused: activity = " + activity);
         synchronized (mActivityLifecycleCallbacksLock) {
             if (notStartedActivity(activity, false)) {
                 DataEyeLog.i(TAG, "onActivityPaused: the SDK was initialized after the onActivityStart of " + activity);
@@ -188,16 +203,20 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
         }
     }
 
-    void onAppStartEventEnabled() {
+    void onAppStartEventEnabled(Context context) {
         synchronized (mActivityLifecycleCallbacksLock) {
-            if (mStartedActivityList.size() > 0) {
-                trackAppStart(mStartedActivityList.get(0).get(), null);
+            if (isAppForeground(context)) {
+                if (mStartedActivityList.size() > 0) {
+                    context = mStartedActivityList.get(0).get();
+                }
+                trackAppStart(context, null);
             }
         }
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
+        DataEyeLog.i(TAG, "onActivityStopped: activity = " + activity);
         try {
             synchronized (mActivityLifecycleCallbacksLock) {
                 if (notStartedActivity(activity, true)) {
@@ -223,6 +242,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
                                 DataEyeLog.i(TAG, e);
                             }
                         }
+                        isTrackAppStart = false;
                     }
                     try {
                         mThinkingDataInstance.flush();
@@ -290,6 +310,48 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
             return true;
         }
 
+        return false;
+    }
+
+
+    private boolean isAppForeground(Context context) {
+        if (context == null) {
+            return false;
+        }
+
+        return isAppForegroundWithRunningTask(context) || isAppForegroundWithRunningAppProcess(context);
+    }
+
+    public boolean isAppForegroundWithRunningTask(Context context) {
+
+        ActivityManager am = (ActivityManager) context.getSystemService(Service.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
+        if (!tasks.isEmpty()) {
+            ComponentName topActivity = tasks.get(0).topActivity;
+            if (topActivity.getPackageName().equals(context.getPackageName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean isAppForegroundWithRunningAppProcess(Context context) {
+        ActivityManager activityManager =
+                (ActivityManager) context.getSystemService(Service.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfoList = activityManager.getRunningAppProcesses();
+
+        if (runningAppProcessInfoList == null) {
+            return false;
+        }
+
+        for (ActivityManager.RunningAppProcessInfo processInfo : runningAppProcessInfoList) {
+            if (processInfo.processName.equals(context.getPackageName())
+                    && (processInfo.importance ==
+                    ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND)) {
+                return true;
+            }
+        }
         return false;
     }
 }
