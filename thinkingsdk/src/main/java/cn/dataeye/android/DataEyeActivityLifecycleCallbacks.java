@@ -324,33 +324,41 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
 
     public boolean isAppForegroundWithRunningTask(Context context) {
 
-        ActivityManager am = (ActivityManager) context.getSystemService(Service.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        if (!tasks.isEmpty()) {
-            ComponentName topActivity = tasks.get(0).topActivity;
-            if (topActivity.getPackageName().equals(context.getPackageName())) {
-                return true;
+        try {
+            ActivityManager am = (ActivityManager) context.getSystemService(Service.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
+            if (!tasks.isEmpty()) {
+                ComponentName topActivity = tasks.get(0).topActivity;
+                if (topActivity.getPackageName().equals(context.getPackageName())) {
+                    return true;
+                }
             }
-        }
 
+        } catch (Exception e) {
+            DataEyeLog.e(TAG, "isAppForegroundWithRunningTask, Exception = " + e);
+        }
         return false;
     }
 
     private static boolean isAppForegroundWithRunningAppProcess(Context context) {
-        ActivityManager activityManager =
-                (ActivityManager) context.getSystemService(Service.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfoList = activityManager.getRunningAppProcesses();
+        try {
+            ActivityManager activityManager =
+                    (ActivityManager) context.getSystemService(Service.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningAppProcessInfo> runningAppProcessInfoList = activityManager.getRunningAppProcesses();
 
-        if (runningAppProcessInfoList == null) {
-            return false;
-        }
-
-        for (ActivityManager.RunningAppProcessInfo processInfo : runningAppProcessInfoList) {
-            if (processInfo.processName.equals(context.getPackageName())
-                    && (processInfo.importance ==
-                    ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND)) {
-                return true;
+            if (runningAppProcessInfoList == null) {
+                return false;
             }
+
+            for (ActivityManager.RunningAppProcessInfo processInfo : runningAppProcessInfoList) {
+                if (processInfo.processName.equals(context.getPackageName())
+                        && (processInfo.importance ==
+                        ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            DataEyeLog.e(TAG, "isAppForegroundWithRunningAppProcess, Exception = " + e);
         }
         return false;
     }
