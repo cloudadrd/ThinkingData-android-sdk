@@ -16,7 +16,7 @@ public class DataEyeEncrypt {
     /**
      * < createInstance >.
      *
-     * @param token 项目ID
+     * @param token   项目ID
      * @param mConfig DataEyeConfig
      * @return {@link DataEyeEncrypt}
      */
@@ -97,6 +97,28 @@ public class DataEyeEncrypt {
         } catch (Exception e) {
             //ignored
         }
+        return json;
+    }
+
+    public JSONObject decryptTrackData(JSONObject json) {
+        if (!DataEyeEncryptUtils.isEncryptedData(json)) {
+            return json;
+        }
+
+        if (aesKey == null) {
+            return json;
+        }
+
+        String payload = json.optString("payload");
+
+        String decryptStr = DataEyeEncryptUtils.aesDecrypt(aesKey, payload);
+
+        try {
+            return new JSONObject(decryptStr);
+        } catch (Exception e) {
+
+        }
+
         return json;
     }
 
