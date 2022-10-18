@@ -3,10 +3,10 @@ package cn.dataeye.android;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import cn.dataeye.android.encrypt.SecreteKey;
 import cn.dataeye.android.persistence.StorageFlushBulkSize;
 import cn.dataeye.android.persistence.StorageFlushInterval;
 import cn.dataeye.android.utils.DataEyeLog;
-import cn.dataeye.android.utils.DataEyeUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,6 +45,9 @@ public class DataEyeConfig {
     private final Set<String> mDisabledEvents = new HashSet<>();
     private final ReadWriteLock mDisabledEventsLock = new ReentrantReadWriteLock();
 
+    private boolean enableEncrypt = true;
+    private SecreteKey secreteKey = null;
+
     /**
      * 实例运行模式, 默认为 NORMAL 模式.
      */
@@ -59,6 +62,7 @@ public class DataEyeConfig {
 
     /**
      * 事件是否已经被禁用。在 TA 2.7 版本之后可以设置
+     *
      * @param eventName 事件名
      * @return true 如果事件被禁用
      */
@@ -73,6 +77,7 @@ public class DataEyeConfig {
 
     private volatile ModeEnum mMode = ModeEnum.NORMAL;
     private volatile boolean mAllowedDebug;
+
     void setAllowDebug() {
         mAllowedDebug = true;
     }
@@ -94,6 +99,7 @@ public class DataEyeConfig {
 
     /**
      * 设置 SDK 运行模式
+     *
      * @param mode 运行模式
      */
     public void setMode(ModeEnum mode) {
@@ -101,7 +107,8 @@ public class DataEyeConfig {
     }
 
     /**
-     *  获取 SDK 当前运行模式
+     * 获取 SDK 当前运行模式
+     *
      * @return ModeEnum
      */
     public ModeEnum getMode() {
@@ -119,9 +126,10 @@ public class DataEyeConfig {
 
     /**
      * 获取 TDConfig 实例. 该实例可以用于初始化 ThinkingAnalyticsSDK. 每个 SDK 实例对应一个 TDConfig 实例.
+     *
      * @param context app context
-     * @param token APP ID, 创建项目时会给出.
-     * @param url 数据接收端 URL, 必须是带协议的完整 URL，否则会抛异常
+     * @param token   APP ID, 创建项目时会给出.
+     * @param url     数据接收端 URL, 必须是带协议的完整 URL，否则会抛异常
      * @return TDConfig 实例
      */
     public static DataEyeConfig getInstance(Context context, String token, String url) {
@@ -147,7 +155,7 @@ public class DataEyeConfig {
 
                 instance = new DataEyeConfig(appContext, token, serverUrl.getProtocol()
                         + "://" + serverUrl.getHost()
-                        + (serverUrl.getPort() > 0 ? ":" + serverUrl.getPort() : ""),url);
+                        + (serverUrl.getPort() > 0 ? ":" + serverUrl.getPort() : ""), url);
                 instances.put(token, instance);
                 instance.getRemoteConfig();
             }
@@ -194,92 +202,62 @@ public class DataEyeConfig {
     }
 
     private void getRemoteConfig() {
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                HttpURLConnection connection = null;
-//                InputStream in = null;
-//
-//                try {
-//                    URL url = new URL(mConfigUrl);
-//                    connection = (HttpURLConnection) url.openConnection();
-//                    final SSLSocketFactory socketFactory = getSSLSocketFactory();
-//                    if (null != socketFactory && connection instanceof HttpsURLConnection) {
-//                        ((HttpsURLConnection) connection).setSSLSocketFactory(socketFactory);
-//                    }
-//                    connection.setRequestMethod("GET");
-//
-//                    if (200 == connection.getResponseCode()) {
-//                        in = connection.getInputStream();
-//
-//                        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-//                        StringBuffer buffer = new StringBuffer();
-//                        String line;
-//                        while((line = br.readLine())!=null) {
-//                            buffer.append(line);
-//                        }
-//                        JSONObject rjson = new JSONObject(buffer.toString());
-//
-//                        if (rjson.getString("code").equals("0")) {
-//
-//                            int newUploadInterval = mFlushInterval.get();
-//                            int newUploadSize = mFlushBulkSize.get();
-//                            try {
-//                                JSONObject data = rjson.getJSONObject("data");
-//                                newUploadInterval = data.getInt("sync_interval") * 1000;
-//                                newUploadSize = data.getInt("sync_batch_size");
-//
-//                                DataEyeLog.d(TAG, "Fetched remote config for (" + DataEyeUtils.getSuffix(mToken,  4)
-//                                        + "):\n" + data.toString(4));
-//
-//                                if (data.has("disable_event_list")) {
-//                                    mDisabledEventsLock.writeLock().lock();
-//                                    try {
-//                                        JSONArray disabledEventList = data.getJSONArray("disable_event_list");
-//                                        for (int i = 0; i < disabledEventList.length(); i++) {
-//                                            mDisabledEvents.add(disabledEventList.getString(i));
-//                                        }
-//                                    } finally {
-//                                        mDisabledEventsLock.writeLock().unlock();
-//                                    }
-//                                }
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//
-//                            if (mFlushBulkSize.get() != newUploadSize) {
-//                                mFlushBulkSize.put(newUploadSize);
-//                            }
-//
-//                            if (mFlushInterval.get() != newUploadInterval) {
-//                                mFlushInterval.put(newUploadInterval);
-//                            }
-//                        }
-//
-//                        in.close();
-//                        br.close();
-//                    } else {
-//                        DataEyeLog.d(TAG, "Getting remote config failed, responseCode is " + connection.getResponseCode());
-//                    }
-//
-//                } catch (IOException e) {
-//                    DataEyeLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
-//                } catch (JSONException e) {
-//                    DataEyeLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
-//                } finally {
-//                    if (null != in) {
-//                        try {
-//                            in.close();
-//                        } catch (final IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                    if (null != connection) {
-//                        connection.disconnect();
-//                    }
-//                }
-//            }
-//        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                HttpURLConnection connection = null;
+                InputStream in = null;
+
+                try {
+                    URL url = new URL(mConfigUrl);
+                    connection = (HttpURLConnection) url.openConnection();
+                    final SSLSocketFactory socketFactory = getSSLSocketFactory();
+                    if (null != socketFactory && connection instanceof HttpsURLConnection) {
+                        ((HttpsURLConnection) connection).setSSLSocketFactory(socketFactory);
+                    }
+                    connection.setRequestMethod("GET");
+
+                    if (200 == connection.getResponseCode()) {
+                        in = connection.getInputStream();
+
+                        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+                        StringBuffer buffer = new StringBuffer();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            buffer.append(line);
+                        }
+                        JSONObject rjson = new JSONObject(buffer.toString());
+
+                        if (rjson.getString("code").equals("0")) {
+                            JSONObject data = rjson.optJSONObject("data");
+                            DateEyeRemoteConfig remoteConfig = DateEyeRemoteConfig.parseConfig(data);
+                            secreteKey = remoteConfig.secreteKey;
+                        }
+
+                        in.close();
+                        br.close();
+                    } else {
+                        DataEyeLog.d(TAG, "Getting remote config failed, responseCode is " + connection.getResponseCode());
+                    }
+
+                } catch (IOException e) {
+                    DataEyeLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
+                } catch (JSONException e) {
+                    DataEyeLog.d(TAG, "Getting remote config failed due to: " + e.getMessage());
+                } finally {
+                    if (null != in) {
+                        try {
+                            in.close();
+                        } catch (final IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (null != connection) {
+                        connection.disconnect();
+                    }
+                }
+            }
+        }).start();
     }
 
     String getServerUrl() {
@@ -308,6 +286,7 @@ public class DataEyeConfig {
 
     /**
      * Flush interval, 单位毫秒
+     *
      * @return 上报间隔
      */
     int getFlushInterval() {
@@ -350,6 +329,7 @@ public class DataEyeConfig {
 
     /**
      * 设置是否追踪老版本数据
+     *
      * @param trackOldData
      */
     public void setTrackOldData(boolean trackOldData) {
@@ -370,6 +350,7 @@ public class DataEyeConfig {
 
     /**
      * 设置自签证书. 自签证书对实例所有网络请求有效.
+     *
      * @param sslSocketFactory
      */
     public synchronized void setSSLSocketFactory(SSLSocketFactory sslSocketFactory) {
@@ -381,10 +362,19 @@ public class DataEyeConfig {
 
     /**
      * 返回当前自签证书设置.
+     *
      * @return SSLSocketFactory
      */
     public synchronized SSLSocketFactory getSSLSocketFactory() {
         return mSSLSocketFactory;
+    }
+
+    public boolean isEnableEncrypt() {
+        return enableEncrypt;
+    }
+
+    public SecreteKey getSecreteKey() {
+        return secreteKey;
     }
 
     // 兼容 1.2.0 之前老版本. 1.3.0 开始会在本地缓存中存放 app ID. 默认情况下会将之前遗留数据上报到第一个初始化的实例中.

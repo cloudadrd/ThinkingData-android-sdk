@@ -8,6 +8,8 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import cn.dataeye.android.encrypt.DataEyeEncrypt;
+import cn.dataeye.android.encrypt.DataEyeEncryptUtils;
 import cn.dataeye.android.utils.HttpService;
 import cn.dataeye.android.utils.RemoteService;
 import cn.dataeye.android.utils.DataEyeConstants;
@@ -30,7 +32,7 @@ import java.util.UUID;
 
 /**
  * DataHandle 负责处理用户数据（事件、用户属性设置）的缓存和上报.
- *
+ * <p>
  * 其工作依赖两个内部类 SendMessageWorker 和 SaveMessageWorker.
  */
 public class DataEyeDataHandle {
@@ -49,6 +51,7 @@ public class DataEyeDataHandle {
 
     /**
      * 获取给定 Context 的单例实例.
+     *
      * @param messageContext context
      * @return DataHandle 实例
      */
@@ -109,6 +112,7 @@ public class DataEyeDataHandle {
 
     /**
      * 清空当前项目的队列，尝试上报到服务器. 如果缓存队列中有当前 token 的数据，会等待缓存数据入库后发起上报.
+     *
      * @param token APP ID
      */
     void flush(String token) {
@@ -117,6 +121,7 @@ public class DataEyeDataHandle {
 
     /**
      * 谨慎调用此接口. 仅仅用于老版本兼容，将指定 APP ID 的本地缓存数据上报到服务器
+     *
      * @param token 项目 ID
      */
     void flushOldData(String token) {
@@ -125,6 +130,7 @@ public class DataEyeDataHandle {
 
     /**
      * 清空关于给定 token 的所有队列数据: 数据缓存、数据上报.
+     *
      * @param token 项目 ID
      */
     void emptyMessageQueue(String token) {
@@ -335,22 +341,22 @@ public class DataEyeDataHandle {
         }
 
         void posterToServerDelayed(final String token, final long delay) {
-           synchronized (mHandlerLock) {
-               if (mHandler == null) {
-                   // We died under suspicious circumstances. Don't try to send any more events.
-               } else {
-                   if (!mHandler.hasMessages(FLUSH_QUEUE, token) && !mHandler.hasMessages(FLUSH_QUEUE_PROCESSING, token)) {
-                       Message msg = Message.obtain();
-                       msg.what = FLUSH_QUEUE;
-                       msg.obj = token;
-                       try {
-                           mHandler.sendMessageDelayed(msg, delay);
-                       } catch (IllegalStateException e) {
-                           DataEyeLog.w(TAG, "The app might be quiting: " + e.getMessage());
-                       }
-                   }
-               }
-           }
+            synchronized (mHandlerLock) {
+                if (mHandler == null) {
+                    // We died under suspicious circumstances. Don't try to send any more events.
+                } else {
+                    if (!mHandler.hasMessages(FLUSH_QUEUE, token) && !mHandler.hasMessages(FLUSH_QUEUE_PROCESSING, token)) {
+                        Message msg = Message.obtain();
+                        msg.what = FLUSH_QUEUE;
+                        msg.obj = token;
+                        try {
+                            mHandler.sendMessageDelayed(msg, delay);
+                        } catch (IllegalStateException e) {
+                            DataEyeLog.w(TAG, "The app might be quiting: " + e.getMessage());
+                        }
+                    }
+                }
+            }
         }
 
         private class AnalyticsMessageHandler extends Handler {
@@ -466,22 +472,26 @@ public class DataEyeDataHandle {
 
         // 发送单条数据到 Debug 模式
         private void sendDebugData(DataEyeConfig config, JSONObject data) throws IOException, RemoteService.ServiceUnavailableException, JSONException {
-            StringBuilder sb = new StringBuilder();
-            sb.append("appid=");
-            sb.append(config.mToken);
-            sb.append("&deviceId=");
-            sb.append(mDeviceInfo.getString(DataEyeConstants.KEY_DEVICE_ID));
-            sb.append("&source=client&data=");
-            sb.append(URLEncoder.encode(data.toString()));
-            if (config.isDebugOnly()) {
-                sb.append("&dryRun=1");
+
+            JSONArray dataArray = new JSONArray();
+            DataEyeEncrypt encrypt = DataEyeEncrypt.getInstance(config.mToken);
+            if (encrypt != null && !DataEyeEncryptUtils.isEncryptedData(data)) {
+                data = encrypt.encryptTrackData(data);
             }
+            dataArray.put(data);
+
+            JSONObject dataObj = new JSONObject();
+            dataObj.put(KEY_DATA, dataArray);
+            dataObj.put(KEY_AUTOMATIC_DATA, mDeviceInfo);
+            dataObj.put(KEY_APP_ID, config.mToken);
+
+            String dataString = dataObj.toString();
 
             String tokenSuffix = DataEyeUtils.getSuffix(config.mToken, 4);
             DataEyeLog.d(TAG, "uploading message(" + tokenSuffix + "):\n" + data.toString(4));
 
 
-            String response = mPoster.performRequest(config.getDebugUrl(), sb.toString(), true, config.getSSLSocketFactory(), createExtraHeaders("1"));
+            String response = mPoster.performRequest(config.getDebugUrl(), dataString, true, config.getSSLSocketFactory(), createExtraHeaders("1"));
 
             JSONObject respObj = new JSONObject(response);
 
@@ -537,6 +547,10 @@ public class DataEyeDataHandle {
             }
 
             JSONArray dataArray = new JSONArray();
+            DataEyeEncrypt encrypt = DataEyeEncrypt.getInstance(config.mToken);
+            if (encrypt != null && !DataEyeEncryptUtils.isEncryptedData(data)) {
+                data = encrypt.encryptTrackData(data);
+            }
             dataArray.put(data);
 
             JSONObject dataObj = new JSONObject();

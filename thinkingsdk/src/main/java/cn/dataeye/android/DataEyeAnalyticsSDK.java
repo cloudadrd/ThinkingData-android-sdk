@@ -7,13 +7,12 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
+import cn.dataeye.android.encrypt.DataEyeEncrypt;
 import cn.dataeye.android.persistence.*;
 import cn.dataeye.android.utils.ICalibratedTime;
 import cn.dataeye.android.utils.ITime;
@@ -273,8 +272,10 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             }
         }.start();
 
-
         mMessages = getDataHandleInstance(config.mContext);
+        if (config.isEnableEncrypt()) {
+            DataEyeEncrypt.createInstance(config.mToken, config);
+        }
 
         if (mEnableTrackOldData) {
             mMessages.flushOldData(config.mToken);

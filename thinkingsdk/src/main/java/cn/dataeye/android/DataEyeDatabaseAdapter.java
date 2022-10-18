@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
+import cn.dataeye.android.encrypt.DataEyeEncrypt;
+import cn.dataeye.android.encrypt.DataEyeEncryptUtils;
 import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONArray;
@@ -20,6 +22,7 @@ import java.util.Map;
 
 public class DataEyeDatabaseAdapter {
     private static final String TAG = "DataEyeAnalytics.DataEyebaseAdapter";
+
     public enum Table {
         EVENTS("events");
 
@@ -102,7 +105,7 @@ public class DataEyeDatabaseAdapter {
         synchronized (sInstances) {
             final Context appContext = context.getApplicationContext();
             DataEyeDatabaseAdapter ret;
-            if (! sInstances.containsKey(appContext)) {
+            if (!sInstances.containsKey(appContext)) {
                 ret = new DataEyeDatabaseAdapter(appContext);
                 sInstances.put(appContext, ret);
             } else {
@@ -232,6 +235,10 @@ public class DataEyeDatabaseAdapter {
             final SQLiteDatabase db = mDb.getWritableDatabase();
 
             final ContentValues cv = new ContentValues();
+            DataEyeEncrypt encrypt = DataEyeEncrypt.getInstance(token);
+            if (encrypt != null) {
+                j = encrypt.encryptTrackData(j);
+            }
             cv.put(KEY_DATA, j.toString() + KEY_DATA_SPLIT_SEPARATOR + j.toString().hashCode());
             cv.put(KEY_CREATED_AT, System.currentTimeMillis());
             cv.put(KEY_TOKEN, token);
@@ -261,9 +268,10 @@ public class DataEyeDatabaseAdapter {
 
     /**
      * Removes events with an _id <= last_id from table
+     *
      * @param last_id the last id to delete
      * @param table   the table to remove events from
-     * @param token the project token; if null, delete all related events.
+     * @param token   the project token; if null, delete all related events.
      * @return the number of rows in the table
      */
     public int cleanupEvents(String last_id, Table table, String token) {
@@ -324,7 +332,8 @@ public class DataEyeDatabaseAdapter {
 
     /**
      * Removes events before time
-     * @param time the unix epoch in milliseconds to remove events before
+     *
+     * @param time  the unix epoch in milliseconds to remove events before
      * @param table the table to remove events from
      */
     public void cleanupEvents(long time, Table table) {
@@ -342,6 +351,7 @@ public class DataEyeDatabaseAdapter {
     /**
      * Returns the data string to send to the server and the maximum ID of the row that we are sending,
      * so we know what rows to delete when a track request was successful.
+     *
      * @param table the table to read the JSON from
      * @param token the token of the project you want to retrieve the records for
      * @param limit the maximum number of rows returned.
@@ -391,7 +401,11 @@ public class DataEyeDatabaseAdapter {
                                 }
                                 keyData = content;
                             }
-                            final JSONObject j = new JSONObject(keyData);
+                            JSONObject j = new JSONObject(keyData);
+                            DataEyeEncrypt encrypt = DataEyeEncrypt.getInstance(token);
+                            if (encrypt != null && !DataEyeEncryptUtils.isEncryptedData(j)) {
+                                j = encrypt.encryptTrackData(j);
+                            }
                             arr.put(j);
                         }
                     } catch (final JSONException e) {
