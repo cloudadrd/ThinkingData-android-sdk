@@ -5,9 +5,9 @@ public class SecreteKey {
     public String publicKey;
 
     //公钥版本
-    public int version;
+    public String version;
 
-    public SecreteKey(String publicKey, int version) {
+    public SecreteKey(String publicKey, String version) {
         this.publicKey = publicKey;
         this.version = version;
     }

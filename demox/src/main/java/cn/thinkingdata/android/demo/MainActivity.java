@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         requestReadPhoneState(this);
 
-        EncryptTest.test();
+//        EncryptTest.test();
+        EncryptTest.test3();
     }
 
     private void initView() {

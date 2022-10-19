@@ -8,8 +8,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.dataeye.android.DataEyeConfig;
+import cn.dataeye.android.utils.DataEyeLog;
 
 public class DataEyeEncrypt {
+    private static final String TAG = "DataEyeEncrypt";
 
     private static final Map<String, DataEyeEncrypt> sInstances = new HashMap<>();
 
@@ -45,20 +47,19 @@ public class DataEyeEncrypt {
 
     private DataEyeConfig config;
     private byte[] aesKey = null;
-    private String encryptKey = null;
-
+    private String encryptedKey = null;
     private DataEyeEncrypt(DataEyeConfig config) {
         this.config = config;
     }
 
     private void ensureAesKey() {
-        if (aesKey != null && encryptKey != null) {
+        if (aesKey != null && !TextUtils.isEmpty(encryptedKey)) {
             return;
         }
         if (config != null && isSecretKeyValid(config.getSecreteKey())) {
             try {
                 aesKey = DataEyeEncryptUtils.generateAESKey();
-                encryptKey = DataEyeEncryptUtils.rsaEncrypt(config.getSecreteKey().publicKey, aesKey);
+                encryptedKey = DataEyeEncryptUtils.rsaEncrypt(config.getSecreteKey().publicKey, aesKey);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -78,21 +79,27 @@ public class DataEyeEncrypt {
             }
             SecreteKey secreteKey = config.getSecreteKey();
 
-            if (isSecretKeyValid(secreteKey)) {
+            if (!isSecretKeyValid(secreteKey)) {
                 return json;
             }
 
             ensureAesKey();
-            if (aesKey == null) {
+            if (aesKey == null || TextUtils.isEmpty(encryptedKey)) {
                 return json;
             }
 
             String encryptData = DataEyeEncryptUtils.aesEncrypt(aesKey, json.toString());
 
             JSONObject dataJson = new JSONObject();
-            dataJson.put("ekey", encryptKey);
+            dataJson.put("ekey", encryptedKey);
             dataJson.put("pkv", secreteKey.version);
             dataJson.put("payload", encryptData);
+
+            DataEyeLog.d(TAG,"----------------------------------");
+            DataEyeLog.d(TAG, "encryptTrackData, encryptData = " + encryptData);
+            String decryptData = DataEyeEncryptUtils.aesDecrypt(aesKey, encryptData);
+            DataEyeLog.d(TAG, "encryptTrackData, decryptData = " + decryptData);
+            DataEyeLog.d(TAG,"----------------------------------");
             return dataJson;
         } catch (Exception e) {
             //ignored

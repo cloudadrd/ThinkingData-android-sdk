@@ -12,6 +12,13 @@ public class EncryptTest {
 
     public static final String SRC_CONTENT = "BI SDK EncryptTest";
 
+    private static final String key = "MIIBCgKCAQEAnLdoA3ba57YHBAenYbLGTcdC48VVvVVDXV6N/W+1FztBRjvNPV1D\n" +
+            "MOcIJBrveTlgKug2PCVynaIttaNql6p/+Bm4G41kyZYy7RSaUCaJ3ryjcXsKfClt\n" +
+            "nG9vCwbIN+bVchxRzj739zIA1tBHn9v22PhFcEfsSAy2G2EwM4bQ38n2UrMse9wb\n" +
+            "LUGT0kzyquwPQs7vriU+1XBkrdssoAqbwgW5yUqxDosYB5h7D1YTW0qKkJ6PPNnL\n" +
+            "XbMv2Meyjxq1sbWoF/m8uboaKklqal1ep5UqTp9OFNOaTrVyXY4Gkt7wq3OoNvk9\n" +
+            "2cJ1fHz9wnriGo+oNut9gQr1WVjOzRkAwwIDAQAB";
+
     public static void test() {
 
         try {
@@ -44,5 +51,25 @@ public class EncryptTest {
             Log.d(TAG, "test: Exception = " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private static final String content = "{\"#type\":\"track\",\"#time\":\"2022-10-19 11:20:23.981\",\"#timestamp\":1666149623993,\"#distinct_id\":\"instance_id\",\"#account_id\":\"d991fbe094bf6cab\",\"#oaid\":\"e5a1cdcc69d46ec84892fd61dc3b2326fa72930a8f2b8aec2b8f9e3f1402f5cb\",\"#gaid\":\"a7713c33-efb6-4f66-8688-33b41d8bbe3f\",\"#event_name\":\"app_end\",\"properties\":{\"#network_type\":\"WIFI\",\"#app_version\":\"1.0\",\"#duration\":38.25,\"#screen_name\":\"cn.thinkingdata.android.demo.MainActivity\",\"#title\":\"ThinkingDataDemo\",\"#zone_offset\":8},\"#uuid\":\"66484a74-dc4a-4df8-9fbd-f9aaefe4cccb\"}";
+
+    public static void test_v2() {
+        Pair<String, String> rsaKey = DataEyeEncryptUtils.generateRSAKey();
+
+        Log.d(TAG, "test_v2: rsaKey pub = " + rsaKey.first);
+        Log.d(TAG, "test_v2: rsaKey pri = " + rsaKey.second);
+    }
+
+    public static void test3() {
+
+//        String key = DataEyeEncryptUtils.IV_STRING;
+        String key = "lkjsdfrtywabcert";
+        String encryptStr = DataEyeEncryptUtils.aesEncrypt(key.getBytes(), content);
+        Log.d(TAG, "test3: encryptStr = " + encryptStr);
+
+        String decryptStr =DataEyeEncryptUtils.aesDecrypt(key.getBytes(),encryptStr );
+        Log.d(TAG, "test3: decryptStr = " + decryptStr);
     }
 }

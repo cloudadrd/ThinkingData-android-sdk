@@ -174,7 +174,7 @@ public class DataEyeConfig {
 //        mServerUrl = serverUrl + "/sync";
         mServerUrl = originalUrl;
         mDebugUrl = serverUrl + "/data_debug";
-        mConfigUrl = serverUrl + "/config?appid=" + token;
+//        mConfigUrl = serverUrl + "/config?appid=" + token;
 
         mFlushInterval = new StorageFlushInterval(storedSharedPrefs, DEFAULT_FLUSH_INTERVAL);
         mFlushBulkSize = new StorageFlushBulkSize(storedSharedPrefs, DEFAULT_FLUSH_BULK_SIZE);
@@ -227,8 +227,7 @@ public class DataEyeConfig {
                             buffer.append(line);
                         }
                         JSONObject rjson = new JSONObject(buffer.toString());
-
-                        if (rjson.getString("code").equals("0")) {
+                        if (rjson.getString("code").equals("10000")) {
                             JSONObject data = rjson.optJSONObject("data");
                             DateEyeRemoteConfig remoteConfig = DateEyeRemoteConfig.parseConfig(data);
                             secreteKey = remoteConfig.secreteKey;
@@ -387,7 +386,7 @@ public class DataEyeConfig {
     private final StorageFlushBulkSize mFlushBulkSize;
     private final String mServerUrl;
     private final String mDebugUrl;
-    private final String mConfigUrl;
+    private final String mConfigUrl = "http://172.30.139.126/v1/settings";
     final String mToken;
     final Context mContext;
 

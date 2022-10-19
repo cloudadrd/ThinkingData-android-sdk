@@ -17,12 +17,12 @@ public class DateEyeRemoteConfig {
             return config;
         }
         try {
-            if (data.has("secret_key")) {
-                JSONObject secretJson = data.getJSONObject("secret_key");
-                if (secretJson.has("key") && secretJson.has("version")) {
-                    String key = secretJson.getString("key");
-                    int version = secretJson.getInt("version");
-                    if (!TextUtils.isEmpty(key)) {
+            if (data.has("crypto")) {
+                JSONObject secretJson = data.getJSONObject("crypto");
+                if (secretJson.has("pub_key") && secretJson.has("version")) {
+                    String key = secretJson.getString("pub_key");
+                    String version = secretJson.optString("version", "");
+                    if (!TextUtils.isEmpty(key) && !TextUtils.isEmpty(version)) {
                         config.secreteKey = new SecreteKey(key, version);
                     }
                 }
