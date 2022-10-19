@@ -173,10 +173,9 @@ public class DataEyeConfig {
         mContextConfig = DataEyeContextConfig.getInstance(mContext);
 
         mToken = token;
-//        mServerUrl = serverUrl + "/sync";
         mServerUrl = originalUrl;
         mDebugUrl = serverUrl + "/data_debug";
-//        mConfigUrl = serverUrl + "/config?appid=" + token;
+        mConfigUrl = serverUrl + "/v1/settings";
 
         mFlushInterval = new StorageFlushInterval(storedSharedPrefs, DEFAULT_FLUSH_INTERVAL);
         mFlushBulkSize = new StorageFlushBulkSize(storedSharedPrefs, DEFAULT_FLUSH_BULK_SIZE);
@@ -397,7 +396,7 @@ public class DataEyeConfig {
     private final StorageFlushBulkSize mFlushBulkSize;
     private final String mServerUrl;
     private final String mDebugUrl;
-    private final String mConfigUrl = "http://172.30.139.126/v1/settings";
+    private final String mConfigUrl;
     final String mToken;
     final Context mContext;
 
