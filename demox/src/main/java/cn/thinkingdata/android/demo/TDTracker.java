@@ -23,7 +23,8 @@ public class TDTracker {
      */
 //    private static final String TA_SERVER_URL = "http://172.31.4.170:8080/v1/sdk/report";
 //    private static final String TA_SERVER_URL = "http://deapi.adsgreat.cn/v1/sdk/report";
-    private static final String TA_SERVER_URL = "http://172.30.139.126/v1/sdk/encrypted_report";
+//    private static final String TA_SERVER_URL = "http://172.30.139.126/v1/sdk/encrypted_report";
+    private static final String TA_SERVER_URL = "http://172.30.139.126/v1/sdk/report";
 
     private static DataEyeAnalyticsSDK mInstance;
     private static DataEyeAnalyticsSDK mDebugInstance;

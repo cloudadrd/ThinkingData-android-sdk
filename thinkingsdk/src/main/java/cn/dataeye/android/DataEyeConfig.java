@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import cn.dataeye.android.encrypt.SecreteKey;
 import cn.dataeye.android.persistence.StorageFlushBulkSize;
 import cn.dataeye.android.persistence.StorageFlushInterval;
+import cn.dataeye.android.persistence.StorageRemoteConfig;
 import cn.dataeye.android.utils.DataEyeLog;
 
 import org.json.JSONArray;
@@ -45,6 +46,7 @@ public class DataEyeConfig {
     private final Set<String> mDisabledEvents = new HashSet<>();
     private final ReadWriteLock mDisabledEventsLock = new ReentrantReadWriteLock();
 
+    private StorageRemoteConfig remoteConfigStorage;
     private boolean enableEncrypt = true;
     private SecreteKey secreteKey = null;
 
@@ -178,6 +180,9 @@ public class DataEyeConfig {
 
         mFlushInterval = new StorageFlushInterval(storedSharedPrefs, DEFAULT_FLUSH_INTERVAL);
         mFlushBulkSize = new StorageFlushBulkSize(storedSharedPrefs, DEFAULT_FLUSH_BULK_SIZE);
+        remoteConfigStorage = new StorageRemoteConfig(storedSharedPrefs);
+
+        parseRemoteConfig(remoteConfigStorage.get());
     }
 
     synchronized boolean isShouldFlush(String networkType) {
@@ -229,8 +234,8 @@ public class DataEyeConfig {
                         JSONObject rjson = new JSONObject(buffer.toString());
                         if (rjson.getString("code").equals("10000")) {
                             JSONObject data = rjson.optJSONObject("data");
-                            DateEyeRemoteConfig remoteConfig = DateEyeRemoteConfig.parseConfig(data);
-                            secreteKey = remoteConfig.secreteKey;
+                            remoteConfigStorage.put(data);
+                            parseRemoteConfig(data);
                         }
 
                         in.close();
@@ -257,6 +262,12 @@ public class DataEyeConfig {
                 }
             }
         }).start();
+    }
+
+    private void parseRemoteConfig(JSONObject remoteConfigJsonData) {
+        DataEyeLog.d(TAG, "parseRemoteConfig, remoteConfigJsonData = " + remoteConfigJsonData);
+        DateEyeRemoteConfig remoteConfig = DateEyeRemoteConfig.parseConfig(remoteConfigJsonData);
+        secreteKey = remoteConfig.secreteKey;
     }
 
     String getServerUrl() {
