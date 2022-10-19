@@ -224,7 +224,7 @@ public class DataEyeDataHandle {
                         if (ret < 0) {
                             DataEyeLog.w(TAG, "Saving data to database failed.");
                         } else {
-                            DataEyeLog.i(TAG, "Data enqueued(" + DataEyeUtils.getSuffix(token, 4) + "):\n" + data.toString(4));
+//                            DataEyeLog.i(TAG, "Data enqueued(" + DataEyeUtils.getSuffix(token, 4) + "):\n" + data.toString(4));
                         }
                         checkSendStrategy(token, ret);
                     } catch (Exception e) {
@@ -562,9 +562,9 @@ public class DataEyeDataHandle {
 
 
             String response = mPoster.performRequest(config.getServerUrl(), dataString, false, config.getSSLSocketFactory(), createExtraHeaders("1"));
-            JSONObject responseJson = new JSONObject(response);
-            String ret = responseJson.getString("code");
-            DataEyeLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
+//            JSONObject responseJson = new JSONObject(response);
+//            String ret = responseJson.getString("code");
+//            DataEyeLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
         }
 
         private void sendData(DataEyeConfig config) {
@@ -632,9 +632,9 @@ public class DataEyeDataHandle {
                     deleteEvents = true;
                     String dataString = dataObj.toString();
                     String response = mPoster.performRequest(config.getServerUrl(), dataString, false, config.getSSLSocketFactory(), createExtraHeaders(String.valueOf(myJsonArray.length())));
-                    JSONObject responseJson = new JSONObject(response);
-                    String ret = responseJson.getString("code");
-                    DataEyeLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
+//                    JSONObject responseJson = new JSONObject(response);
+//                    String ret = responseJson.getString("code");
+//                    DataEyeLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
                 } catch (final RemoteService.ServiceUnavailableException e) {
                     deleteEvents = false;
                     errorMessage = "Cannot post message to [" + config.getServerUrl() + "] due to " + e.getMessage();

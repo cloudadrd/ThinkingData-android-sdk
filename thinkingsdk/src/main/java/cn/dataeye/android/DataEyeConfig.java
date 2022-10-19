@@ -264,7 +264,6 @@ public class DataEyeConfig {
     }
 
     private void parseRemoteConfig(JSONObject remoteConfigJsonData) {
-        DataEyeLog.d(TAG, "parseRemoteConfig, remoteConfigJsonData = " + remoteConfigJsonData);
         DateEyeRemoteConfig remoteConfig = DateEyeRemoteConfig.parseConfig(remoteConfigJsonData);
         secreteKey = remoteConfig.secreteKey;
     }

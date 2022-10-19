@@ -8,10 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.dataeye.android.DataEyeConfig;
-import cn.dataeye.android.utils.DataEyeLog;
 
 public class DataEyeEncrypt {
-    private static final String TAG = "DataEyeEncrypt";
 
     private static final Map<String, DataEyeEncrypt> sInstances = new HashMap<>();
 
@@ -94,12 +92,6 @@ public class DataEyeEncrypt {
             dataJson.put("ekey", encryptedKey);
             dataJson.put("pkv", secreteKey.version);
             dataJson.put("payload", encryptData);
-
-            DataEyeLog.d(TAG,"----------------------------------");
-            DataEyeLog.d(TAG, "encryptTrackData, encryptData = " + encryptData);
-            String decryptData = DataEyeEncryptUtils.aesDecrypt(aesKey, encryptData);
-            DataEyeLog.d(TAG, "encryptTrackData, decryptData = " + decryptData);
-            DataEyeLog.d(TAG,"----------------------------------");
             return dataJson;
         } catch (Exception e) {
             //ignored

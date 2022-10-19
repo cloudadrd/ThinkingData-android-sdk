@@ -32,7 +32,7 @@ public class DataEyeEncryptUtils {
     private static final String ALGORITHM_RSA = "RSA";
     private static final String ALGORITHM_AES = "AES";
 
-    private static final String TAG = "ThinkingAnalytics.TAEncryptUtils";
+    private static final String TAG = "ThinkingAnalytics.DataEyeEncryptUtils";
 
     public static Pair<String, String> generateRSAKey() {
         try {
@@ -89,7 +89,7 @@ public class DataEyeEncryptUtils {
             return new String(Base64Coder.encode(encryptedData));
         } catch (Exception ex) {
             ex.printStackTrace();
-            DataEyeLog.d(TAG, "RSA加密失败:" + ex);
+            DataEyeLog.d(TAG, "rsaEncrypt :" + ex.getMessage());
         }
         return null;
     }
@@ -106,7 +106,7 @@ public class DataEyeEncryptUtils {
 
             return cipher.doFinal(Base64Coder.decode(content));
         } catch (Exception e) {
-            DataEyeLog.d(TAG, "RSA解密失败:" + e.getMessage());
+            DataEyeLog.d(TAG, "rsaDecrypt :" + e.getMessage());
         }
         return null;
     }
@@ -131,7 +131,7 @@ public class DataEyeEncryptUtils {
             byte[] encryptedBytes = cipher.doFinal(contentBytes);
             return new String(Base64Coder.encode(encryptedBytes));
         } catch (Exception ex) {
-            DataEyeLog.d(TAG, "AES加密失败:" + ex.getMessage());
+            DataEyeLog.d(TAG, "aesEncrypt:" + ex.getMessage());
         }
         return null;
     }
@@ -150,7 +150,7 @@ public class DataEyeEncryptUtils {
             byte[] result = cipher.doFinal(Base64Coder.decode(content));
             return new String(result);
         } catch (Exception ex) {
-            DataEyeLog.d(TAG, "AES解密失败:" + ex.getMessage());
+            DataEyeLog.d(TAG, "aesDecrypt:" + ex.getMessage());
         }
 
         return null;
