@@ -22,30 +22,28 @@ android {
     testOptions {
         execution 'ANDROIDX_TEST_ORCHESTRATOR'
     }
+
     buildTypes {
         debug {
             debuggable true
             jniDebuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            android.libraryVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "DataEyeSDK-Debug.aar"
-                }
-            }
         }
         release {
             minifyEnabled true
             zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            android.libraryVariants.all { variant ->
-                variant.outputs.all {
-                    if (variant.buildType.name == 'debug') {
-                        outputFileName = "DataEyeSDK-Debug.aar"
-                    }else{
-                        outputFileName = "DataEyeSDK-Release.aar"
-                    }
-                }
+        }
+    }
+
+    android.libraryVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.name == 'debug') {
+                outputFileName = "DataEyeSDK-Debug-${version}.aar"
+            } else {
+//                outputFileName = "DataEyeSDK-Release-${version}.aar"
+                outputFileName = "${PUBLISH_ARTIFACT_ID}.aar"
             }
         }
     }
@@ -66,51 +64,29 @@ dependencies {
 }
 
 // 创建 Jar 包
-def SDK_BASENAME ="ThinkingAnalyse";
-def SDK_VERSION ="-${version}";
-def sdkDestinationPath ="build/outputs/jar/";
+def SDK_BASENAME = "ThinkingAnalyse";
+def SDK_VERSION = "-${version}";
+def sdkDestinationPath = "build/outputs/jar/";
 def zipFile = file('build/intermediates/packaged-classes/release/classes.jar')
 
 task deleteBuild(type: Delete) {
-    delete sdkDestinationPath + SDK_BASENAME + SDK_VERSION +".jar"
+    delete sdkDestinationPath + SDK_BASENAME + SDK_VERSION + ".jar"
 }
 
 task makeJar(type: Jar) {
     from zipTree(zipFile)
-    from fileTree(dir:'src/main', includes: ['assets/**'])// 打包assets目录下的所有文件
+    from fileTree(dir: 'src/main', includes: ['assets/**'])// 打包assets目录下的所有文件
     baseName = SDK_BASENAME
     destinationDir = file(sdkDestinationPath)
 }
 
 makeJar.dependsOn(deleteBuild, build)
 
-//// 发布新版本 bintrayUpload
-//apply plugin: 'com.novoda.bintray-release'
-//
-//Properties properties = new Properties()
-//properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//publish {
-//    bintrayUser = properties.getProperty("bintray.user")
-//    bintrayKey = properties.getProperty("bintray.apikey")
-//    dryRun = false
-//    userOrg = POM_ORGANIZATION
-//    repoName = POM_REPO_NAME
-//    groupId = POM_GROUP_ID
-//    artifactId = 'ThinkingAnalyticsSDK'
-//    publishVersion = version
-//    desc = 'The official Android SDK for Thinking Data Analytics'
-//    website = POM_WEBSITE
-//}
-//
-//// 上传到本地代码库
-//apply plugin: 'maven'
-//uploadArchives{
-//    repositories{
-//        mavenDeployer{
-//            repository(url:uri('../repo'))
-//            pom.groupId = POM_GROUP_ID
-//            pom.artifactId = 'ThinkingAnalyticsSDK'
-//            pom.version = version
-//        }
-//    }
-//}
+// maven central发布
+// io.github.dataeyesdk:dataeye-android-sdk:1.0.1
+ext {
+    PUBLISH_GROUP_ID = "io.github.dataeyesdk"        //项目包名
+    PUBLISH_ARTIFACT_ID = 'dataeye-android-sdk'            //项目名
+    PUBLISH_VERSION = version                    //版本号
+}
+apply from: "publish.gradle"

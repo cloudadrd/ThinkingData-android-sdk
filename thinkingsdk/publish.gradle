@@ -1,0 +1,87 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+task androidSourcesJar(type: Jar) {
+    classifier = 'sources'
+    from android.sourceSets.main.java.source
+
+    exclude "**/R.class"
+    exclude "**/BuildConfig.class"
+}
+
+ext["signing.keyId"] = ''
+ext["signing.password"] = ''
+ext["signing.secretKeyRingFile"] = ''
+ext["ossrhUsername"] = ''
+ext["ossrhPassword"] = ''
+
+File secretPropsFile = project.rootProject.file('local.properties')
+if (secretPropsFile.exists()) {
+    println "Found secret props file, loading props"
+    Properties p = new Properties()
+    p.load(new FileInputStream(secretPropsFile))
+    p.each { name, value ->
+        ext[name] = value
+    }
+} else {
+    println "No props file, loading env vars"
+}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId PUBLISH_GROUP_ID //开通maven central时候定义的
+            artifactId PUBLISH_ARTIFACT_ID //资源名称
+            version PUBLISH_VERSION //版本名称
+            pom {
+                name = 'dataeye-android-sdk'
+                description = 'dataeye-android-sdk'
+                url = 'https://github.com/dataeyesdk/dataeye-android-sdk'
+
+                scm {
+                    url = 'https://github.com/dataeyesdk/dataeye-android-sdk'
+                    connection = 'scm:git@github.com:dataeyesdk/dataeye-android-sdk.git'
+                    developerConnection = 'scm:git@github.com:dataeyesdk/dataeye-android-sdk.git'
+                }
+
+                licenses {
+                    license {
+                        name = 'The Apache Software License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution = 'repo'
+                        comments = 'A business-friendly OSS license'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'dataeye'
+                        name = 'dataeye'
+                        email = 'yixu.wang@eclicktech.com.cn'
+                        url = 'https://github.com/dataeyesdk/dataeye-android-sdk'
+                    }
+                }
+
+                issueManagement {
+                    system = 'Github'
+                    url = 'https://github.com/dataeyesdk/dataeye-android-sdk'
+                }
+            }
+            artifact("$buildDir/outputs/aar/${PUBLISH_ARTIFACT_ID}.aar")
+            artifact androidSourcesJar
+        }
+    }
+    repositories {
+        maven {
+            // 指定要上传的maven仓库
+            url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            //Maven仓库用户名和密码
+            credentials {
+                username ossrhUsername
+                password ossrhPassword
+            }
+        }
+    }
+}
+signing {
+    sign publishing.publications.maven
+}
