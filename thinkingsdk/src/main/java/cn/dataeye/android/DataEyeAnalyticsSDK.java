@@ -1422,6 +1422,10 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         }
     }
 
+    public void setEnableEncrypt(boolean enableEncrypt) {
+        mConfig.setEnableEncrypt(enableEncrypt);
+    }
+
     @Override
     public void setViewID(View view, String viewID) {
         if (hasDisabled()) return;

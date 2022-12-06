@@ -75,6 +75,11 @@ public class DataEyeEncrypt {
             if (config == null) {
                 return json;
             }
+
+            if(!config.isEnableEncrypt()){
+                return json;
+            }
+
             SecreteKey secreteKey = config.getSecreteKey();
 
             if (!isSecretKeyValid(secreteKey)) {

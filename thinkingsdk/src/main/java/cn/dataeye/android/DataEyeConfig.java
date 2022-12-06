@@ -381,6 +381,10 @@ public class DataEyeConfig {
         return enableEncrypt;
     }
 
+    public void setEnableEncrypt(boolean enableEncrypt) {
+        this.enableEncrypt = enableEncrypt;
+    }
+
     public SecreteKey getSecreteKey() {
         return secreteKey;
     }

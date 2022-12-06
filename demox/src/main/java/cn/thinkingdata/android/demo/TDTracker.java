@@ -22,9 +22,9 @@ public class TDTracker {
      * http://数据采集地址:9080
      */
 //    private static final String TA_SERVER_URL = "http://172.31.4.170:8080/v1/sdk/report";
-//    private static final String TA_SERVER_URL = "http://deapi.adsgreat.cn/v1/sdk/report";
+    private static final String TA_SERVER_URL = "http://deapi.adsgreat.cn/v1/sdk/report";
 //    private static final String TA_SERVER_URL = "http://172.30.139.126/v1/sdk/encrypted_report";
-    private static final String TA_SERVER_URL = "http://172.30.139.126/v1/sdk/report";
+//    private static final String TA_SERVER_URL = "http://172.30.139.126/v1/sdk/report";
 
     private static DataEyeAnalyticsSDK mInstance;
     private static DataEyeAnalyticsSDK mDebugInstance;
@@ -57,6 +57,7 @@ public class TDTracker {
     static void initThinkingDataSDK(Context context) {
         Context mContext = context.getApplicationContext();
         mInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, "1007", TA_SERVER_URL);//TA_APP_ID
+        mInstance.setEnableEncrypt(true);
         mDebugInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, TA_APP_ID_DEBUG, TA_SERVER_URL);
         setUp();
     }
