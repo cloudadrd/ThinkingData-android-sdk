@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ThinkingDataDemo</string>
+    <string name="app_name">DataEyeDemo</string>
     <string name="edit_username">Enter your user name</string>
     <string name="button_login">Login</string>
     <string name="button_logout">Logout</string>
