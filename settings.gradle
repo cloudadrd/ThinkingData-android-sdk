@@ -1,1 +1,1 @@
-include ':thinkingsdk', ':aopplugin', ':demox'
+include ':thinkingsdk', ':demox'
