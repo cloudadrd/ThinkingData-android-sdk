@@ -33,7 +33,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
 
 public class DataEyeConfig {
-    public static final String VERSION = BuildConfig.VERSION_NAME;
+    public static final String VERSION = BuildConfig.DATAEYE_VERSION;
 
     private static final DataEyeSharedPreferencesLoader sPrefsLoader = new DataEyeSharedPreferencesLoader();
     private static final String PREFERENCE_NAME_PREFIX = "cn.dataeye.android.config";

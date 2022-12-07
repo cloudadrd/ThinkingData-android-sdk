@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 
 version = VERSION_NAME_SDK
+
 android {
     compileSdkVersion 29
 
@@ -18,6 +19,8 @@ android {
         testApplicationId "cn.thinkingdata.analytics"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
+
+        buildConfigField("String", "DATAEYE_VERSION", "\"${version}\"")
     }
     testOptions {
         execution 'ANDROIDX_TEST_ORCHESTRATOR'
