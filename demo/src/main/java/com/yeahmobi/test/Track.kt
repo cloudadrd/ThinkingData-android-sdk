@@ -3,6 +3,7 @@ package com.yeahmobi.test
 import android.content.Context
 import android.util.Log
 import cn.dataeye.android.DataEyeAnalyticsSDK
+import cn.dataeye.android.DataEyeAnalyticsSDK.AutoTrackEventType
 import cn.dataeye.android.DataEyeConfig
 import cn.dataeye.android.utils.DataEyeLog
 import org.json.JSONArray
@@ -24,17 +25,31 @@ object Track {
     private const val TA_SERVER_URL = "http://deapi.adsgreat.cn/v1/sdk/report"
 
     private lateinit var instance: DataEyeAnalyticsSDK
+    private lateinit var config: DataEyeConfig
 
     fun init(context: Context) {
         DataEyeLog.setEnableLog(true)
 
-        val config = DataEyeConfig.getInstance(context, TA_APP_ID, TA_SERVER_URL)
-        config.mode = DataEyeConfig.ModeEnum.DEBUG
+        config = DataEyeConfig.getInstance(context, TA_APP_ID, TA_SERVER_URL)
+        config.isEnableEncrypt = false;
+        config.defaultTimeZone
         instance = DataEyeAnalyticsSDK.sharedInstance(config)
-        instance.setEnableEncrypt(false)
+        setAutoEvent()
     }
 
-    fun track(){
+    private fun setAutoEvent() {
+
+        val eventTypeList1: MutableList<AutoTrackEventType> = ArrayList()
+        eventTypeList1.add(AutoTrackEventType.APP_INSTALL)
+        eventTypeList1.add(AutoTrackEventType.APP_START)
+        eventTypeList1.add(AutoTrackEventType.APP_END)
+        eventTypeList1.add(AutoTrackEventType.APP_VIEW_SCREEN);
+        eventTypeList1.add(AutoTrackEventType.APP_CLICK);
+        eventTypeList1.add(AutoTrackEventType.APP_CRASH);
+        instance.enableAutoTrack(eventTypeList1)
+    }
+
+    fun track() {
         val properties = JSONObject()
         try {
             properties.put("KEY_STRING", "A string value")
@@ -98,6 +113,46 @@ object Track {
             }
             return@setDynamicSuperPropertiesTracker dynamicSuperProperties
         }
+    }
+
+    fun testEventDurationStart() {
+        instance.timeEvent("stay_shop")
+    }
+
+    fun testEventDurationEnd() {
+        try {
+            instance.track("stay_shop")
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun testUserSet() {
+        try {
+            //此时username为TA
+            val properties = JSONObject()
+            properties.put("username", "TA")
+            instance.user_set(properties)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    fun getDeviceId() {
+        val deviceId = instance.deviceId
+        Log.d(TAG, "getDeviceId: deviceId = $deviceId")
+    }
+
+    fun setTimeZone() {
+        config.defaultTimeZone = TimeZone.getTimeZone("UTC")
+    }
+
+    fun deleteTimeZone() {
+        config.defaultTimeZone = null
+    }
+
+    fun getLocal() {
     }
 
     fun flush() {

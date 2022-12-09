@@ -75,6 +75,75 @@
         app:layout_constraintTop_toTopOf="@id/button_get_super" />
 
     <Button
+        android:id="@+id/button_start_duration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Start Duration"
+        app:layout_constraintEnd_toStartOf="@id/button_dynamic_super"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_get_super" />
+
+    <Button
+        android:id="@+id/button_end_duration"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="End Duration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button_start_duration"
+        app:layout_constraintTop_toTopOf="@id/button_start_duration" />
+
+    <Button
+        android:id="@+id/button_user_set"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="User Set"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_start_duration" />
+
+    <Button
+        android:id="@+id/button_get_did"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="设备id"
+        app:layout_constraintEnd_toStartOf="@id/button_set_timezone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_user_set" />
+
+    <Button
+        android:id="@+id/button_set_timezone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:padding="0dp"
+        android:text="设置时区"
+        app:layout_constraintEnd_toStartOf="@id/button_del_timezone"
+        app:layout_constraintStart_toEndOf="@id/button_get_did"
+        app:layout_constraintTop_toTopOf="@id/button_get_did" />
+
+    <Button
+        android:id="@+id/button_del_timezone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="0dp"
+        android:text="删除时区"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/button_set_timezone"
+        app:layout_constraintTop_toTopOf="@id/button_get_did" />
+
+
+    <Button
         android:id="@+id/button_flush"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

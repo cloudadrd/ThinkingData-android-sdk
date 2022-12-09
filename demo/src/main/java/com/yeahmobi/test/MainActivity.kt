@@ -35,6 +35,32 @@ class MainActivity : AppCompatActivity() {
             Track.setDynamicSuperProperties()
         }
 
+        findViewById<Button>(R.id.button_start_duration).setOnClickListener {
+            Track.testEventDurationStart()
+        }
+
+        findViewById<Button>(R.id.button_end_duration).setOnClickListener {
+            Track.testEventDurationEnd()
+        }
+
+        findViewById<Button>(R.id.button_user_set).setOnClickListener {
+            Track.testUserSet()
+        }
+
+        findViewById<Button>(R.id.button_get_did).setOnClickListener {
+            Track.getDeviceId()
+        }
+
+        findViewById<Button>(R.id.button_set_timezone).setOnClickListener {
+            Track.setTimeZone()
+        }
+
+        findViewById<Button>(R.id.button_del_timezone).setOnClickListener {
+            Track.deleteTimeZone()
+        }
+
+
+
         findViewById<Button>(R.id.button_flush).setOnClickListener {
             Track.flush()
         }
