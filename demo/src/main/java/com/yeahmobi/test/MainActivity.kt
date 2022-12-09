@@ -1,10 +1,15 @@
 package com.yeahmobi.test
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
+import cn.dataeye.android.DataEyeScreenAutoTracker
+import org.json.JSONObject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , DataEyeScreenAutoTracker {
+
+    private lateinit var crashTest:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -59,10 +64,23 @@ class MainActivity : AppCompatActivity() {
             Track.deleteTimeZone()
         }
 
-
+        findViewById<Button>(R.id.button_crash).setOnClickListener {
+            Log.d("Main", "onCreate: $crashTest")
+        }
 
         findViewById<Button>(R.id.button_flush).setOnClickListener {
             Track.flush()
         }
+    }
+
+    override fun getScreenUrl(): String {
+        return "main_page"
+    }
+
+    override fun getTrackProperties(): JSONObject {
+        val jsonObject = JSONObject()
+        jsonObject.put("param1", "ABCD")
+        jsonObject.put("param2", "thinkingdata")
+        return jsonObject
     }
 }

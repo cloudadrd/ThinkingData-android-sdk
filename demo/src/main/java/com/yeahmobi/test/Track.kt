@@ -35,6 +35,8 @@ object Track {
         config.defaultTimeZone
         instance = DataEyeAnalyticsSDK.sharedInstance(config)
         setAutoEvent()
+
+        setIgnoreAppView()
     }
 
     private fun setAutoEvent() {
@@ -47,6 +49,10 @@ object Track {
         eventTypeList1.add(AutoTrackEventType.APP_CLICK);
         eventTypeList1.add(AutoTrackEventType.APP_CRASH);
         instance.enableAutoTrack(eventTypeList1)
+    }
+
+    private fun setIgnoreAppView() {
+        instance.ignoreAutoTrackActivity(MainActivity::class.java)
     }
 
     fun track() {
@@ -153,6 +159,7 @@ object Track {
     }
 
     fun getLocal() {
+
     }
 
     fun flush() {
