@@ -629,12 +629,10 @@ public class DataEyeDataHandle {
                         throw e;
                     }
 
-                    deleteEvents = true;
                     String dataString = dataObj.toString();
                     String response = mPoster.performRequest(config.getServerUrl(), dataString, false, config.getSSLSocketFactory(), createExtraHeaders(String.valueOf(myJsonArray.length())));
-//                    JSONObject responseJson = new JSONObject(response);
-//                    String ret = responseJson.getString("code");
-//                    DataEyeLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
+                    deleteEvents = checkResponse(response);
+                    DataEyeLog.i(TAG, "upload message:\n" + dataObj.toString(4));
                 } catch (final RemoteService.ServiceUnavailableException e) {
                     deleteEvents = false;
                     errorMessage = "Cannot post message to [" + config.getServerUrl() + "] due to " + e.getMessage();
@@ -661,6 +659,19 @@ public class DataEyeDataHandle {
                     }
                 }
             } while (count > 0);
+        }
+
+        private boolean checkResponse(String response) {
+            try {
+                JSONObject responseJson = new JSONObject(response);
+                int responseCode = responseJson.optInt("code", -1);
+                DataEyeLog.d(TAG, "checkResponse, responseCode = " + responseCode);
+                boolean isSuccess = responseCode == 10000;
+                return isSuccess;
+            } catch (Exception e) {
+                DataEyeLog.d(TAG, "checkResponse, e = " + e.getMessage());
+                return false;
+            }
         }
 
         private Map<String, String> createExtraHeaders(String count) {
