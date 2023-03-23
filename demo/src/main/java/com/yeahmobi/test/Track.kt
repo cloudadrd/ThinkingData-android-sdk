@@ -19,10 +19,10 @@ object Track {
 
 
     // 海外
-//    private const val TA_SERVER_URL = "https://deapi.gmoneygame.xyz/v1/sdk/report"
+    private const val TA_SERVER_URL = "https://deapi.gmoneygame.xyz/v1/sdk/report"
 
     // 国内
-    private const val TA_SERVER_URL = "http://deapi.adsgreat.cn/v1/sdk/report"
+//    private const val TA_SERVER_URL = "http://deapi.adsgreat.cn/v1/sdk/report"
 
     private lateinit var instance: DataEyeAnalyticsSDK
     private lateinit var config: DataEyeConfig
@@ -31,7 +31,7 @@ object Track {
         DataEyeLog.setEnableLog(true)
 
         config = DataEyeConfig.getInstance(context, TA_APP_ID, TA_SERVER_URL)
-        config.isEnableEncrypt = false;
+//        config.isEnableEncrypt = false;
         config.defaultTimeZone
         instance = DataEyeAnalyticsSDK.sharedInstance(config)
         setAutoEvent()

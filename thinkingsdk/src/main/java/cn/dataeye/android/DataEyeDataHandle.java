@@ -679,18 +679,35 @@ public class DataEyeDataHandle {
             for (int i = 0; i < uploadDataArray.length(); i++) {
                 try {
                     JSONObject srcData = uploadDataArray.getJSONObject(i);
-                    DataEyeLog.d(TAG,"srcData = "+ srcData);
                     JSONObject decryptData = srcData;
 
                     DataEyeEncrypt encrypt = DataEyeEncrypt.getInstance(config.mToken);
                     if (encrypt != null && DataEyeEncryptUtils.isEncryptedData(srcData)) {
                         decryptData = encrypt.decryptTrackData(srcData);
                     }
-                    DataEyeLog.d(TAG,"decryptData = "+ decryptData);
-
                     DataEyeDataDescription.checkDataBeforeUpload(config, decryptData);
+                    JSONObject finalData = decryptData;
+                    if (encrypt != null) {
+                        finalData = encrypt.encryptTrackData(decryptData);
+                    }
+                    uploadDataArray.put(i, finalData);
+                } catch (Exception e) {
 
-                    DataEyeLog.d(TAG,"update decryptData = "+ decryptData);
+                }
+            }
+        }
+
+        private void printUploadData(DataEyeConfig config, JSONArray uploadDataArray) {
+            for (int i = 0; i < uploadDataArray.length(); i++) {
+                try {
+                    JSONObject srcData = uploadDataArray.getJSONObject(i);
+                    JSONObject decryptData = srcData;
+
+                    DataEyeEncrypt encrypt = DataEyeEncrypt.getInstance(config.mToken);
+                    if (encrypt != null && DataEyeEncryptUtils.isEncryptedData(srcData)) {
+                        decryptData = encrypt.decryptTrackData(srcData);
+                    }
+                    DataEyeLog.d(TAG, "printUploadData decryptData = " + decryptData);
                 } catch (Exception e) {
 
                 }
