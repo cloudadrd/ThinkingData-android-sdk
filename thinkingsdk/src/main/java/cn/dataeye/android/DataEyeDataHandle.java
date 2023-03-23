@@ -614,6 +614,7 @@ public class DataEyeDataHandle {
                     JSONArray myJsonArray;
                     try {
                         myJsonArray = new JSONArray(clickData);
+                        checkUploadData(config, myJsonArray);
                     } catch (JSONException e) {
                         DataEyeLog.w(TAG, "The data is invalid: " + clickData);
                         throw e;
@@ -671,6 +672,28 @@ public class DataEyeDataHandle {
             } catch (Exception e) {
                 DataEyeLog.d(TAG, "checkResponse, e = " + e.getMessage());
                 return false;
+            }
+        }
+
+        private void checkUploadData(DataEyeConfig config, JSONArray uploadDataArray) {
+            for (int i = 0; i < uploadDataArray.length(); i++) {
+                try {
+                    JSONObject srcData = uploadDataArray.getJSONObject(i);
+                    DataEyeLog.d(TAG,"srcData = "+ srcData);
+                    JSONObject decryptData = srcData;
+
+                    DataEyeEncrypt encrypt = DataEyeEncrypt.getInstance(config.mToken);
+                    if (encrypt != null && DataEyeEncryptUtils.isEncryptedData(srcData)) {
+                        decryptData = encrypt.decryptTrackData(srcData);
+                    }
+                    DataEyeLog.d(TAG,"decryptData = "+ decryptData);
+
+                    DataEyeDataDescription.checkDataBeforeUpload(config, decryptData);
+
+                    DataEyeLog.d(TAG,"update decryptData = "+ decryptData);
+                } catch (Exception e) {
+
+                }
             }
         }
 

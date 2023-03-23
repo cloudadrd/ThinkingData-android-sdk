@@ -3,11 +3,18 @@ package cn.dataeye.android;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.bun.miitmdid.core.MdidSdkHelper;
+import com.bun.miitmdid.interfaces.IIdentifierListener;
+import com.bun.miitmdid.interfaces.IdSupplier;
+
 import cn.dataeye.android.encrypt.SecreteKey;
 import cn.dataeye.android.persistence.StorageFlushBulkSize;
 import cn.dataeye.android.persistence.StorageFlushInterval;
+import cn.dataeye.android.persistence.StorageGAID;
+import cn.dataeye.android.persistence.StorageOAID;
 import cn.dataeye.android.persistence.StorageRemoteConfig;
 import cn.dataeye.android.utils.DataEyeLog;
+import cn.dataeye.android.utils.DataEyeUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +32,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -49,6 +58,11 @@ public class DataEyeConfig {
     private StorageRemoteConfig remoteConfigStorage;
     private boolean enableEncrypt = true;
     private SecreteKey secreteKey = null;
+
+    final ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
+
+    private final StorageOAID mOAID;
+    private final StorageGAID mGAID;
 
     /**
      * 实例运行模式, 默认为 NORMAL 模式.
@@ -181,6 +195,12 @@ public class DataEyeConfig {
         mFlushBulkSize = new StorageFlushBulkSize(storedSharedPrefs, DEFAULT_FLUSH_BULK_SIZE);
         remoteConfigStorage = new StorageRemoteConfig(storedSharedPrefs);
 
+        mOAID = new StorageOAID(storedSharedPrefs);
+        mGAID = new StorageGAID(storedSharedPrefs);
+
+        initGaid();
+        initOaid();
+
         parseRemoteConfig(remoteConfigStorage.get());
     }
 
@@ -266,6 +286,56 @@ public class DataEyeConfig {
     private void parseRemoteConfig(JSONObject remoteConfigJsonData) {
         DateEyeRemoteConfig remoteConfig = DateEyeRemoteConfig.parseConfig(remoteConfigJsonData);
         secreteKey = remoteConfig.secreteKey;
+    }
+
+    private void initGaid() {
+
+        singleThreadExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                String GAID = DataEyeUtils.getGAID(mContext);
+                if (GAID != null) {
+                    mGAID.put(GAID);
+                }
+            }
+        });
+
+    }
+
+    private void initOaid() {
+        singleThreadExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                //设置oaid
+                try {
+                    MdidSdkHelper.InitSdk(mContext, true, new IIdentifierListener() {
+                        @Override
+                        public void OnSupport(boolean b, final IdSupplier idSupplier) {
+                            if (idSupplier != null && idSupplier.isSupported()) {
+                                mOAID.put(idSupplier.getOAID());
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    mOAID.put("");
+                }
+            }
+        });
+    }
+
+    String getOAID() {
+        if (null == mOAID) return null;
+        synchronized (mOAID) {
+            return mOAID.get();
+        }
+    }
+
+    String getGAID() {
+        if (null == mGAID) return null;
+        synchronized (mGAID) {
+            return mGAID.get();
+        }
     }
 
     String getServerUrl() {

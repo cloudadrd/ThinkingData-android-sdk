@@ -46,10 +46,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import com.bun.miitmdid.core.MdidSdkHelper;
-import com.bun.miitmdid.interfaces.IIdentifierListener;
-import com.bun.miitmdid.interfaces.IdSupplier;
-
 public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     /**
@@ -168,18 +164,6 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         return DataEyeDataHandle.getInstance(context);
     }
 
-
-    static final Boolean[] OAID_GAID_SYNC = new Boolean[]{false, false};
-
-    Object object = new Object();
-
-    private void notifyMe() {
-        synchronized (object) {
-            OAID_GAID_SYNC.notifyAll();
-        }
-
-    }
-
     /**
      * SDK 构造函数，需要传入 TDConfig 实例. 用户可以获取 TDConfig 实例， 并做相关配置后初始化 SDK.
      *
@@ -195,8 +179,6 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             mSuperProperties = null;
             mOptOutFlag = null;
             mEnableFlag = null;
-            mOAID = null;
-            mGAID = null;
             mReyunAppID = null;
             mEnableTrackOldData = false;
             mTrackTimer = new HashMap<>();
@@ -224,53 +206,11 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         mSuperProperties = new StorageSuperProperties(storedPrefs);
         mOptOutFlag = new StorageOptOutFlag(storedPrefs);
         mEnableFlag = new StorageEnableFlag(storedPrefs);
-        mOAID = new StorageOAID(storedPrefs);
-        mGAID = new StorageGAID(storedPrefs);
         mReyunAppID = new StorageReyunAppID(storedPrefs);
         mDataEyeSystemInformation = DataEyeSystemInformation.getInstance(config.mContext);
 
         //设置aid到accountid
         mLoginId.put(mDataEyeSystemInformation.getAndroidID(config.mContext));
-
-
-        //设置gaid
-        new Thread() {
-            @Override
-            public void run() {
-                synchronized (object) {
-                    String GAID = DataEyeUtils.getGAID(config.mContext);
-                    if (GAID != null) {
-                        mGAID.put(GAID);
-                    }
-                    //设置oaid
-                    try {
-                        MdidSdkHelper.InitSdk(config.mContext, true, new IIdentifierListener() {
-                            @Override
-                            public void OnSupport(boolean b, final IdSupplier idSupplier) {
-                                if (idSupplier != null && idSupplier.isSupported()) {
-                                    mOAID.put(idSupplier.getOAID());
-                                }
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        notifyMe();
-                                    }
-                                });
-
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        mOAID.put("");
-                        OAID_GAID_SYNC.notifyAll();
-                    }
-
-
-                }
-
-
-            }
-        }.start();
 
         mMessages = getDataHandleInstance(config.mContext);
         if (config.isEnableEncrypt()) {
@@ -801,21 +741,6 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         }
     }
 
-    String getOAID() {
-        if (null == mOAID) return null;
-        synchronized (mOAID) {
-            String oaid = mOAID.get();
-            return oaid;
-        }
-    }
-
-    String getGAID() {
-        if (null == mGAID) return null;
-        synchronized (mGAID) {
-            return mGAID.get();
-        }
-    }
-
     String getRandomID() {
         synchronized (sRandomIDLock) {
             return sRandomID.get();
@@ -1271,21 +1196,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             return;
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (OAID_GAID_SYNC) {
-                    try {
-                        OAID_GAID_SYNC.wait(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-
-                enableAutoTrackLast(eventTypeList);
-            }
-        }).start();
+        enableAutoTrackLast(eventTypeList);
 
     }
 
@@ -1647,8 +1558,6 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     private final StorageEnableFlag mEnableFlag;
     private final StorageOptOutFlag mOptOutFlag;
     private final StorageSuperProperties mSuperProperties;
-    private final StorageOAID mOAID;
-    private final StorageGAID mGAID;
     private final StorageReyunAppID mReyunAppID;
 
     // 动态公共属性接口

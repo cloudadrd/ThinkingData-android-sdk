@@ -1,5 +1,7 @@
 package cn.dataeye.android;
 
+import android.text.TextUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,8 +47,8 @@ class DataEyeDataDescription {
         mToken = instance.getToken();
         mDistinctId = instance.getDistinctId();
         mAccountId = instance.getLoginId();
-        mOaid = instance.getOAID();
-        mGaid = instance.getGAID();
+        mOaid = instance.mConfig.getOAID();
+        mGaid = instance.mConfig.getGAID();
     }
 
     void setNoCache() {
@@ -101,5 +103,27 @@ class DataEyeDataDescription {
         }
 
         return finalData;
+    }
+
+    public static void checkDataBeforeUpload(DataEyeConfig config, JSONObject uploadData) {
+        try {
+            String currentGaid = config.getGAID();
+            String dataGaid = uploadData.optString(DataEyeConstants.KEY_GAID);
+            if (!TextUtils.isEmpty(currentGaid) && TextUtils.isEmpty(dataGaid)) {
+                uploadData.put(DataEyeConstants.KEY_GAID, currentGaid);
+            }
+        } catch (Exception e) {
+
+        }
+
+        try {
+            String currentOaid = config.getOAID();
+            String dataOaid = uploadData.optString(DataEyeConstants.KEY_OAID);
+            if (!TextUtils.isEmpty(currentOaid) && TextUtils.isEmpty(dataOaid)) {
+                uploadData.put(DataEyeConstants.KEY_OAID, currentOaid);
+            }
+        } catch (Exception e) {
+
+        }
     }
 }
