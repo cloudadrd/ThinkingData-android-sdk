@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import cn.thinkingdata.android.utils.TDLog;
 
 public class TDWebAppInterface {
-    private final static String TAG = "DataEyeAnalytics.DataEyeWebAppInterface";
+    private final static String TAG = "TDAnalytics.DataEyeWebAppInterface";
 
     // if no exist instance has the same token with H5 data, the data will be tracked to default instance.
     private final ThinkingAnalyticsSDK defaultInstance;

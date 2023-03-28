@@ -20,7 +20,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
 
-        buildConfigField("String", "DATAEYE_VERSION", "\"${version}\"")
+        buildConfigField("String", "SDK_VERSION", "\"${version}\"")
     }
     testOptions {
         execution 'ANDROIDX_TEST_ORCHESTRATOR'
@@ -43,7 +43,7 @@ android {
     android.libraryVariants.all { variant ->
         variant.outputs.all {
             if (variant.buildType.name == 'debug') {
-                outputFileName = "DataEyeSDK-Debug-${version}.aar"
+                outputFileName = "BISDK-Debug-${version}.aar"
             } else {
 //                outputFileName = "DataEyeSDK-Release-${version}.aar"
                 outputFileName = "${PUBLISH_ARTIFACT_ID}.aar"
