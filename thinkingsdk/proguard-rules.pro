@@ -28,7 +28,7 @@
 #-keep class cn.thinkingdata.android.** {
 #*;
 #}
--keep public interface cn.thinkingdata.android.DataEyeScreenAutoTracker { *; }
+-keep public interface cn.thinkingdata.android.ScreenAutoTracker { *; }
 -keep public class cn.thinkingdata.android.TDConfig { *; }
 -keep public class cn.thinkingdata.android.TDConfig$ModeEnum { *; }
 -keep public class cn.thinkingdata.android.TDConfig$NetworkType { *; }
@@ -39,15 +39,15 @@
 -keep public class cn.thinkingdata.android.TDWebAppInterface { *; }
 
 -keep public class cn.thinkingdata.android.ThinkingAdapterViewItemTrackProperties { *; }
--keep public class cn.thinkingdata.android.DataEyeAutoTrackAppViewScreenUrl { *; }
--keep public class cn.thinkingdata.android.DataEyeFragmentTitle { *; }
--keep public class cn.thinkingdata.android.DataEyeIgnoreTrackAppClick { *; }
--keep public class cn.thinkingdata.android.DataEyeIgnoreTrackAppViewScreen { *; }
--keep public class cn.thinkingdata.android.DataEyeIgnoreTrackAppViewScreenAndAppClick { *; }
--keep public class cn.thinkingdata.android.DataEyeIgnoreTrackOnClick { *; }
--keep public class cn.thinkingdata.android.DataEyeTrackEvent { *; }
--keep public class cn.thinkingdata.android.DataEyeTrackViewOnClick { *; }
--keep public class cn.thinkingdata.android.DataEyeExpandableListViewItemTrackProperties { *; }
+-keep public class cn.thinkingdata.android.ThinkingDataAutoTrackAppViewScreenUrl { *; }
+-keep public class cn.thinkingdata.android.ThinkingDataFragmentTitle { *; }
+-keep public class cn.thinkingdata.android.ThinkingDataIgnoreTrackAppClick { *; }
+-keep public class cn.thinkingdata.android.ThinkingDataIgnoreTrackAppViewScreen { *; }
+-keep public class cn.thinkingdata.android.ThinkingDataIgnoreTrackAppViewScreenAndAppClick { *; }
+-keep public class cn.thinkingdata.android.ThinkingDataIgnoreTrackOnClick { *; }
+-keep public class cn.thinkingdata.android.ThinkingDataTrackEvent { *; }
+-keep public class cn.thinkingdata.android.ThinkingDataTrackViewOnClick { *; }
+-keep public class cn.thinkingdata.android.ThinkingExpandableListViewItemTrackProperties { *; }
 
 -keep public class cn.thinkingdata.android.ThinkingDataRuntimeBridge { *; }
 

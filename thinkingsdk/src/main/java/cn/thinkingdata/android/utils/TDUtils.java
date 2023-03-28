@@ -251,8 +251,8 @@ public class TDUtils {
         String title = null;
         try {
             if (fragment instanceof ScreenAutoTracker) {
-                ScreenAutoTracker dataEyeScreenAutoTracker = (ScreenAutoTracker) fragment;
-                JSONObject trackProperties = dataEyeScreenAutoTracker.getTrackProperties();
+                ScreenAutoTracker screenAutoTracker = (ScreenAutoTracker) fragment;
+                JSONObject trackProperties = screenAutoTracker.getTrackProperties();
                 if (trackProperties != null) {
                     if (trackProperties.has(TDConstants.TITLE)) {
                         title = trackProperties.optString(TDConstants.TITLE);
@@ -261,11 +261,11 @@ public class TDUtils {
             }
 
             if (TextUtils.isEmpty(title) && fragment.getClass().isAnnotationPresent(ThinkingDataFragmentTitle.class)) {
-                ThinkingDataFragmentTitle dataEyeFragmentTitle = fragment.getClass().getAnnotation(ThinkingDataFragmentTitle.class);
-                if (dataEyeFragmentTitle != null) {
-                    if (TextUtils.isEmpty(dataEyeFragmentTitle.appId()) ||
-                            token.equals(dataEyeFragmentTitle.appId())) {
-                        title = dataEyeFragmentTitle.title();
+                ThinkingDataFragmentTitle fragmentTitle = fragment.getClass().getAnnotation(ThinkingDataFragmentTitle.class);
+                if (fragmentTitle != null) {
+                    if (TextUtils.isEmpty(fragmentTitle.appId()) ||
+                            token.equals(fragmentTitle.appId())) {
+                        title = fragmentTitle.title();
                     }
                 }
             }

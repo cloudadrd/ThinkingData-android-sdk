@@ -18,7 +18,7 @@ import cn.thinkingdata.android.demo.fragment.RecyclerViewFragment;
 
 import org.json.JSONObject;
 
-public class DisplayActivity extends AppCompatActivity implements RecyclerViewFragment.OnFragmentInteractionListener, DataEyeScreenAutoTracker {
+public class DisplayActivity extends AppCompatActivity implements RecyclerViewFragment.OnFragmentInteractionListener, ScreenAutoTracker {
 
     private TextView mTextMessage;
     private String mMessage;

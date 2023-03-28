@@ -157,10 +157,10 @@ class ThinkingDataActivityLifecycleCallbacks implements Application.ActivityLife
                     TDUtils.getScreenNameAndTitleFromActivity(properties, activity);
 
                     if (activity instanceof ScreenAutoTracker) {
-                        ScreenAutoTracker dataEyeScreenAutoTracker = (ScreenAutoTracker) activity;
+                        ScreenAutoTracker screenAutoTracker = (ScreenAutoTracker) activity;
 
-                        String screenUrl = dataEyeScreenAutoTracker.getScreenUrl();
-                        JSONObject otherProperties = dataEyeScreenAutoTracker.getTrackProperties();
+                        String screenUrl = screenAutoTracker.getScreenUrl();
+                        JSONObject otherProperties = screenAutoTracker.getTrackProperties();
                         if (otherProperties != null && PropertyUtils.checkProperty(otherProperties)) {
                             TDUtils.mergeJSONObject(otherProperties, properties, mThinkingDataInstance.mConfig.getDefaultTimeZone());
                         } else {

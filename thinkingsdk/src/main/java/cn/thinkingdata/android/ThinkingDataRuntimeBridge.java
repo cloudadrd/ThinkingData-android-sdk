@@ -48,7 +48,7 @@ import java.util.Locale;
  * 自动采集模块会在相关事件发生时通过反射调用此类中的函数进行埋点.
  */
 public class ThinkingDataRuntimeBridge {
-    private final static String TAG = "DataEyeAnalytics.DataEyeRuntimeBridge";
+    private final static String TAG = "TDAnalytics.RuntimeBridge";
 
     // Called when onCreateView is executed.
     public static void onFragmentCreateView(Object fragment, View rootView) {
@@ -288,9 +288,9 @@ public class ThinkingDataRuntimeBridge {
 
 
                     if (fragment instanceof ScreenAutoTracker) {
-                        ScreenAutoTracker dataEyeScreenAutoTracker = (ScreenAutoTracker) fragment;
-                        String screenUrl = dataEyeScreenAutoTracker.getScreenUrl();
-                        JSONObject otherProperties = dataEyeScreenAutoTracker.getTrackProperties();
+                        ScreenAutoTracker screenAutoTracker = (ScreenAutoTracker) fragment;
+                        String screenUrl = screenAutoTracker.getScreenUrl();
+                        JSONObject otherProperties = screenAutoTracker.getTrackProperties();
                         if (otherProperties != null) {
                             TDUtils.mergeJSONObject(otherProperties, properties, instance.mConfig.getDefaultTimeZone());
                         }

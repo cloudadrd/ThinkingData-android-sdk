@@ -13,7 +13,7 @@ import cn.thinkingdata.android.ThinkingDataFragmentTitle;
 import cn.thinkingdata.android.demo.R;
 
 
-@DataEyeFragmentTitle(title = "ExpandableListFragment")
+@ThinkingDataFragmentTitle(title = "ExpandableListFragment")
 public class ExpandableListFragment extends BaseFragment {
 
     public String[] groupStrings = {"西游记", "水浒传", "三国演义", "红楼梦"};

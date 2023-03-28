@@ -521,15 +521,15 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
                 finalProperties.put(TDConstants.KEY_APP_VERSION, mSystemInformation.getAppVersionName());
             }
 
-            final EventTimer dataEyeEventTimer;
+            final EventTimer eventTimer;
             synchronized (mTrackTimer) {
-                dataEyeEventTimer = mTrackTimer.get(eventName);
+                eventTimer = mTrackTimer.get(eventName);
                 mTrackTimer.remove(eventName);
             }
 
-            if (null != dataEyeEventTimer) {
+            if (null != eventTimer) {
                 try {
-                    Double duration = Double.valueOf(dataEyeEventTimer.duration());
+                    Double duration = Double.valueOf(eventTimer.duration());
                     if (duration > 0) {
                         finalProperties.put(TDConstants.KEY_DURATION, duration);
                     }
@@ -1118,11 +1118,11 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
                         if (TDConstants.APP_END_EVENT_NAME.equals(entry.getKey().toString())) {
                             continue;
                         }
-                        EventTimer dataEyeEventTimer = (EventTimer) entry.getValue();
-                        if (dataEyeEventTimer != null) {
-                            long eventAccumulatedDuration = dataEyeEventTimer.getEventAccumulatedDuration() + SystemClock.elapsedRealtime() - dataEyeEventTimer.getStartTime();
-                            dataEyeEventTimer.setEventAccumulatedDuration(eventAccumulatedDuration);
-                            dataEyeEventTimer.setStartTime(SystemClock.elapsedRealtime());
+                        EventTimer eventTimer = (EventTimer) entry.getValue();
+                        if (eventTimer != null) {
+                            long eventAccumulatedDuration = eventTimer.getEventAccumulatedDuration() + SystemClock.elapsedRealtime() - eventTimer.getStartTime();
+                            eventTimer.setEventAccumulatedDuration(eventAccumulatedDuration);
+                            eventTimer.setStartTime(SystemClock.elapsedRealtime());
                         }
                     }
                 }
@@ -1589,7 +1589,7 @@ public class ThinkingAnalyticsSDK implements IThinkingAnalyticsAPI {
     TDConfig mConfig;
     private SystemInformation mSystemInformation;
 
-    private static final String TAG = "DataEyeAnalyticsSDK";
+    private static final String TAG = "ThinkingAnalyticsSDK";
 
     // 对启动事件的特殊处理，记录开启自动采集的时间
     private ITime mAutoTrackStartTime;

@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DatabaseAdapter {
-    private static final String TAG = "DataEyeAnalytics.DataEyebaseAdapter";
+    private static final String TAG = "TDAnalytics.DatabaseAdapter";
 
     public enum Table {
         EVENTS("events");

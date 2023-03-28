@@ -17,7 +17,7 @@ public class ThinkingDataEncrypt {
      * < createInstance >.
      *
      * @param token   项目ID
-     * @param mConfig DataEyeConfig
+     * @param mConfig TDConfig
      * @return {@link ThinkingDataEncrypt}
      */
     public static ThinkingDataEncrypt createInstance(String token, TDConfig mConfig) {

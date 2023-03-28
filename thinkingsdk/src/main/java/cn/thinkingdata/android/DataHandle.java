@@ -36,7 +36,7 @@ import java.util.UUID;
  */
 public class DataHandle {
 
-    private static final String TAG = "DataEyeAnalytics.DataEyeDataHandle";
+    private static final String TAG = "TDAnalytics.TDAnalyticsDataHandle";
     static final String THREAD_NAME_SAVE_WORKER = "thinkingData.sdk.saveMessageWorker";
     static final String THREAD_NAME_SEND_WORKER = "thinkingData.sdk.sendMessageWorker";
 

@@ -21,7 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 public class QuitSafelyService {
-    static final String TAG = "DataEyeAnalytics.Quit";
+    static final String TAG = "TDAnalytics.Quit";
 
     private static QuitSafelyService sInstance;
     private Context mContext;
@@ -72,7 +72,7 @@ public class QuitSafelyService {
     void start() {
         try {
             if (TDContextConfig.getInstance(mContext).quitSafelyEnabled()) {
-                mContext.startService(new Intent(mContext, DataEyeKeepAliveService.class));
+                mContext.startService(new Intent(mContext, TDKeepAliveService.class));
             }
         } catch (Exception e) {
             TDLog.w(TAG, "Unexpected exception occurred: " + e.getMessage());
@@ -85,14 +85,14 @@ public class QuitSafelyService {
 
             ThinkingAnalyticsSDK.allInstances(new ThinkingAnalyticsSDK.InstanceProcessor() {
                 @Override
-                public void process(ThinkingAnalyticsSDK dataEyeAnalyticsSDK) {
-                    dataEyeAnalyticsSDK.flush();
+                public void process(ThinkingAnalyticsSDK thinkingAnalyticsSDK) {
+                    thinkingAnalyticsSDK.flush();
                 }
             });
 
             quitSafely(DataHandle.THREAD_NAME_SAVE_WORKER, TDContextConfig.getInstance(mContext).getQuitSafelyTimeout());
             quitSafely(DataHandle.THREAD_NAME_SEND_WORKER, TDContextConfig.getInstance(mContext).getQuitSafelyTimeout());
-            mContext.stopService(new Intent(mContext, DataEyeKeepAliveService.class));
+            mContext.stopService(new Intent(mContext, TDKeepAliveService.class));
         }
     }
 
@@ -208,7 +208,7 @@ public class QuitSafelyService {
             if (notTDDebugException) {
                 processException(e);
             } else {
-                mContext.stopService(new Intent(mContext, DataEyeKeepAliveService.class));
+                mContext.stopService(new Intent(mContext, TDKeepAliveService.class));
             }
 
             if (mDefaultExceptionHandler != null) {
@@ -225,7 +225,7 @@ public class QuitSafelyService {
         }
     }
 
-    public static class DataEyeKeepAliveService extends Service {
+    public static class TDKeepAliveService extends Service {
 
         @Override
         public IBinder onBind(Intent intent) {

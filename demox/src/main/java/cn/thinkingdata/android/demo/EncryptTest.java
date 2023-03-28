@@ -64,7 +64,6 @@ public class EncryptTest {
 
     public static void test3() {
 
-//        String key = DataEyeEncryptUtils.IV_STRING;
         String key = "lkjsdfrtywabcert";
         String encryptStr = ThinkingDataEncryptUtils.aesEncrypt(key.getBytes(), content);
         Log.d(TAG, "test3: encryptStr = " + encryptStr);

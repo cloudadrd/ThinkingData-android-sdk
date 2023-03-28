@@ -476,5 +476,5 @@ public class TDConfig {
 
     private TimeZone mDefaultTimeZone;
 
-    private static final String TAG = "DataEyeAnalytics.DataEyeConfig";
+    private static final String TAG = "TDAnalytics.TDConfig";
 }
