@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import cn.dataeye.android.DataEyeScreenAutoTracker;
+import cn.thinkingdata.android.DataEyeScreenAutoTracker;
 import cn.thinkingdata.android.demo.fragment.ExpandableListFragment;
 import cn.thinkingdata.android.demo.fragment.ListViewFragment;
 import cn.thinkingdata.android.demo.fragment.RecyclerViewFragment;

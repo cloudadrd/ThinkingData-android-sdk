@@ -3,7 +3,7 @@ package cn.thinkingdata.android.demo;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import cn.dataeye.android.DataEyeIgnoreTrackAppViewScreenAndAppClick;
+import cn.thinkingdata.android.DataEyeIgnoreTrackAppViewScreenAndAppClick;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;

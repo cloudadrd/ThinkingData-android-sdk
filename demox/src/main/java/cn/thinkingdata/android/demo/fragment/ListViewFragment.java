@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.dataeye.android.DataEyeFragmentTitle;
+import cn.thinkingdata.android.DataEyeFragmentTitle;
 import cn.thinkingdata.android.demo.R;
 
 @DataEyeFragmentTitle(title = "ListViewFragment", appId = "debug-appid")

@@ -3,8 +3,8 @@ package cn.thinkingdata.android.demo;
 import android.util.Log;
 import android.util.Pair;
 
-import cn.dataeye.android.encrypt.DataEyeEncryptUtils;
-import cn.dataeye.android.utils.Base64Coder;
+import cn.thinkingdata.android.encrypt.DataEyeEncryptUtils;
+import cn.thinkingdata.android.utils.Base64Coder;
 
 public class EncryptTest {
 

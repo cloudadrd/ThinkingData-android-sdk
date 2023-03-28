@@ -29,7 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
-import cn.dataeye.android.DataEyeTrackViewOnClick;
+import cn.thinkingdata.android.DataEyeTrackViewOnClick;
 
 import java.util.ArrayList;
 import java.util.Calendar;

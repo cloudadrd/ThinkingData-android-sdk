@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.dataeye.android.DataEyeAnalyticsSDK;
+import cn.thinkingdata.android.DataEyeAnalyticsSDK;
 
 public class TDTracker {
     /**

@@ -2,10 +2,10 @@ package com.yeahmobi.test
 
 import android.content.Context
 import android.util.Log
-import cn.dataeye.android.DataEyeAnalyticsSDK
-import cn.dataeye.android.DataEyeAnalyticsSDK.AutoTrackEventType
-import cn.dataeye.android.DataEyeConfig
-import cn.dataeye.android.utils.DataEyeLog
+import cn.thinkingdata.android.DataEyeAnalyticsSDK
+import cn.thinkingdata.android.DataEyeAnalyticsSDK.AutoTrackEventType
+import cn.thinkingdata.android.DataEyeConfig
+import cn.thinkingdata.android.utils.DataEyeLog
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject

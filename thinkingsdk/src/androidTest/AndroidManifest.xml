@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.dataeye.android"
+    package="cn.thinkingdata.android"
     android:versionName="1.0">
 
     <!--
@@ -15,7 +15,7 @@
     <application android:allowBackup="true" android:label="@string/app_name"
         android:supportsRtl="true">
         <meta-data
-            android:name="cn.dataeye.android.MainProcessName"
+            android:name="cn.thinkingdata.android.MainProcessName"
             android:value="${applicationId}" />
     </application>
 

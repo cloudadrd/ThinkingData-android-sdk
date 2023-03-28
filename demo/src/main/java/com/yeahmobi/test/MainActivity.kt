@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import cn.dataeye.android.DataEyeScreenAutoTracker
+import cn.thinkingdata.android.DataEyeScreenAutoTracker
 import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() , DataEyeScreenAutoTracker {

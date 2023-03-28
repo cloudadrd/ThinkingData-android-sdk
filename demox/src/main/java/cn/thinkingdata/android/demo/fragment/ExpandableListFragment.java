@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import cn.dataeye.android.DataEyeFragmentTitle;
+import cn.thinkingdata.android.DataEyeFragmentTitle;
 import cn.thinkingdata.android.demo.R;
 
 
