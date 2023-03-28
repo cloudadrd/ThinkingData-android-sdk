@@ -85,7 +85,7 @@ public class HttpService implements RemoteService {
                 out = null;
 
                 int responseCode = connection.getResponseCode();
-                DataEyeLog.d(TAG, "ret_code:" + responseCode);
+                TDLog.d(TAG, "ret_code:" + responseCode);
                 if (responseCode == 200) {
                     in = connection.getInputStream();
                     br = new BufferedReader(new InputStreamReader(in));

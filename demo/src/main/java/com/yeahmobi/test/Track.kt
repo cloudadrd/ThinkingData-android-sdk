@@ -2,10 +2,10 @@ package com.yeahmobi.test
 
 import android.content.Context
 import android.util.Log
-import cn.thinkingdata.android.DataEyeAnalyticsSDK
-import cn.thinkingdata.android.DataEyeAnalyticsSDK.AutoTrackEventType
-import cn.thinkingdata.android.DataEyeConfig
-import cn.thinkingdata.android.utils.DataEyeLog
+import cn.thinkingdata.android.ThinkingAnalyticsSDK
+import cn.thinkingdata.android.ThinkingAnalyticsSDK.AutoTrackEventType
+import cn.thinkingdata.android.TDConfig
+import cn.thinkingdata.android.utils.TDLog
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -24,16 +24,16 @@ object Track {
     // 国内
 //    private const val TA_SERVER_URL = "http://deapi.adsgreat.cn/v1/sdk/report"
 
-    private lateinit var instance: DataEyeAnalyticsSDK
-    private lateinit var config: DataEyeConfig
+    private lateinit var instance: ThinkingAnalyticsSDK
+    private lateinit var config: TDConfig
 
     fun init(context: Context) {
-        DataEyeLog.setEnableLog(true)
+        TDLog.setEnableLog(true)
 
-        config = DataEyeConfig.getInstance(context, TA_APP_ID, TA_SERVER_URL)
+        config = TDConfig.getInstance(context, TA_APP_ID, TA_SERVER_URL)
 //        config.isEnableEncrypt = false;
         config.defaultTimeZone
-        instance = DataEyeAnalyticsSDK.sharedInstance(config)
+        instance = ThinkingAnalyticsSDK.sharedInstance(config)
         setAutoEvent()
 
         setIgnoreAppView()

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import cn.thinkingdata.android.DataEyeExpandableListViewItemTrackProperties;
+import cn.thinkingdata.android.ThinkingExpandableListViewItemTrackProperties;
 import cn.thinkingdata.android.demo.R;
 
 import org.json.JSONObject;
@@ -16,7 +16,7 @@ import org.json.JSONObject;
  * 通过实现 ThinkingExpandableListViewItemTrackProperties 实现自动采集事件中的自定义属性设置
  */
 public class ExpandableListAdapter extends BaseExpandableListAdapter
-        implements DataEyeExpandableListViewItemTrackProperties {
+        implements ThinkingExpandableListViewItemTrackProperties {
     private static final String TAG = "NormalExpandableListAda";
     private String[] groupData;
     private String[][] childData;

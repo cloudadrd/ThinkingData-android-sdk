@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import cn.thinkingdata.android.DataEyeScreenAutoTracker
+import cn.thinkingdata.android.ScreenAutoTracker
 import org.json.JSONObject
 
-class MainActivity : AppCompatActivity() , DataEyeScreenAutoTracker {
+class MainActivity : AppCompatActivity() , ScreenAutoTracker {
 
     private lateinit var crashTest:String
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -29,16 +29,16 @@
 #*;
 #}
 -keep public interface cn.thinkingdata.android.DataEyeScreenAutoTracker { *; }
--keep public class cn.thinkingdata.android.DataEyeConfig { *; }
--keep public class cn.thinkingdata.android.DataEyeConfig$ModeEnum { *; }
--keep public class cn.thinkingdata.android.DataEyeConfig$NetworkType { *; }
+-keep public class cn.thinkingdata.android.TDConfig { *; }
+-keep public class cn.thinkingdata.android.TDConfig$ModeEnum { *; }
+-keep public class cn.thinkingdata.android.TDConfig$NetworkType { *; }
 
--keep public class cn.thinkingdata.android.DataEyeFirstEvent { *; }
--keep public class cn.thinkingdata.android.DataEyeOverWritableEvent { *; }
--keep public class cn.thinkingdata.android.DataEyeAnalyticsEvent { *; }
--keep public class cn.thinkingdata.android.DataEyeWebAppInterface { *; }
+-keep public class cn.thinkingdata.android.TDFirstEvent { *; }
+-keep public class cn.thinkingdata.android.TDOverWritableEvent { *; }
+-keep public class cn.thinkingdata.android.ThinkingAnalyticsEvent { *; }
+-keep public class cn.thinkingdata.android.TDWebAppInterface { *; }
 
--keep public class cn.thinkingdata.android.DataEyeAdapterViewItemTrackProperties { *; }
+-keep public class cn.thinkingdata.android.ThinkingAdapterViewItemTrackProperties { *; }
 -keep public class cn.thinkingdata.android.DataEyeAutoTrackAppViewScreenUrl { *; }
 -keep public class cn.thinkingdata.android.DataEyeFragmentTitle { *; }
 -keep public class cn.thinkingdata.android.DataEyeIgnoreTrackAppClick { *; }
@@ -49,14 +49,14 @@
 -keep public class cn.thinkingdata.android.DataEyeTrackViewOnClick { *; }
 -keep public class cn.thinkingdata.android.DataEyeExpandableListViewItemTrackProperties { *; }
 
--keep public class cn.thinkingdata.android.DataEyeRuntimeBridge { *; }
+-keep public class cn.thinkingdata.android.ThinkingDataRuntimeBridge { *; }
 
--keep public class cn.thinkingdata.android.DataEyeAnalyticsSDK { *; }
--keep public class cn.thinkingdata.android.DataEyeAnalyticsSDK$AutoTrackEventType { *; }
--keep public class cn.thinkingdata.android.DataEyeAnalyticsSDK$ThinkingdataNetworkType { *; }
--keep public class cn.thinkingdata.android.DataEyeAnalyticsSDK$DynamicSuperPropertiesTracker{ *; }
+-keep public class cn.thinkingdata.android.ThinkingAnalyticsSDK { *; }
+-keep public class cn.thinkingdata.android.ThinkingAnalyticsSDK$AutoTrackEventType { *; }
+-keep public class cn.thinkingdata.android.ThinkingAnalyticsSDK$ThinkingdataNetworkType { *; }
+-keep public class cn.thinkingdata.android.ThinkingAnalyticsSDK$DynamicSuperPropertiesTracker{ *; }
 
--keep public class cn.thinkingdata.android.utils.DataEyeLog{ *; }
+-keep public class cn.thinkingdata.android.utils.TDLog{ *; }
 
 -keep class **.R$* {
     <fields>;

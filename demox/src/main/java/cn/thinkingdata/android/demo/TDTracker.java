@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.thinkingdata.android.DataEyeAnalyticsSDK;
+import cn.thinkingdata.android.ThinkingAnalyticsSDK;
 
 public class TDTracker {
     /**
@@ -26,19 +26,19 @@ public class TDTracker {
 //    private static final String TA_SERVER_URL = "http://172.30.139.126/v1/sdk/encrypted_report";
 //    private static final String TA_SERVER_URL = "http://172.30.139.126/v1/sdk/report";
 
-    private static DataEyeAnalyticsSDK mInstance;
-    private static DataEyeAnalyticsSDK mDebugInstance;
-    private static DataEyeAnalyticsSDK mLightInstance;
+    private static ThinkingAnalyticsSDK mInstance;
+    private static ThinkingAnalyticsSDK mDebugInstance;
+    private static ThinkingAnalyticsSDK mLightInstance;
 
-    public static DataEyeAnalyticsSDK getInstance() {
+    public static ThinkingAnalyticsSDK getInstance() {
         return mInstance;
     }
 
-    public static DataEyeAnalyticsSDK getLightInstance() {
+    public static ThinkingAnalyticsSDK getLightInstance() {
         return mLightInstance;
     }
 
-    public static DataEyeAnalyticsSDK getDebugInstance() {
+    public static ThinkingAnalyticsSDK getDebugInstance() {
         return mDebugInstance;
     }
 
@@ -47,7 +47,7 @@ public class TDTracker {
      * @param instance
      * @param debugInstance
      */
-    public static void initThinkingDataSDK(DataEyeAnalyticsSDK instance, DataEyeAnalyticsSDK debugInstance) {
+    public static void initThinkingDataSDK(ThinkingAnalyticsSDK instance, ThinkingAnalyticsSDK debugInstance) {
         mInstance = instance;
         mDebugInstance = debugInstance;
         setUp();
@@ -56,9 +56,9 @@ public class TDTracker {
     /** 初始化 TA SDK */
     static void initThinkingDataSDK(Context context) {
         Context mContext = context.getApplicationContext();
-        mInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, "1007", TA_SERVER_URL);//TA_APP_ID
+        mInstance = ThinkingAnalyticsSDK.sharedInstance(mContext, "1007", TA_SERVER_URL);//TA_APP_ID
         mInstance.setEnableEncrypt(true);
-        mDebugInstance = DataEyeAnalyticsSDK.sharedInstance(mContext, TA_APP_ID_DEBUG, TA_SERVER_URL);
+        mDebugInstance = ThinkingAnalyticsSDK.sharedInstance(mContext, TA_APP_ID_DEBUG, TA_SERVER_URL);
         setUp();
     }
 
@@ -82,10 +82,10 @@ public class TDTracker {
 //        eventTypeList.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
 //        mDebugInstance.enableAutoTrack(eventTypeList);
 
-        List<DataEyeAnalyticsSDK.AutoTrackEventType> eventTypeList1 = new ArrayList<>();
-        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
-        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_START);
-        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_END);
+        List<ThinkingAnalyticsSDK.AutoTrackEventType> eventTypeList1 = new ArrayList<>();
+        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_INSTALL);
+        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_START);
+        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_END);
 //        eventTypeList1.add(DataEyeAnalyticsSDK.AutoTrackEventType.APP_VIEW_SCREEN);
 //        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CLICK);
 //        eventTypeList1.add(ThinkingAnalyticsSDK.AutoTrackEventType.APP_CRASH);
