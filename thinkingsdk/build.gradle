@@ -76,7 +76,7 @@ makeJar.dependsOn(deleteBuild, build)
 // io.github.dataeyesdk:dataeye-android-sdk:1.0.1
 ext {
     PUBLISH_GROUP_ID = "io.github.dataeyesdk"        //项目包名
-    PUBLISH_ARTIFACT_ID = 'dataeye-android-sdk'            //项目名
+    PUBLISH_ARTIFACT_ID = 'ThinkingAnalyticsSDK'            //项目名
     PUBLISH_VERSION = version                    //版本号
 }
 apply from: "publish.gradle"

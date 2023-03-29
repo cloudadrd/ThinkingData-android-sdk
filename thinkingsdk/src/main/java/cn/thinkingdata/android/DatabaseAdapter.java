@@ -41,7 +41,7 @@ public class DatabaseAdapter {
     private static final String KEY_CREATED_AT = "creattime";
     private static final String KEY_TOKEN = "token";
 
-    private static final String DATABASE_NAME = "dataeye";
+    private static final String DATABASE_NAME = "thinking_analytics";
     private static final int DB_VERSION = 1;
 
     private static final String CREATE_EVENTS_TABLE =
