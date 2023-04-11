@@ -114,8 +114,8 @@ public class DataHandle {
      *
      * @param token APP ID
      */
-    void flush(String token) {
-        mSaveMessageWorker.triggerFlush(token);
+    void flush(String token, long delay) {
+        mSaveMessageWorker.triggerFlush(token, delay);
     }
 
     /**
@@ -157,11 +157,11 @@ public class DataHandle {
             }
         }
 
-        void triggerFlush(String token) {
+        void triggerFlush(String token,long delayTime) {
             Message msg = Message.obtain();
             msg.what = TRIGGER_FLUSH;
             msg.obj = token;
-            mHandler.sendMessage(msg);
+            mHandler.sendMessageDelayed(msg, delayTime);
         }
 
         // 清空关于 token 的数据：包括未处理的消息和本地缓存
