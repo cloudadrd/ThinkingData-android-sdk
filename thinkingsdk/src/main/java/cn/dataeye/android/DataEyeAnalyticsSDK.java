@@ -1240,7 +1240,11 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     @Override
     public void flush() {
         if (hasDisabled()) return;
-        mMessages.flush(getToken());
+        long delayTime = 0;
+        if (TextUtils.isEmpty(mConfig.getGAID()) && TextUtils.isEmpty(mConfig.getOAID())) {
+            delayTime = 2_000;
+        }
+        mMessages.flush(getToken(), delayTime);
     }
 
     /* package */ List<Class> getIgnoredViewTypeList() {
@@ -1490,7 +1494,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     public void optInTracking() {
         DataEyeLog.d(TAG, "optInTracking...");
         mOptOutFlag.put(false);
-        mMessages.flush(getToken());
+        mMessages.flush(getToken(), 0);
     }
 
     /**
