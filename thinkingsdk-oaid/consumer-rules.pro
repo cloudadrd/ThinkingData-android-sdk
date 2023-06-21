@@ -1,0 +1,1 @@
+-keep class cn.dataeye.android.oaid.OaidHelper {*;}

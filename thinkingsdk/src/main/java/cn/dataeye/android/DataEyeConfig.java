@@ -3,10 +3,6 @@ package cn.dataeye.android;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.bun.miitmdid.core.MdidSdkHelper;
-import com.bun.miitmdid.interfaces.IIdentifierListener;
-import com.bun.miitmdid.interfaces.IdSupplier;
-
 import cn.dataeye.android.encrypt.SecreteKey;
 import cn.dataeye.android.persistence.StorageFlushBulkSize;
 import cn.dataeye.android.persistence.StorageFlushInterval;
@@ -24,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -308,17 +305,16 @@ public class DataEyeConfig {
             public void run() {
                 //设置oaid
                 try {
-                    MdidSdkHelper.InitSdk(mContext, true, new IIdentifierListener() {
-                        @Override
-                        public void OnSupport(boolean b, final IdSupplier idSupplier) {
-                            if (idSupplier != null && idSupplier.isSupported()) {
-                                mOAID.put(idSupplier.getOAID());
-                            }
-                        }
-                    });
+                    Class<?> clazz = Class.forName("cn.dataeye.android.oaid.OaidHelper");
+
+                    Object obj = clazz.newInstance();
+                    Method method = clazz.getMethod("loadOaid", Context.class, StorageOAID.class);
+
+                    method.invoke(obj, mContext, mOAID);
                 } catch (Exception e) {
                     e.printStackTrace();
                     mOAID.put("");
+
                 }
             }
         });
