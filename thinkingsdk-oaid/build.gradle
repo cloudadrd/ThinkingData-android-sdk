@@ -3,12 +3,22 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+version = VERSION_NAME_OAID
+
 android {
-    compileSdkVersion 33
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 29
+        versionCode 1
+        versionName "${version}"
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
     }
 
     buildTypes {
@@ -24,10 +34,30 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    android.libraryVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.name == 'debug') {
+                outputFileName = "DataEyeSDK-Debug-${version}.aar"
+            } else {
+//                outputFileName = "DataEyeSDK-Release-${version}.aar"
+                outputFileName = "${PUBLISH_ARTIFACT_ID}.aar"
+            }
+        }
+    }
 }
 
 dependencies {
 
-    implementation files('libs/oaid_sdk_1.0.23.aar')
+    implementation(name: 'oaid_sdk_1.0.23', ext: 'aar')
     implementation project(path: ':thinkingsdk')
 }
+
+// maven central发布
+// io.github.dataeyesdk:dataeye-android-oaid:1.0.1
+ext {
+    PUBLISH_GROUP_ID = "io.github.dataeyesdk"        //项目包名
+    PUBLISH_ARTIFACT_ID = 'dataeye-android-oaid'            //项目名
+    PUBLISH_VERSION = version                    //版本号
+}
+apply from: "${getRootDir().absolutePath}/thinkingsdk//publish.gradle"
