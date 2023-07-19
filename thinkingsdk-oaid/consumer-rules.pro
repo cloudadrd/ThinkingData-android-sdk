@@ -1,0 +1,1 @@
+-keep class cn.thinkingdata.android.oaid.OaidHelper {*;}
