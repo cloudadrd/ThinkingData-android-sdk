@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class DataEyeCalibratedTimeWithNTP implements ICalibratedTime {
 
-    private final static String TAG = "ThinkingAnalytics.NTP";
+    private final static String TAG = "DataEyeAnalytics.NTP";
     private final static int DEFAULT_TIME_OUT = 3000;
 
     private long startTime;

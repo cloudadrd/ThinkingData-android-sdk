@@ -23,6 +23,9 @@ allprojects {
             url uri('../repo')
         }
         google()
+        flatDir {
+            dirs 'libs'
+        }
         jcenter()
     }
 }

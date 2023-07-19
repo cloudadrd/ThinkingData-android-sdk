@@ -26,7 +26,7 @@ import java.util.List;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks {
-    private static final String TAG = "ThinkingAnalytics.ThinkingDataActivityLifecycleCallbacks";
+    private static final String TAG = "DataEyeAnalytics.ThinkingDataActivityLifecycleCallbacks";
     private boolean resumeFromBackground = false;
     private final Object mActivityLifecycleCallbacksLock = new Object();
     private final DataEyeAnalyticsSDK mThinkingDataInstance;

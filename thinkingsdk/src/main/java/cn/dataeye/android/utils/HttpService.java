@@ -17,7 +17,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
 
 public class HttpService implements RemoteService {
-    private final static String TAG = "ThinkingAnalytics.HttpService";
+    private final static String TAG = "DataEyeAnalytics.HttpService";
 
     @Override
     public String performRequest(String endpointUrl, String params, boolean debug, SSLSocketFactory socketFactory, Map<String, String> extraHeaders) throws ServiceUnavailableException, IOException {

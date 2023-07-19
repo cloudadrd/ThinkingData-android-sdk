@@ -8,7 +8,7 @@ import java.net.InetAddress;
 
 
 class DataEyeNTPClient {
-    private static final String TAG = "ThinkingAnalytics.TDNTPClient";
+    private static final String TAG = "DataEyeAnalytics.TDNTPClient";
 
     private static final int ORIGINATE_TIME_OFFSET = 24;
     private static final int RECEIVE_TIME_OFFSET = 32;

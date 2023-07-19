@@ -49,7 +49,7 @@ android {
 
 dependencies {
 
-    implementation(name: 'oaid_sdk_1.0.23', ext: 'aar')
+    implementation(name: 'oaid_sdk_1.0.25', ext: 'aar')
     implementation project(path: ':thinkingsdk')
 }
 

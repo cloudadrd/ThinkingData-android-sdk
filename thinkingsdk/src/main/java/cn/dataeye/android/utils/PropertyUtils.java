@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class PropertyUtils {
 
-    private static final String TAG = "ThinkingAnalytics.PropertyUtils";
+    private static final String TAG = "DataEyeAnalytics.PropertyUtils";
     private static final Pattern KEY_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z\\d_]{0,49}$", Pattern.CASE_INSENSITIVE);
 
     public static boolean isInvalidName(String string){

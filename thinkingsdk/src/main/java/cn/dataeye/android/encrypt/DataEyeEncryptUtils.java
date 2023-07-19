@@ -32,7 +32,7 @@ public class DataEyeEncryptUtils {
     private static final String ALGORITHM_RSA = "RSA";
     private static final String ALGORITHM_AES = "AES";
 
-    private static final String TAG = "ThinkingAnalytics.DataEyeEncryptUtils";
+    private static final String TAG = "DataEyeAnalytics.DataEyeEncryptUtils";
 
     public static Pair<String, String> generateRSAKey() {
         try {

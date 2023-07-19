@@ -17,7 +17,7 @@ import cn.dataeye.android.utils.DataEyeLog;
  */
 public class
 DataEyeFirstEvent extends DataEyeAnalyticsEvent {
-    private static final String TAG = "ThinkingAnalytics.TDUniqueEvent";
+    private static final String TAG = "DataEyeAnalytics.TDUniqueEvent";
 
     private String mExtraValue;
 
