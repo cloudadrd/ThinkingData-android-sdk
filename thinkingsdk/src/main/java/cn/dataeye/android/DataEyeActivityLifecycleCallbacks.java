@@ -319,7 +319,7 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
             return false;
         }
 
-        return isAppForegroundWithRunningTask(context) || isAppForegroundWithRunningAppProcess(context);
+        return isAppForegroundWithRunningAppProcess(context);
     }
 
     public boolean isAppForegroundWithRunningTask(Context context) {
@@ -350,11 +350,18 @@ class DataEyeActivityLifecycleCallbacks implements Application.ActivityLifecycle
                 return false;
             }
 
-            for (ActivityManager.RunningAppProcessInfo processInfo : runningAppProcessInfoList) {
-                if (processInfo.processName.equals(context.getPackageName())
-                        && (processInfo.importance ==
-                        ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND)) {
-                    return true;
+            String processName = "";
+            for (ActivityManager.RunningAppProcessInfo appProcess : runningAppProcessInfoList) {
+                processName = appProcess.processName;
+                int p = processName.indexOf(":");
+                if (p != -1) {
+                    processName = processName.substring(0, p);
+                }
+                if (processName.equals(context.getPackageName())) {
+                    return appProcess.importance
+                            == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+                            || appProcess.importance
+                            == ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
                 }
             }
         } catch (Exception e) {
