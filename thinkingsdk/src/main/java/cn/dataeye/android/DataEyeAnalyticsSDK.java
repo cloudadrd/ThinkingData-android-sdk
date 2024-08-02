@@ -111,8 +111,22 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             if (null == instances) {
                 instances = new HashMap<>();
                 sInstanceMap.put(config.mContext, instances);
-                if (DataEyeDatabaseAdapter.dbNotExist(config.mContext)
-                        && DataEyeSystemInformation.getInstance(config.mContext).hasNotBeenUpdatedSinceInstall()) {
+                DataEyeSystemInformation systemInformation = DataEyeSystemInformation.getInstance(config.mContext);
+                long installTime = systemInformation.getFirstInstallTime();
+                long lastInstallTime = config.getLastInstallTime();
+                boolean installTimeMatched;
+                if (lastInstallTime <= 0L) {
+                    installTimeMatched = false;
+                } else {
+                    installTimeMatched = installTime <= lastInstallTime;
+                }
+                if (!installTimeMatched) {
+                    config.setLastInstallTime(installTime);
+                }
+
+                boolean hasNotUpdated = systemInformation.hasNotBeenUpdatedSinceInstall();
+                DataEyeLog.d(TAG, "sharedInstance, installTimeMatched = " + installTimeMatched + "   hasNotUpdated = " + hasNotUpdated);
+                if (!installTimeMatched && hasNotUpdated) {
                     sAppFirstInstallationMap.put(config.mContext, new LinkedList<String>());
                 }
                 DataEyeQuitSafelyService.getInstance(config.mContext).start();

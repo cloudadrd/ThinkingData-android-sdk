@@ -7,6 +7,7 @@ import cn.dataeye.android.encrypt.SecreteKey;
 import cn.dataeye.android.persistence.StorageFlushBulkSize;
 import cn.dataeye.android.persistence.StorageFlushInterval;
 import cn.dataeye.android.persistence.StorageGAID;
+import cn.dataeye.android.persistence.StorageLastInstallTime;
 import cn.dataeye.android.persistence.StorageOAID;
 import cn.dataeye.android.persistence.StorageRemoteConfig;
 import cn.dataeye.android.utils.DataEyeLog;
@@ -60,6 +61,8 @@ public class DataEyeConfig {
 
     private final StorageOAID mOAID;
     private final StorageGAID mGAID;
+
+    private final StorageLastInstallTime storageLastInstallTime;
 
     /**
      * 实例运行模式, 默认为 NORMAL 模式.
@@ -194,6 +197,7 @@ public class DataEyeConfig {
 
         mOAID = new StorageOAID(storedSharedPrefs);
         mGAID = new StorageGAID(storedSharedPrefs);
+        storageLastInstallTime = new StorageLastInstallTime(storedSharedPrefs);
 
         initGaid();
         initOaid();
@@ -325,6 +329,20 @@ public class DataEyeConfig {
         synchronized (mOAID) {
             return mOAID.get();
         }
+    }
+
+    long getLastInstallTime() {
+        if (null == storageLastInstallTime) return 0;
+        Long longValue =  storageLastInstallTime.getLong();
+        if(longValue == null){
+            return 0;
+        }
+        return longValue;
+    }
+
+    void setLastInstallTime(long lastInstallTime) {
+        if (null == storageLastInstallTime) return;
+        storageLastInstallTime.putLong(lastInstallTime);
     }
 
     String getGAID() {

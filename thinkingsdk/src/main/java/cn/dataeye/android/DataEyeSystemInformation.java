@@ -32,6 +32,7 @@ class DataEyeSystemInformation {
     private final static Object sInstanceLock = new Object();
 
     private boolean hasNotUpdated;
+    private long firstInstallTime;
 
     static void setLibraryInfo(String libName, String libVersion) {
         if (!TextUtils.isEmpty(libName)) {
@@ -62,7 +63,9 @@ class DataEyeSystemInformation {
         }
     }
 
-
+    public long getFirstInstallTime() {
+        return firstInstallTime;
+    }
 
     public boolean hasNotBeenUpdatedSinceInstall() {
         return hasNotUpdated;
@@ -80,7 +83,8 @@ class DataEyeSystemInformation {
             final PackageManager manager = context.getPackageManager();
             final PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
             mAppVersionName = info.versionName;
-            hasNotUpdated = info.firstInstallTime == info.lastUpdateTime;
+            firstInstallTime = info.firstInstallTime;
+            hasNotUpdated = firstInstallTime == info.lastUpdateTime;
             fit = info.firstInstallTime;
             DataEyeLog.d(TAG, "First Install Time: " + info.firstInstallTime);
             DataEyeLog.d(TAG, "Last Update Time: " + info.lastUpdateTime);
