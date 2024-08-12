@@ -1234,6 +1234,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                 if (sAppFirstInstallationMap.containsKey(mConfig.mContext) &&
                         sAppFirstInstallationMap.get(mConfig.mContext).contains(getToken())) {
                     track(DataEyeConstants.APP_INSTALL_EVENT_NAME);
+                    flush();
                     sAppFirstInstallationMap.get(mConfig.mContext).remove(getToken());
                 }
             }
