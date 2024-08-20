@@ -34,6 +34,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -156,7 +158,7 @@ public class DataEyeUtils {
                 } else {
                     //if (isViewIgnored(child)) {
                     //    continue;
-                   // }
+                    // }
 
                     Class<?> switchCompatClass = null;
                     try {
@@ -185,7 +187,7 @@ public class DataEyeUtils {
                         } else {
                             method = child.getClass().getMethod("getTextOff");
                         }
-                        viewText = (String)method.invoke(child);
+                        viewText = (String) method.invoke(child);
                     } else if (child instanceof RadioButton) {
                         RadioButton radioButton = (RadioButton) child;
                         viewText = radioButton.getText();
@@ -301,6 +303,7 @@ public class DataEyeUtils {
     public static String getViewId(View view) {
         return getViewId(view, null);
     }
+
     public static String getViewId(View view, String token) {
         String idString = null;
         try {
@@ -498,5 +501,17 @@ public class DataEyeUtils {
         if (TextUtils.isEmpty(source)) return source;
         if (source.length() <= length) return source;
         return source.substring(source.length() - 4);
+    }
+
+    public static String parseBaseUrl(String srcUrl) {
+        URL srcURL;
+        try {
+            srcURL = new URL(srcUrl);
+            String baseUrl = srcURL.getProtocol() + "://" + srcURL.getHost() + (srcURL.getPort() > 0 ? ":" + srcURL.getPort() : "");
+
+            return baseUrl;
+        } catch (MalformedURLException e) {
+            return "";
+        }
     }
 }

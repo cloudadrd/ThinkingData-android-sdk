@@ -21,7 +21,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -561,7 +560,7 @@ public class DataEyeDataHandle {
             String dataString = dataObj.toString();
 
 
-            String response = mPoster.performRequest(config.getServerUrl(), dataString, false, config.getSSLSocketFactory(), createExtraHeaders("1"));
+            String response = mPoster.performRequest(config.getReportUrl(), dataString, false, config.getSSLSocketFactory(), createExtraHeaders("1"));
 //            JSONObject responseJson = new JSONObject(response);
 //            String ret = responseJson.getString("code");
 //            DataEyeLog.i(TAG, "ret code: " + ret + ", upload message:\n" + dataObj.toString(4));
@@ -631,17 +630,17 @@ public class DataEyeDataHandle {
                     }
 
                     String dataString = dataObj.toString();
-                    String response = mPoster.performRequest(config.getServerUrl(), dataString, false, config.getSSLSocketFactory(), createExtraHeaders(String.valueOf(myJsonArray.length())));
+                    String response = mPoster.performRequest(config.getReportUrl(), dataString, false, config.getSSLSocketFactory(), createExtraHeaders(String.valueOf(myJsonArray.length())));
                     deleteEvents = checkResponse(response);
                     DataEyeLog.i(TAG, "upload message:\n" + dataObj.toString(4));
                 } catch (final RemoteService.ServiceUnavailableException e) {
                     deleteEvents = false;
-                    errorMessage = "Cannot post message to [" + config.getServerUrl() + "] due to " + e.getMessage();
+                    errorMessage = "Cannot post message to [" + config.getReportUrl() + "] due to " + e.getMessage();
                 } catch (MalformedInputException e) {
-                    errorMessage = "Cannot interpret " + config.getServerUrl() + " as a URL. The data will be deleted.";
+                    errorMessage = "Cannot interpret " + config.getReportUrl() + " as a URL. The data will be deleted.";
                 } catch (final IOException e) {
                     deleteEvents = false;
-                    errorMessage = "Cannot post message to [" + config.getServerUrl() + "] due to " + e.getMessage();
+                    errorMessage = "Cannot post message to [" + config.getReportUrl() + "] due to " + e.getMessage();
                 } catch (final JSONException e) {
                     deleteEvents = true;
                     errorMessage = "Cannot post message due to JSONException, the data will be deleted";

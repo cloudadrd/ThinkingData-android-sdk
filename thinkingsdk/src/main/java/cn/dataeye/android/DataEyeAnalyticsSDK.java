@@ -252,7 +252,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         }
 
         DataEyeLog.i(TAG, String.format("Thinking Analytics SDK %s instance initialized successfully with mode: %s, APP ID ends with: %s, server url: %s, device ID: %s", DataEyeConfig.VERSION,
-                config.getMode().name(), DataEyeUtils.getSuffix(config.mToken, 4), config.getServerUrl(), getDeviceId()));
+                config.getMode().name(), DataEyeUtils.getSuffix(config.mToken, 4), config.getReportUrl(), getDeviceId()));
     }
 
     /**
@@ -411,6 +411,11 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     private void track(String eventName, JSONObject properties, ITime time, boolean doFormatChecking, Map<String, String> extraFields, DataEyeConstants.DataType type) {
         if (mConfig.isDisabledEvent(eventName)) {
             DataEyeLog.d(TAG, "Ignoring disabled event [" + eventName + "]");
+            return;
+        }
+
+        if (!mConfig.isAppEnable()) {
+            DataEyeLog.d(TAG, "App is not enabled, stop track event");
             return;
         }
 

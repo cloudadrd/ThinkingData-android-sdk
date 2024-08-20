@@ -2,6 +2,7 @@ package cn.dataeye.android;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
 
 import cn.dataeye.android.encrypt.SecreteKey;
 import cn.dataeye.android.persistence.StorageFlushBulkSize;
@@ -13,7 +14,6 @@ import cn.dataeye.android.persistence.StorageRemoteConfig;
 import cn.dataeye.android.utils.DataEyeLog;
 import cn.dataeye.android.utils.DataEyeUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,6 +55,8 @@ public class DataEyeConfig {
 
     private StorageRemoteConfig remoteConfigStorage;
     private boolean enableEncrypt = true;
+
+    private DateEyeRemoteConfig remoteConfig = null;
     private SecreteKey secreteKey = null;
 
     final ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
@@ -69,10 +71,8 @@ public class DataEyeConfig {
      */
     public enum ModeEnum {
         /* 正常模式，数据会存入缓存，并依据一定的缓存策略上报 */
-        NORMAL,
-        /* Debug 模式，数据逐条上报。当出现问题时会以日志和异常的方式提示用户 */
-        DEBUG,
-        /* Debug Only 模式，只对数据做校验，不会入库 */
+        NORMAL, /* Debug 模式，数据逐条上报。当出现问题时会以日志和异常的方式提示用户 */
+        DEBUG, /* Debug Only 模式，只对数据做校验，不会入库 */
         DEBUG_ONLY
     }
 
@@ -160,18 +160,9 @@ public class DataEyeConfig {
 
             DataEyeConfig instance = instances.get(token);
             if (null == instance) {
-                URL serverUrl;
 
-                try {
-                    serverUrl = new URL(url);
-                } catch (MalformedURLException e) {
-                    DataEyeLog.e(TAG, "Invalid server URL: " + url);
-                    throw new IllegalArgumentException(e);
-                }
 
-                instance = new DataEyeConfig(appContext, token, serverUrl.getProtocol()
-                        + "://" + serverUrl.getHost()
-                        + (serverUrl.getPort() > 0 ? ":" + serverUrl.getPort() : ""), url);
+                instance = new DataEyeConfig(appContext, token, url);
                 instances.put(token, instance);
                 instance.getRemoteConfig();
             }
@@ -179,21 +170,20 @@ public class DataEyeConfig {
         }
     }
 
-    private DataEyeConfig(Context context, String token, String serverUrl, String originalUrl) {
+    private DataEyeConfig(Context context, String token, String reportUrl) {
         mContext = context.getApplicationContext();
 
-        Future<SharedPreferences> storedSharedPrefs = sPrefsLoader.loadPreferences(
-                mContext, PREFERENCE_NAME_PREFIX + "_" + token);
+        Future<SharedPreferences> storedSharedPrefs = sPrefsLoader.loadPreferences(mContext, PREFERENCE_NAME_PREFIX + "_" + token);
         mContextConfig = DataEyeContextConfig.getInstance(mContext);
-
-        mToken = token;
-        mServerUrl = originalUrl;
-        mDebugUrl = serverUrl + "/data_debug";
-        mConfigUrl = serverUrl + "/v1/settings";
 
         mFlushInterval = new StorageFlushInterval(storedSharedPrefs, DEFAULT_FLUSH_INTERVAL);
         mFlushBulkSize = new StorageFlushBulkSize(storedSharedPrefs, DEFAULT_FLUSH_BULK_SIZE);
         remoteConfigStorage = new StorageRemoteConfig(storedSharedPrefs);
+
+        parseRemoteConfig(remoteConfigStorage.get());
+
+        mToken = token;
+        handleUrl(reportUrl);
 
         mOAID = new StorageOAID(storedSharedPrefs);
         mGAID = new StorageGAID(storedSharedPrefs);
@@ -201,8 +191,21 @@ public class DataEyeConfig {
 
         initGaid();
         initOaid();
+    }
 
-        parseRemoteConfig(remoteConfigStorage.get());
+    private void handleUrl(String configReportUrl) {
+        String newestReportUrl = configReportUrl;
+        if (remoteConfig != null && !TextUtils.isEmpty(remoteConfig.getUpUrl())) {
+            newestReportUrl = remoteConfig.getUpUrl();
+        }
+
+        String baseUrl = DataEyeUtils.parseBaseUrl(newestReportUrl);
+        mBaseUrl = baseUrl;
+        mReportUrl = newestReportUrl;
+        mDebugUrl = baseUrl + "/data_debug";
+        mConfigUrl = baseUrl + "/v1/settings?app_id=" + mToken;
+
+        DataEyeLog.d(TAG, "handleUrl, new report url = " + mReportUrl);
     }
 
     synchronized boolean isShouldFlush(String networkType) {
@@ -256,6 +259,7 @@ public class DataEyeConfig {
                             JSONObject data = rjson.optJSONObject("data");
                             remoteConfigStorage.put(data);
                             parseRemoteConfig(data);
+                            handleUrl(mReportUrl);
                         }
 
                         in.close();
@@ -285,7 +289,7 @@ public class DataEyeConfig {
     }
 
     private void parseRemoteConfig(JSONObject remoteConfigJsonData) {
-        DateEyeRemoteConfig remoteConfig = DateEyeRemoteConfig.parseConfig(remoteConfigJsonData);
+        remoteConfig = DateEyeRemoteConfig.parseConfig(remoteConfigJsonData);
         secreteKey = remoteConfig.secreteKey;
     }
 
@@ -333,8 +337,8 @@ public class DataEyeConfig {
 
     long getLastInstallTime() {
         if (null == storageLastInstallTime) return 0;
-        Long longValue =  storageLastInstallTime.getLong();
-        if(longValue == null){
+        Long longValue = storageLastInstallTime.getLong();
+        if (longValue == null) {
             return 0;
         }
         return longValue;
@@ -352,8 +356,16 @@ public class DataEyeConfig {
         }
     }
 
-    String getServerUrl() {
-        return mServerUrl;
+    boolean isAppEnable() {
+        if (remoteConfig == null) {
+            return true;
+        }
+
+        return remoteConfig.isStatus();
+    }
+
+    String getReportUrl() {
+        return mReportUrl;
     }
 
     String getDebugUrl() {
@@ -481,9 +493,10 @@ public class DataEyeConfig {
 
     private final StorageFlushInterval mFlushInterval;
     private final StorageFlushBulkSize mFlushBulkSize;
-    private final String mServerUrl;
-    private final String mDebugUrl;
-    private final String mConfigUrl;
+    private String mBaseUrl;
+    private String mReportUrl;
+    private String mDebugUrl;
+    private String mConfigUrl;
     final String mToken;
     final Context mContext;
 
