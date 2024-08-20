@@ -414,11 +414,6 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             return;
         }
 
-        if (!mConfig.isAppEnable()) {
-            DataEyeLog.d(TAG, "App is not enabled, stop track event");
-            return;
-        }
-
         try {
             if (doFormatChecking && PropertyUtils.isInvalidName(eventName)) {
                 DataEyeLog.w(TAG, "Event name[" + eventName + "] is invalid. Event name must be string that starts with English letter, " +
@@ -492,6 +487,11 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     }
 
     void trackInternal(DataEyeDataDescription dataEyeDataDescription) {
+        if (!mConfig.isAppEnable()) {
+            DataEyeLog.d(TAG, "App is not enabled, stop track event");
+            return;
+        }
+
         if (mConfig.isDebugOnly() || mConfig.isDebug()) {
             mMessages.postToDebug(dataEyeDataDescription);
         } else if (dataEyeDataDescription.saveData) {
