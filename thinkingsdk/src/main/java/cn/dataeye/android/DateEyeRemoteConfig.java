@@ -11,7 +11,7 @@ public class DateEyeRemoteConfig {
     private static final String TAG = "DateEyeRemoteConfig";
     public SecreteKey secreteKey;
 
-    private boolean status;
+    private boolean status = true;
     private String upUrl;
 
     public boolean isStatus() {
@@ -42,7 +42,7 @@ public class DateEyeRemoteConfig {
 
             if (data.has("prd_info")) {
                 JSONObject infoJson = data.getJSONObject("prd_info");
-                boolean status = infoJson.optBoolean("status");
+                boolean status = infoJson.optBoolean("status", true);
                 String upUrl = infoJson.optString("up-url");
 
                 config.status = status;
