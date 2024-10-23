@@ -15,7 +15,7 @@ object Track {
 
     private const val TAG = "TrackTAG"
 
-    private const val TA_APP_ID = "9999"
+    private const val TA_APP_ID = "999"
 
 
     // 海外
@@ -34,7 +34,14 @@ object Track {
 //        config.isEnableEncrypt = false;
         config.defaultTimeZone
         instance = DataEyeAnalyticsSDK.sharedInstance(config)
-        setAutoEvent()
+
+
+        val superPro = JSONObject()
+        instance.superProperties = superPro
+
+        instance.setEnableEncrypt(false)
+
+        DataEyeAnalyticsSDK.calibrateTimeWithNtp("time.apple.com")
 
         setIgnoreAppView()
 

@@ -12,6 +12,8 @@ class DataEyeNTPClient {
 
     private static final int ORIGINATE_TIME_OFFSET = 24;
     private static final int RECEIVE_TIME_OFFSET = 32;
+
+    // 传输时间戳
     private static final int TRANSMIT_TIME_OFFSET = 40;
     private static final int NTP_PACKET_SIZE = 48;
 
@@ -34,7 +36,9 @@ class DataEyeNTPClient {
         try {
             socket = new DatagramSocket();
             socket.setSoTimeout(timeout);
+            DataEyeLog.d(TAG, "request host = " + host);
             InetAddress address = InetAddress.getByName(host);
+            DataEyeLog.d(TAG, "request host = " + host + "   address = " + address);
             byte[] buffer = new byte[NTP_PACKET_SIZE];
             DatagramPacket request = new DatagramPacket(buffer, buffer.length, address, NTP_PORT);
 
@@ -47,18 +51,23 @@ class DataEyeNTPClient {
             long requestTime = System.currentTimeMillis();
             long requestTicks = SystemClock.elapsedRealtime();
             writeTimeStamp(buffer, TRANSMIT_TIME_OFFSET, requestTime);
-
+            DataEyeLog.d(TAG, "request host = " + host + " start send ");
             socket.send(request);
+            DataEyeLog.d(TAG, "request host = " + host + " end send ");
 
             // read the response
             DatagramPacket response = new DatagramPacket(buffer, buffer.length);
             socket.receive(response);
+            DataEyeLog.d(TAG, "request host = " + host + " receive");
             long responseTicks = SystemClock.elapsedRealtime();
             long responseTime = requestTime + (responseTicks - requestTicks);
 
             // extract the results
+            // 请求数据包从客户端发出的时间戳的秒数部分
             long originateTime = readTimeStamp(buffer, ORIGINATE_TIME_OFFSET);
+            // 请求数据包到达服务器的时间戳的秒数部分
             long receiveTime = readTimeStamp(buffer, RECEIVE_TIME_OFFSET);
+            // 服务器发送响应数据包的时间戳的秒数部分
             long transmitTime = readTimeStamp(buffer, TRANSMIT_TIME_OFFSET);
             long roundTripTime = responseTicks - requestTicks - (transmitTime - receiveTime);
             // receiveTime = originateTime + transit + skew
@@ -72,9 +81,10 @@ class DataEyeNTPClient {
             long clockOffset = ((receiveTime - originateTime) + (transmitTime - responseTime)) / 2;
             // if (false) Log.d(TAG, "round trip: " + roundTripTime + " ms");
             // if (false) Log.d(TAG, "clock offset: " + clockOffset + " ms");
+            DataEyeLog.d(TAG, "request time clockOffset: " + clockOffset);
             mOffSet = clockOffset;
         } catch (Exception e) {
-            if (false) DataEyeLog.d(TAG, "request time failed: " + e);
+            DataEyeLog.d(TAG, "request time failed: " + e);
             return false;
         } finally {
             if (socket != null) {
@@ -85,7 +95,9 @@ class DataEyeNTPClient {
         return true;
     }
 
-    /** * Reads an unsigned 32 bit big endian number from the given offset in the buffer. */
+    /**
+     * Reads an unsigned 32 bit big endian number from the given offset in the buffer.
+     */
     private long read32(byte[] buffer, int offset) {
         byte b0 = buffer[offset];
         byte b1 = buffer[offset + 1];
@@ -101,14 +113,18 @@ class DataEyeNTPClient {
         return ((long) i0 << 24) + ((long) i1 << 16) + ((long) i2 << 8) + (long) i3;
     }
 
-    /** * Reads the NTP time stamp at the given offset in the buffer and returns * it as a system time (milliseconds since January 1, 1970). */
+    /**
+     * Reads the NTP time stamp at the given offset in the buffer and returns * it as a system time (milliseconds since January 1, 1970).
+     */
     private long readTimeStamp(byte[] buffer, int offset) {
         long seconds = read32(buffer, offset);
         long fraction = read32(buffer, offset + 4);
         return ((seconds - OFFSET_1900_TO_1970) * 1000) + ((fraction * 1000L) / 0x100000000L);
     }
 
-    /** * Writes system time (milliseconds since January 1, 1970) as an NTP time stamp * at the given offset in the buffer. */
+    /**
+     * Writes system time (milliseconds since January 1, 1970) as an NTP time stamp * at the given offset in the buffer.
+     */
     private void writeTimeStamp(byte[] buffer, int offset, long time) {
         long seconds = time / 1000L;
         long milliseconds = time - seconds * 1000L;
