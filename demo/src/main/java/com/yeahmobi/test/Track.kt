@@ -41,7 +41,7 @@ object Track {
 
         instance.setEnableEncrypt(false)
 
-        DataEyeAnalyticsSDK.calibrateTimeWithNtp("time.apple.com")
+//        DataEyeAnalyticsSDK.calibrateTimeWithNtp("time.apple.com")
 
         setIgnoreAppView()
         setAutoEvent()

@@ -235,6 +235,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             mMessages.flushOldData(config.mToken);
         }
 
+        calibrateTimeWithNtp(DataEyeConstants.NTP_SERVER_1, DataEyeConstants.NTP_SERVER_2, DataEyeConstants.NTP_SERVER_3);
+
         mTrackTimer = new HashMap<>();
 
         mAutoTrackIgnoredActivities = new ArrayList<>();
@@ -526,7 +528,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                 e.printStackTrace();
             }
 
-            if(TextUtils.equals(eventName, DataEyeConstants.APP_INSTALL_EVENT_NAME)){
+            if (TextUtils.equals(eventName, DataEyeConstants.APP_INSTALL_EVENT_NAME)) {
                 String fit = timeStamp2Date(DataEyeSystemInformation.getInstance(mConfig.mContext).getFIT(), "yyyy-MM-dd HH:mm:ss.SSS");
                 finalProperties.put(DataEyeConstants.KEY_FIRST_INSTALL_TIME, fit);
             }
@@ -698,9 +700,10 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
     public void login(String loginId) {
         if (hasDisabled()) return;
         try {
-            if(TextUtils.isEmpty(loginId)) {
-                DataEyeLog.d(TAG,"The account id cannot be empty.");
-                if (mConfig.shouldThrowException()) throw new DataEyeDebugException("account id cannot be empty");
+            if (TextUtils.isEmpty(loginId)) {
+                DataEyeLog.d(TAG, "The account id cannot be empty.");
+                if (mConfig.shouldThrowException())
+                    throw new DataEyeDebugException("account id cannot be empty");
                 return;
             }
 

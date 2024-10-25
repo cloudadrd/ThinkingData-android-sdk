@@ -113,5 +113,9 @@ public class DataEyeConstants {
     public static final String TIME_PATTERN = "yyyy-MM-dd HH:mm:ss.SSS";
     // 用于服务端去重
     public static final String DATA_ID = "#uuid";
+
+    public static final String NTP_SERVER_1 = "pool.ntp.org";
+    public static final String NTP_SERVER_2 = "time.google.com";
+    public static final String NTP_SERVER_3 = "time.cloudflare.com";
 }
 
