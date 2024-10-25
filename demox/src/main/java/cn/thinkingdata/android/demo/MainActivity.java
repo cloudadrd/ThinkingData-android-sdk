@@ -244,13 +244,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void clickTest(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, ClickTestActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, ClickTestActivity.class);
+//        startActivity(intent);
     }
 
     private void initDataEye(){
-        TDTracker.initThinkingDataSDK(getApplicationContext());
-        NtpTime.startCalibrateTime();
+//        TDTracker.initThinkingDataSDK(getApplicationContext());
+//        NtpTime.startCalibrateTime();
         initView();
     }
 

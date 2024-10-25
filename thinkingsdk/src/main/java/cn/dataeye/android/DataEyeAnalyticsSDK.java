@@ -526,18 +526,9 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
                 e.printStackTrace();
             }
 
-            finalProperties.put(DataEyeConstants.KEY_NETWORK_TYPE, mDataEyeSystemInformation.getNetworkType());
-
-            if (eventName == "app_install") {
+            if(TextUtils.equals(eventName, DataEyeConstants.APP_INSTALL_EVENT_NAME)){
                 String fit = timeStamp2Date(DataEyeSystemInformation.getInstance(mConfig.mContext).getFIT(), "yyyy-MM-dd HH:mm:ss.SSS");
                 finalProperties.put(DataEyeConstants.KEY_FIRST_INSTALL_TIME, fit);
-
-                if (!TextUtils.isEmpty(mReyunAppID.get())) {
-                    finalProperties.put(DataEyeConstants.KEY_REYUN_APPID, mReyunAppID.get());
-                }
-            }
-            if (!TextUtils.isEmpty(mDataEyeSystemInformation.getAppVersionName())) {
-                finalProperties.put(DataEyeConstants.KEY_APP_VERSION, mDataEyeSystemInformation.getAppVersionName());
             }
 
             final DataEyeEventTimer dataEyeEventTimer;
@@ -705,23 +696,22 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     @Override
     public void login(String loginId) {
-        return;
-//        if (hasDisabled()) return;
-//        try {
-//            if(TextUtils.isEmpty(loginId)) {
-//                TDLog.d(TAG,"The account id cannot be empty.");
-//                if (mConfig.shouldThrowException()) throw new TDDebugException("account id cannot be empty");
-//                return;
-//            }
-//
-//            synchronized (mLoginId) {
-//                if (!loginId.equals(mLoginId.get())) {
-//                    mLoginId.put(loginId);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        if (hasDisabled()) return;
+        try {
+            if(TextUtils.isEmpty(loginId)) {
+                DataEyeLog.d(TAG,"The account id cannot be empty.");
+                if (mConfig.shouldThrowException()) throw new DataEyeDebugException("account id cannot be empty");
+                return;
+            }
+
+            synchronized (mLoginId) {
+                if (!loginId.equals(mLoginId.get())) {
+                    mLoginId.put(loginId);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

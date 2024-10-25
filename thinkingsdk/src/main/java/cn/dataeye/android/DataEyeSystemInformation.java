@@ -22,9 +22,7 @@ import java.util.Locale;
 import java.util.Map;
 
 class DataEyeSystemInformation {
-    private static final String KEY_LIB = "#lib";
-    private static final String KEY_LIB_VERSION = "#lib_version";
-    private static final String KEY_OS = "#os";
+
     private static String sLibName = "Android";
     private static String sLibVersion = DataEyeConfig.VERSION;
     private static long fit = 0;
@@ -99,13 +97,13 @@ class DataEyeSystemInformation {
     {
         final Map<String, Object> deviceInfo = new HashMap<>();
         {
-            deviceInfo.put(KEY_LIB, sLibName);
-            deviceInfo.put(KEY_LIB_VERSION, sLibVersion);
-            deviceInfo.put(KEY_OS, "Android");
+            deviceInfo.put(DataEyeConstants.KEY_LIB, sLibName);
+//            deviceInfo.put(DataEyeConstants.KEY_LIB_VERSION, sLibVersion);
+            deviceInfo.put(DataEyeConstants.KEY_OS, "Android");
 
-            if (!TextUtils.isEmpty(Build.VERSION.RELEASE)) {
-                deviceInfo.put(DataEyeConstants.KEY_OS_VERSION, Build.VERSION.RELEASE);
-            }
+//            if (!TextUtils.isEmpty(Build.VERSION.RELEASE)) {
+//                deviceInfo.put(DataEyeConstants.KEY_OS_VERSION, Build.VERSION.RELEASE);
+//            }
 
             if (!TextUtils.isEmpty(Build.MANUFACTURER)) {
                 deviceInfo.put(DataEyeConstants.KEY_MANUFACTURER, Build.MANUFACTURER);
@@ -119,26 +117,30 @@ class DataEyeSystemInformation {
             deviceInfo.put(DataEyeConstants.KEY_SCREEN_HEIGHT, displayMetrics.heightPixels);
             deviceInfo.put(DataEyeConstants.KEY_SCREEN_WIDTH, displayMetrics.widthPixels);
 
-            String operatorString = getCarrier(mContext);
-            if (!TextUtils.isEmpty(operatorString)) {
-                deviceInfo.put(DataEyeConstants.KEY_CARRIER, operatorString);
-            }
+//            String operatorString = getCarrier(mContext);
+//            if (!TextUtils.isEmpty(operatorString)) {
+//                deviceInfo.put(DataEyeConstants.KEY_CARRIER, operatorString);
+//            }
 
             String androidID = getAndroidID(mContext);
             if (!TextUtils.isEmpty(androidID)) {
                 deviceInfo.put(DataEyeConstants.KEY_DEVICE_ID, androidID);
             }
 
-            String systemLanguage = getSystemLanguage();
-            if (!TextUtils.isEmpty(systemLanguage)) {
-                deviceInfo.put(DataEyeConstants.KEY_SYSTEM_LANGUAGE, systemLanguage);
+//            String systemLanguage = getSystemLanguage();
+//            if (!TextUtils.isEmpty(systemLanguage)) {
+//                deviceInfo.put(DataEyeConstants.KEY_SYSTEM_LANGUAGE, systemLanguage);
+//            }
+
+            if(mContext != null){
+                deviceInfo.put(DataEyeConstants.KEY_BUNDLE_ID, mContext.getPackageName());
             }
         }
         return Collections.unmodifiableMap(deviceInfo);
     }
 
     // 获取运营商信息
-    private static String getCarrier(Context context) {
+    public static String getCarrier(Context context) {
         final Map<String, String> carrierMap = new HashMap<String, String>() {
             {
                 put("46000", "中国移动");
@@ -190,7 +192,7 @@ class DataEyeSystemInformation {
         return androidID;
     }
 
-    private String getSystemLanguage() {
+    public static String getSystemLanguage() {
         Locale locale;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             locale = LocaleList.getDefault().get(0);

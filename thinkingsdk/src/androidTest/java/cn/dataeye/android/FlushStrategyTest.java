@@ -2,9 +2,6 @@ package cn.dataeye.android;
 
 import android.content.Context;
 
-import androidx.test.core.app.ApplicationProvider;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
-
 import cn.dataeye.android.utils.RemoteService;
 
 import org.json.JSONArray;
@@ -24,7 +21,6 @@ import javax.net.ssl.SSLSocketFactory;
 
 import static org.junit.Assert.*;
 
-@RunWith(AndroidJUnit4.class)
 public class FlushStrategyTest {
     private static final String TA_APP_ID = "b2a61feb9e56472c90c5bcb320dfb4ef";
     private static final String TA_APP_ID_DEBUG = "debug-appid";
@@ -43,7 +39,7 @@ public class FlushStrategyTest {
     @Before
     public void setUp() {
         DataEyeAnalyticsSDK.enableTrackLog(true);
-        mAppContext = ApplicationProvider.getApplicationContext();
+//        mAppContext = ApplicationProvider.getApplicationContext();
 
         mDataEyeSystemInformation = DataEyeSystemInformation.getInstance(mAppContext);
 

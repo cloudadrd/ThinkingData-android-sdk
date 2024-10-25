@@ -103,6 +103,11 @@ public class DataEyeConstants {
     public static final String KEY_CARRIER = "#carrier";
     public static final String KEY_DEVICE_ID = "#device_id";
     public static final String KEY_SYSTEM_LANGUAGE = "#system_language";
+    public static final String KEY_BUNDLE_ID = "#bundle_id";
+
+    public static final String KEY_LIB = "#lib";
+    public static final String KEY_LIB_VERSION = "#lib_version";
+    public static final String KEY_OS = "#os";
 
     // Others
     public static final String TIME_PATTERN = "yyyy-MM-dd HH:mm:ss.SSS";

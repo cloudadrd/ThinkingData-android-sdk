@@ -211,7 +211,7 @@ public class DataEyeDataHandle {
                             return;
                         }
 
-                        JSONObject data = dataEyeDataDescription.get();
+                        JSONObject data = dataEyeDataDescription.get(mContext);
                         try {
                             data.put(DataEyeConstants.DATA_ID, UUID.randomUUID().toString());
                         } catch (JSONException e) {
@@ -425,7 +425,7 @@ public class DataEyeDataHandle {
                             DataEyeDataDescription dataEyeDataDescription = (DataEyeDataDescription) msg.obj;
                             if (null == dataEyeDataDescription) return;
 
-                            JSONObject data = dataEyeDataDescription.get();
+                            JSONObject data = dataEyeDataDescription.get(mContext);
                             sendData(getConfig(dataEyeDataDescription.mToken), data);
                         } catch (Exception e) {
                             DataEyeLog.e(TAG, "Exception occurred while sending message to Server: " + e.getMessage());
@@ -440,7 +440,7 @@ public class DataEyeDataHandle {
                                 saveClickData(dataEyeDataDescription);
                             } else {
                                 try {
-                                    JSONObject data = dataEyeDataDescription.get();
+                                    JSONObject data = dataEyeDataDescription.get(mContext);
                                     if (dataEyeDataDescription.mType.isTrack()) {
                                         JSONObject originalProperties = data.getJSONObject(DataEyeConstants.KEY_PROPERTIES);
                                         JSONObject finalObject = new JSONObject();
