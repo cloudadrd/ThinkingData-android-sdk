@@ -235,7 +235,7 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
             mMessages.flushOldData(config.mToken);
         }
 
-        calibrateTimeWithNtp(DataEyeConstants.NTP_SERVER_1, DataEyeConstants.NTP_SERVER_2, DataEyeConstants.NTP_SERVER_3);
+        calibrateTimeWithNtp(DataEyeConstants.NTP_SERVER_1, DataEyeConstants.NTP_SERVER_2, DataEyeConstants.NTP_SERVER_3, DataEyeConstants.NTP_SERVER_CN);
 
         mTrackTimer = new HashMap<>();
 

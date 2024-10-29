@@ -117,5 +117,6 @@ public class DataEyeConstants {
     public static final String NTP_SERVER_1 = "pool.ntp.org";
     public static final String NTP_SERVER_2 = "time.google.com";
     public static final String NTP_SERVER_3 = "time.cloudflare.com";
+    public static final String NTP_SERVER_CN = "ntp.ntsc.ac.cn";
 }
 

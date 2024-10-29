@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_event_name_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="输入事件名:"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_event_name_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:lines="1"
+        app:layout_constraintTop_toBottomOf="@id/tv_event_name_title" />
+
+    <TextView
+        android:id="@+id/tv_event_pro_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="输入事件自定义属性（json格式）:"
+        app:layout_constraintTop_toBottomOf="@id/et_event_name_value" />
+
+    <EditText
+        android:id="@+id/et_event_pro_value"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintTop_toBottomOf="@id/tv_event_pro_title" />
+
+    <Button
+        android:id="@+id/btn_track"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="track事件"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_event_pro_value" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

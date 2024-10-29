@@ -175,4 +175,16 @@ object Track {
     fun flush() {
         instance.flush()
     }
+
+    fun testTrack(eventName: String, customPro: String) {
+
+        var properties = JSONObject()
+        try {
+            properties = JSONObject(customPro)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        instance.track(eventName, properties)
+    }
 }

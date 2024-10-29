@@ -1,5 +1,6 @@
 package com.yeahmobi.test
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -70,6 +71,11 @@ class MainActivity : AppCompatActivity() , DataEyeScreenAutoTracker {
 
         findViewById<Button>(R.id.button_flush).setOnClickListener {
             Track.flush()
+        }
+
+        findViewById<Button>(R.id.button_test_custom_pro).setOnClickListener {
+            val intent = Intent(this, TestCustomProActivity::class.java)
+            startActivity(intent)
         }
     }
 
