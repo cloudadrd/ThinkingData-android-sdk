@@ -9,7 +9,9 @@ import cn.dataeye.android.utils.DataEyeLog
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.*
+import java.util.Date
+import java.util.TimeZone
+import java.util.UUID
 
 object Track {
 
@@ -155,6 +157,23 @@ object Track {
         }
     }
 
+    fun testUserSet(customPro: String) {
+        try {
+            //此时username为TA
+            var properties = JSONObject()
+            try {
+                properties = JSONObject(customPro)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+
+            instance.user_set(properties)
+
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
     fun getDeviceId() {
         val deviceId = instance.deviceId
         Log.d(TAG, "getDeviceId: deviceId = $deviceId")
@@ -186,5 +205,15 @@ object Track {
         }
 
         instance.track(eventName, properties)
+    }
+
+    fun login() {
+        val logInId = UUID.randomUUID().toString()
+        DataEyeLog.d("DataEyeAnalytics", "login id = " + logInId)
+        instance.login(logInId)
+    }
+
+    fun logout() {
+        instance.logout()
     }
 }

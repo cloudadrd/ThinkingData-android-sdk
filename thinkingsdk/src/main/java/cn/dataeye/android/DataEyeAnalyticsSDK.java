@@ -224,7 +224,8 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
         mDataEyeSystemInformation = DataEyeSystemInformation.getInstance(config.mContext);
 
         //设置aid到accountid
-        mLoginId.put(mDataEyeSystemInformation.getAndroidID(config.mContext));
+
+//        mLoginId.put(mDataEyeSystemInformation.getAndroidID(config.mContext));
 
         mMessages = getDataHandleInstance(config.mContext);
         if (config.isEnableEncrypt()) {
@@ -719,22 +720,21 @@ public class DataEyeAnalyticsSDK implements DataEyeAnalyticsAPI {
 
     @Override
     public void logout() {
-        return;
-//        if (hasDisabled()) return;
-//        try {
-//            synchronized (mLoginId) {
-//                mLoginId.put(null);
-//                if (mEnableTrackOldData) {
-//                    synchronized (sOldLoginIdLock) {
-//                        if (!TextUtils.isEmpty(sOldLoginId.get())) {
-//                            sOldLoginId.put(null);
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        if (hasDisabled()) return;
+        try {
+            synchronized (mLoginId) {
+                mLoginId.put(null);
+                if (mEnableTrackOldData) {
+                    synchronized (sOldLoginIdLock) {
+                        if (!TextUtils.isEmpty(sOldLoginId.get())) {
+                            sOldLoginId.put(null);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     String getLoginId() {

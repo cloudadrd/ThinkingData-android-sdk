@@ -29,6 +29,14 @@ class TestCustomProActivity : AppCompatActivity() {
             Track.testTrack(eventName, eventPro)
         }
 
+        findViewById<View>(R.id.btn_user_set).setOnClickListener {
+            var eventPro = etEventPro.text.toString()
+            if (TextUtils.isEmpty(eventPro)) {
+                eventPro = "{}";
+            }
+            Track.testUserSet(eventPro)
+        }
+
     }
 
 

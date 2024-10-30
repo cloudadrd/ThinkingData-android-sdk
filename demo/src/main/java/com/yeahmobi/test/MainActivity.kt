@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import cn.dataeye.android.DataEyeScreenAutoTracker
 import org.json.JSONObject
 
-class MainActivity : AppCompatActivity() , DataEyeScreenAutoTracker {
+class MainActivity : AppCompatActivity(), DataEyeScreenAutoTracker {
 
-    private lateinit var crashTest:String
+    private lateinit var crashTest: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -76,6 +76,14 @@ class MainActivity : AppCompatActivity() , DataEyeScreenAutoTracker {
         findViewById<Button>(R.id.button_test_custom_pro).setOnClickListener {
             val intent = Intent(this, TestCustomProActivity::class.java)
             startActivity(intent)
+        }
+
+        findViewById<Button>(R.id.button_login).setOnClickListener {
+            Track.login()
+        }
+
+        findViewById<Button>(R.id.button_logout).setOnClickListener {
+            Track.logout()
         }
     }
 
