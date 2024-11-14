@@ -3,7 +3,8 @@ apply plugin: 'com.android.library'
 version = VERSION_NAME_SDK
 
 android {
-    compileSdkVersion 29
+    namespace 'cn.dataeye.android'
+    compileSdk 35
 
     lintOptions {
         abortOnError false
@@ -11,7 +12,7 @@ android {
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdk 34
         versionCode 1
         versionName "${version}"
         consumerProguardFile 'proguard-rules.pro'
@@ -50,6 +51,10 @@ android {
             }
         }
     }
+
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
@@ -66,7 +71,9 @@ dependencies {
 
 // 创建 Jar 包
 def SDK_BASENAME = "ThinkingAnalyse";
-def SDK_VERSION = "-${version}";
+def baseName = SDK_BASENAME
+def destinationDir = ""
+def SDK_VERSION = "-${version}"
 def sdkDestinationPath = "build/outputs/jar/";
 def zipFile = file('build/intermediates/packaged-classes/release/classes.jar')
 

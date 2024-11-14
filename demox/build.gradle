@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    namespace "com.yeahmobi.test"
+    compileSdk 35
     ndkVersion "22.0.7026061"
     defaultConfig {
-        applicationId "com.yeahmobi.test"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
