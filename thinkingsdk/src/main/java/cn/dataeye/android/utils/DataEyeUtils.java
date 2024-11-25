@@ -9,12 +9,14 @@ import android.content.ContextWrapper;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
@@ -498,5 +500,31 @@ public class DataEyeUtils {
         if (TextUtils.isEmpty(source)) return source;
         if (source.length() <= length) return source;
         return source.substring(source.length() - 4);
+    }
+
+    private static String uAt = "";
+    public static String getUserAgentStr(Context context) {
+        if (context == null) {
+            return "";
+        }
+
+        if (TextUtils.isEmpty(uAt)) {
+            boolean isMainThread = Looper.myLooper() == Looper.getMainLooper();
+            if (isMainThread) {
+                WebView webView = null;
+                try {
+                    webView = new WebView(context);
+                    uAt = webView.getSettings().getUserAgentString();
+                    DataEyeLog.d("UA_TAG", "uAt = "+uAt);
+                } catch (Throwable e) {
+                } finally {
+                    if (webView != null) {
+                        webView.destroy();
+                    }
+                }
+            }
+
+        }
+        return uAt;
     }
 }

@@ -15,11 +15,11 @@ object Track {
 
     private const val TAG = "TrackTAG"
 
-    private const val TA_APP_ID = "9999"
+    private const val TA_APP_ID = "999"
 
 
     // 海外
-    private const val TA_SERVER_URL = "https://deapi.gmoneygame.xyz/v1/sdk/report"
+    private const val TA_SERVER_URL = "http://deapi.funsdata.com/v1/sdk/report"
 
     // 国内
 //    private const val TA_SERVER_URL = "http://deapi.adsgreat.cn/v1/sdk/report"
