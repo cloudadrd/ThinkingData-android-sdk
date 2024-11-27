@@ -9,6 +9,7 @@ import android.content.ContextWrapper;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Handler;
 import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -158,7 +159,7 @@ public class DataEyeUtils {
                 } else {
                     //if (isViewIgnored(child)) {
                     //    continue;
-                   // }
+                    // }
 
                     Class<?> switchCompatClass = null;
                     try {
@@ -187,7 +188,7 @@ public class DataEyeUtils {
                         } else {
                             method = child.getClass().getMethod("getTextOff");
                         }
-                        viewText = (String)method.invoke(child);
+                        viewText = (String) method.invoke(child);
                     } else if (child instanceof RadioButton) {
                         RadioButton radioButton = (RadioButton) child;
                         viewText = radioButton.getText();
@@ -303,6 +304,7 @@ public class DataEyeUtils {
     public static String getViewId(View view) {
         return getViewId(view, null);
     }
+
     public static String getViewId(View view, String token) {
         String idString = null;
         try {
@@ -503,6 +505,7 @@ public class DataEyeUtils {
     }
 
     private static String uAt = "";
+
     public static String getUserAgentStr(Context context) {
         if (context == null) {
             return "";
@@ -510,21 +513,41 @@ public class DataEyeUtils {
 
         if (TextUtils.isEmpty(uAt)) {
             boolean isMainThread = Looper.myLooper() == Looper.getMainLooper();
+            DataEyeLog.d("DataEyeAnalytics", "getUserAgentStr, Thread = " + Thread.currentThread() + "   isMainThread = " + isMainThread);
             if (isMainThread) {
-                WebView webView = null;
-                try {
-                    webView = new WebView(context);
-                    uAt = webView.getSettings().getUserAgentString();
-                    DataEyeLog.d("UA_TAG", "uAt = "+uAt);
-                } catch (Throwable e) {
-                } finally {
-                    if (webView != null) {
-                        webView.destroy();
+                updateUserAgentStrImpl(context);
+            } else {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateUserAgentStrImpl(context);
                     }
-                }
+                });
             }
 
         }
         return uAt;
+    }
+
+    private static void updateUserAgentStrImpl(Context context) {
+        WebView webView = null;
+        try {
+
+            boolean isMainThread = Looper.myLooper() == Looper.getMainLooper();
+            DataEyeLog.d("DataEyeAnalytics", "updateUserAgentStrImpl, Thread = " + Thread.currentThread() + "   isMainThread = " + isMainThread);
+            if (!isMainThread) {
+                return;
+            }
+
+            webView = new WebView(context);
+            uAt = webView.getSettings().getUserAgentString();
+            DataEyeLog.d("DataEyeAnalytics", "updateUserAgentStrImpl, uAt = " + uAt);
+        } catch (Throwable e) {
+            DataEyeLog.d("DataEyeAnalytics", "updateUserAgentStrImpl, e = " + e);
+        } finally {
+            if (webView != null) {
+                webView.destroy();
+            }
+        }
     }
 }

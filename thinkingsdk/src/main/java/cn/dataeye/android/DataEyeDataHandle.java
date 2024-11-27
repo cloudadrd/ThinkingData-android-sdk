@@ -158,7 +158,7 @@ public class DataEyeDataHandle {
             }
         }
 
-        void triggerFlush(String token,long delayTime) {
+        void triggerFlush(String token, long delayTime) {
             Message msg = Message.obtain();
             msg.what = TRIGGER_FLUSH;
             msg.obj = token;
@@ -482,6 +482,7 @@ public class DataEyeDataHandle {
 
             JSONObject dataObj = new JSONObject();
             dataObj.put(KEY_DATA, dataArray);
+            ensureUserAgent();
             dataObj.put(KEY_AUTOMATIC_DATA, mDeviceInfo);
             dataObj.put(KEY_APP_ID, config.mToken);
 
@@ -555,6 +556,7 @@ public class DataEyeDataHandle {
 
             JSONObject dataObj = new JSONObject();
             dataObj.put(KEY_DATA, dataArray);
+            ensureUserAgent();
             dataObj.put(KEY_AUTOMATIC_DATA, mDeviceInfo);
             dataObj.put(KEY_APP_ID, config.mToken);
 
@@ -623,6 +625,7 @@ public class DataEyeDataHandle {
                     JSONObject dataObj = new JSONObject();
                     try {
                         dataObj.put(KEY_DATA, myJsonArray);
+                        ensureUserAgent();
                         dataObj.put(KEY_AUTOMATIC_DATA, mDeviceInfo);
                         dataObj.put(KEY_APP_ID, config.mToken);
                     } catch (JSONException e) {
@@ -660,6 +663,24 @@ public class DataEyeDataHandle {
                     }
                 }
             } while (count > 0);
+        }
+
+        private void ensureUserAgent() {
+            try {
+
+                if (mDeviceInfo == null) {
+                    return;
+                }
+
+                if(!mDeviceInfo.has(DataEyeConstants.KEY_USER_AGENT)){
+                    String ua = DataEyeUtils.getUserAgentStr(mContext);
+                    if (!TextUtils.isEmpty(ua)) {
+                        mDeviceInfo.put(DataEyeConstants.KEY_USER_AGENT, ua);
+                    }
+                }
+            } catch (Exception e) {
+
+            }
         }
 
         private boolean checkResponse(String response) {

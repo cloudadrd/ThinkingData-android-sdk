@@ -37,9 +37,6 @@ object Track {
         setAutoEvent()
 
         setIgnoreAppView()
-
-        track()
-        instance.flush()
     }
 
     private fun setAutoEvent() {
