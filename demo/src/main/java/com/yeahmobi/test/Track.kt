@@ -46,9 +46,6 @@ object Track {
 //        DataEyeAnalyticsSDK.calibrateTimeWithNtp("time.apple.com")
 
         setIgnoreAppView()
-        setAutoEvent()
-        track()
-        instance.flush()
     }
 
     private fun setAutoEvent() {

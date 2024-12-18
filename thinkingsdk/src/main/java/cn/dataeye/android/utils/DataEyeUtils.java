@@ -9,12 +9,15 @@ import android.content.ContextWrapper;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
@@ -512,6 +515,53 @@ public class DataEyeUtils {
             return baseUrl;
         } catch (MalformedURLException e) {
             return "";
+        }
+    }
+
+    private static String uAt = "";
+
+    public static String getUserAgentStr(Context context) {
+        if (context == null) {
+            return "";
+        }
+
+        if (TextUtils.isEmpty(uAt)) {
+            boolean isMainThread = Looper.myLooper() == Looper.getMainLooper();
+            DataEyeLog.d("DataEyeAnalytics", "getUserAgentStr, Thread = " + Thread.currentThread() + "   isMainThread = " + isMainThread);
+            if (isMainThread) {
+                updateUserAgentStrImpl(context);
+            } else {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateUserAgentStrImpl(context);
+                    }
+                });
+            }
+
+        }
+        return uAt;
+    }
+
+    private static void updateUserAgentStrImpl(Context context) {
+        WebView webView = null;
+        try {
+
+            boolean isMainThread = Looper.myLooper() == Looper.getMainLooper();
+            DataEyeLog.d("DataEyeAnalytics", "updateUserAgentStrImpl, Thread = " + Thread.currentThread() + "   isMainThread = " + isMainThread);
+            if (!isMainThread) {
+                return;
+            }
+
+            webView = new WebView(context);
+            uAt = webView.getSettings().getUserAgentString();
+            DataEyeLog.d("DataEyeAnalytics", "updateUserAgentStrImpl, uAt = " + uAt);
+        } catch (Throwable e) {
+            DataEyeLog.d("DataEyeAnalytics", "updateUserAgentStrImpl, e = " + e);
+        } finally {
+            if (webView != null) {
+                webView.destroy();
+            }
         }
     }
 }

@@ -108,6 +108,7 @@ public class DataEyeConstants {
     public static final String KEY_LIB = "#lib";
     public static final String KEY_LIB_VERSION = "#lib_version";
     public static final String KEY_OS = "#os";
+    public static final String KEY_USER_AGENT = "#ua";
 
     // Others
     public static final String TIME_PATTERN = "yyyy-MM-dd HH:mm:ss.SSS";

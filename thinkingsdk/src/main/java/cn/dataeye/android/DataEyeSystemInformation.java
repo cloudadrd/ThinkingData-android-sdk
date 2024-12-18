@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 
 import cn.dataeye.android.utils.DataEyeConstants;
 import cn.dataeye.android.utils.DataEyeLog;
+import cn.dataeye.android.utils.DataEyeUtils;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -69,7 +70,7 @@ class DataEyeSystemInformation {
         return hasNotUpdated;
     }
 
-    public long getFIT(){
+    public long getFIT() {
         return fit;
     }
 
@@ -93,8 +94,7 @@ class DataEyeSystemInformation {
         mDeviceInfo = setupDeviceInfo(context);
     }
 
-    private Map<String, Object> setupDeviceInfo(Context mContext)
-    {
+    private Map<String, Object> setupDeviceInfo(Context mContext) {
         final Map<String, Object> deviceInfo = new HashMap<>();
         {
             deviceInfo.put(DataEyeConstants.KEY_LIB, sLibName);
@@ -134,6 +134,11 @@ class DataEyeSystemInformation {
 
             if(mContext != null){
                 deviceInfo.put(DataEyeConstants.KEY_BUNDLE_ID, mContext.getPackageName());
+            }
+
+            String ua = DataEyeUtils.getUserAgentStr(mContext);
+            if (!TextUtils.isEmpty(ua)) {
+                deviceInfo.put(DataEyeConstants.KEY_USER_AGENT, ua);
             }
         }
         return Collections.unmodifiableMap(deviceInfo);
@@ -231,7 +236,7 @@ class DataEyeSystemInformation {
             }
 
             Method checkSelfPermissionMethod = contextCompat.getMethod("checkSelfPermission", new Class[]{Context.class, String.class});
-            int result = (int)checkSelfPermissionMethod.invoke(null, new Object[]{context, permission});
+            int result = (int) checkSelfPermissionMethod.invoke(null, new Object[]{context, permission});
             if (result != PackageManager.PERMISSION_GRANTED) {
                 DataEyeLog.w(TAG, "You can fix this by adding the following to your AndroidManifest.xml file:\n"
                         + "<uses-permission android:name=\"" + permission + "\" />");
@@ -315,7 +320,7 @@ class DataEyeSystemInformation {
     }
 
 
-    private final static  String TAG = "DataEyeAnalytics.DataEyeSystemInformation";
+    private final static String TAG = "DataEyeAnalytics.DataEyeSystemInformation";
     private String mAppVersionName;
     private final Map<String, Object> mDeviceInfo;
     private final Context mContext;
